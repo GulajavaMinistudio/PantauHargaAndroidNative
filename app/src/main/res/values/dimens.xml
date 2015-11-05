@@ -1,0 +1,25 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+
+    <dimen name="activity_horizontal_marginkartu">8dp</dimen>
+    <dimen name="activity_vertical_marginkartu">9dp</dimen>
+
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="sisilingkar">3dp</dimen>
+
+
+    <!--UKURAN TEKS-->
+    <dimen name="ukuran14sp">14sp</dimen>
+    <dimen name="ukuran16sp">16sp</dimen>
+    <dimen name="ukuran18sp">18sp</dimen>
+    <dimen name="ukuran20sp">20sp</dimen>
+
+
+
+
+</resources>

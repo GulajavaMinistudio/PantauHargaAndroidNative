@@ -1,0 +1,102 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:windowBackground">@color/abubgnow</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeBackground">@color/colorPrimary</item>
+
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
+
+
+    <!-- Base application theme. -->
+    <style name="AppThemeCompatLoading" parent="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <item name="android:windowBackground">@color/abubgnow</item>
+        <item name="windowActionBar">false</item>
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+
+
+
+
+
+
+
+
+
+    <!-- STYLE UNTUK GAYA TEKS JUDUL  -->
+    <style name="Navigation.TitleTextStyle" parent="@style/TextAppearance.AppCompat.Menu">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/menu_teks_color_selector</item>
+    </style>
+
+
+
+
+    <!-- STYLE UNTUK GAYA TEKS JUDUL  -->
+    <style name="AppTheme.ActionBarStyle.TitleTextStyle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">@color/putih</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/ukuran18sp</item>
+    </style>
+
+
+    <!-- STYLE UNTUK GAYA TEKS SUBJUDUL -->
+    <style name="AppTheme.ActionBar.subtitleTextStyle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textColor">@color/putih</item>
+        <item name="android:textSize">@dimen/ukuran16sp</item>
+    </style>
+
+
+    <!--<style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">-->
+    <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/warnateksjudul</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--<style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">-->
+    <style name="TextAppearence.App.TextInputLayoutError" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--TEMA TEKS TAB ACTION BAR-->
+    <style name="AppCompatTheme.ActionBarTabTextStyle" parent="@style/Widget.AppCompat.Light.ActionBar.TabText">
+        <item name="android:textColor">@color/putih</item>
+        <item name="android:textSize">@dimen/ukuran14sp</item>
+    </style>
+
+
+
+
+
+
+
+</resources>

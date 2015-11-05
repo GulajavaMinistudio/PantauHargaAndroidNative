@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_segarkan"
+        android:orderInCategory="100"
+        android:title="@string/action_segarkan"
+        android:icon="@drawable/ic_action_navigation_refresh"
+        app:showAsAction="ifRoom"/>
+
+
+
+    <item
+        android:id="@+id/action_kirimharga"
+        android:orderInCategory="100"
+        android:title="@string/action_kirimharga"
+        android:icon="@drawable/ic_action_kirimharga"
+        app:showAsAction="ifRoom"/>
+
+
+    <item
+        android:id="@+id/action_urutan"
+        android:orderInCategory="100"
+        android:title="@string/action_urutkan"
+        android:icon="@drawable/ic_action_urutkankomoditas"
+        app:showAsAction="ifRoom"/>
+
+
+
+</menu>
