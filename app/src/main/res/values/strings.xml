@@ -14,6 +14,9 @@
     <string name="ic_teks_menu_tentangapp">Tentang Aplikasi</string>
 
 
+    <!-- TOAST -->
+    <string name="toast_nointernet">Koneksi internet tidak tersedia</string>
+
 
 
 

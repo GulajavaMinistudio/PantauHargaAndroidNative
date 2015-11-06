@@ -1,6 +1,8 @@
 package pantauharga.gulajava.android.internets;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
 
 import pantauharga.gulajava.android.Konstan;
 
@@ -66,6 +68,20 @@ public class Apis {
     //LAPORKAN HARGA KOMODITAS
 
     //AMBIL DAFTAR KOMODITAS
+    public static StrRekuestGet getRequestDaftarKomoditas(String urls, Response.Listener<String> listenerok,
+                                                   Response.ErrorListener listenergagal) {
+
+        return
+                new StrRekuestGet(
+                Request.Method.GET,
+                urls,
+                null,
+                listenerok,
+                listenergagal
+        );
+    }
+
+
 
     //AMBIL DAFTAR KOMODITAS
 

@@ -1,15 +1,20 @@
 package pantauharga.gulajava.android.parsers;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import pantauharga.gulajava.android.internets.GsonRekuest;
+import okio.BufferedSource;
+import okio.Okio;
+import pantauharga.gulajava.android.Konstan;
 import pantauharga.gulajava.android.modelgson.KomoditasItem;
 
 /**
@@ -33,6 +38,35 @@ public class Parseran {
 
 
 
+    //AMBIL JSON DARI ASET
+    public String ambilJsonAset(String namajson) {
+
+        String jsonrespon = "";
+        AssetManager asetmanager;
+        InputStream inputstreamjson;
+
+        try {
+
+            asetmanager = mContext.getAssets();
+            inputstreamjson = asetmanager.open(namajson);
+
+            BufferedSource bufferedSource = Okio.buffer(Okio.source(inputstreamjson));
+            jsonrespon = bufferedSource.readUtf8Line();
+            bufferedSource.close();
+
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            jsonrespon = "";
+        }
+
+        return jsonrespon;
+    }
+
+
+
+
+    //PARSE JSON DARI DB
     public List<KomoditasItem> parseJsonKomoditas(String json) {
 
         List<KomoditasItem> komoditasItemList = new ArrayList<>();
@@ -75,6 +109,34 @@ public class Parseran {
     public void setArrStringNamaKomoditas(List<String> arrStringNamaKomoditas) {
         this.arrStringNamaKomoditas = arrStringNamaKomoditas;
     }
+
+
+
+    //CEK STATUS DATA WAKTUNYA
+    public boolean isCekKadaluarsa(String longstrdatadb, long longwaktusekarang) {
+
+        boolean isKadaluarsa;
+
+        Log.w("WAKTU DB", "waktu db " + longstrdatadb);
+
+        try {
+
+            long longdatawaktu = Long.valueOf(longstrdatadb);
+            long longwaktucek = longdatawaktu + Konstan.TAG_SATUJAM;
+
+            isKadaluarsa = longwaktucek < longwaktusekarang;
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            isKadaluarsa = false;
+        }
+
+        Log.w("STATUS KADALUARSA DATA", "status kadaluarsa data " + isKadaluarsa);
+
+        return isKadaluarsa;
+    }
+
+
 
 
 
