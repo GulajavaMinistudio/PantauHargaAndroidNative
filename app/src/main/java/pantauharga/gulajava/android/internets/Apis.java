@@ -119,9 +119,6 @@ public class Apis {
     }
 
 
-
-    //AMBIL DAFTAR KOMODITAS
-
     //REGISTER PENGGUNA
 
     //LOGIN PENGGUNA

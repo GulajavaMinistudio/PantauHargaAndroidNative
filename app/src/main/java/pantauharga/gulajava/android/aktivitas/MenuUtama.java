@@ -168,13 +168,12 @@ public class MenuUtama extends BaseActivityLocation {
         mDrawerLayout.setDrawerListener(mDrawerListener);
 
 
-
         //ambil data realm login
         mRealm = Realm.getInstance(MenuUtama.this);
         ambilDbLogin();
 
         Handler handler = new Handler();
-        handler.postDelayed(jedakirimdata, 1000);
+        handler.postDelayed(jedakirimdata, 700);
     }
 
 
@@ -435,26 +434,28 @@ public class MenuUtama extends BaseActivityLocation {
 
                 return null;
             }
-        }).continueWith(new Continuation<Object, Object>() {
-            @Override
-            public Object then(Task<Object> task) throws Exception {
+        })
 
-                if (listKomoditasItem != null) {
+                .continueWith(new Continuation<Object, Object>() {
+                    @Override
+                    public Object then(Task<Object> task) throws Exception {
 
-                    listStrKomoditasItem = mParseran.getArrStringNamaKomoditas();
+                        if (listKomoditasItem != null) {
 
-                    namakomoditas = listStrKomoditasItem.get(0);
+                            listStrKomoditasItem = mParseran.getArrStringNamaKomoditas();
 
-                    //ambil data dari server
-                    //cek permisission
-                    cekPermissionLokasi();
-                } else {
-                    //gagal parse
-                    munculSnackbar(R.string.toastgagaldata);
-                }
-                return null;
-            }
-        }, Task.UI_THREAD_EXECUTOR);
+                            namakomoditas = listStrKomoditasItem.get(0);
+
+                            //ambil data dari server
+                            //cek permisission
+                            cekPermissionLokasi();
+                        } else {
+                            //gagal parse
+                            munculSnackbar(R.string.toastgagaldata);
+                        }
+                        return null;
+                    }
+                }, Task.UI_THREAD_EXECUTOR);
 
     }
 
@@ -490,19 +491,21 @@ public class MenuUtama extends BaseActivityLocation {
 
                 return mParseran.konversiPojoJsonCekKomoditas(hargaKomoditasCek);
             }
-        }).continueWith(new Continuation<String, Object>() {
-            @Override
-            public Object then(Task<String> task) throws Exception {
+        })
 
-                String hasiljsons = task.getResult();
-                Log.w("HASIL PARSE CEK", "HASIL PARSE JSON CEK " + hasiljsons);
+                .continueWith(new Continuation<String, Object>() {
+                    @Override
+                    public Object then(Task<String> task) throws Exception {
 
-                //kirim ke server
-                kirimJsonKeServer(hasiljsons);
+                        String hasiljsons = task.getResult();
+                        Log.w("HASIL PARSE CEK", "HASIL PARSE JSON CEK " + hasiljsons);
 
-                return null;
-            }
-        });
+                        //kirim ke server
+                        kirimJsonKeServer(hasiljsons);
+
+                        return null;
+                    }
+                }, Task.UI_THREAD_EXECUTOR);
     }
 
 
