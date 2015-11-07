@@ -18,7 +18,7 @@ public class RecyclerDividers extends RecyclerView.ItemDecoration {
     private int intRes;
 
     public RecyclerDividers(Context ctxs, int res) {
-        mdividers = ctxs.getResources().getDrawable(R.drawable.dividerlistmenu);
+        mdividers = ctxs.getResources().getDrawable(res);
     }
 
     @Override

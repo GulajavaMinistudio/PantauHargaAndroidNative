@@ -25,16 +25,9 @@
     <string name="toastdialog_pesangagalgps">GPS dan koneksi internet tidak tersedia, sehingga lokasi foto yang didapat akan tidak akurat.</string>
 
     <string name="toastgagaldata">Gagal mengambil data</string>
+    <string name="toastolahdata">Gagal mengolah data</string>
     <string name="toastnointernet">Koneksi internet tidak tersedia</string>
-
-
-
-
-
-
-
-
-
+    <string name="teksketeranganperkg">harga per kilogram</string>
 
 
 </resources>

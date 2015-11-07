@@ -19,13 +19,14 @@
     <color name="abutransparan_header">#60000000</color>
 
     <color name="pink_harga">#F44336</color>
+    <color name="pink_float">#4CAF50</color>
 
 
     <!-- WARNATEKS -->
     <color name="warnateksjudul">#555555</color>
     <color name="warnatekssubjudul">#777777</color>
 
-    <color name="abu_teks_tebal">#263238</color>
+    <color name="abu_teks_tebal">#37474F</color>
     <color name="abu_teks_tebal500">#607D8B</color>
 
 

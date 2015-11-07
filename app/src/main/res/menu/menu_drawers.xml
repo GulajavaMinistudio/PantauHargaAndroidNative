@@ -7,27 +7,27 @@
 
         <item
             android:id="@+id/menu_kirimharga"
-            android:icon="@drawable/ic_mokup"
+            android:icon="@drawable/ic_action_kirimhargadrawer"
             android:title="@string/ic_teks_menu_kirimharga"/>
 
         <item
             android:id="@+id/menu_jual_komoditas"
-            android:icon="@drawable/ic_mokup"
+            android:icon="@drawable/ic_action_jualkomoditas"
             android:title="@string/ic_teks_menu_jualkomoditas"/>
 
         <item
             android:id="@+id/menu_data_pengguna"
-            android:icon="@drawable/ic_mokup"
+            android:icon="@drawable/ic_action_datapengguna"
             android:title="@string/ic_teks_menu_datapengguna"/>
 
         <item
             android:id="@+id/menu_setelan_app"
-            android:icon="@drawable/ic_mokup"
+            android:icon="@drawable/ic_action_setelan"
             android:title="@string/ic_teks_menu_setelanapp"/>
 
         <item
             android:id="@+id/ic_tentang_app"
-            android:icon="@drawable/ic_mokup"
+            android:icon="@drawable/ic_action_tentangapl"
             android:title="@string/ic_teks_menu_tentangapp"/>
 
     </group>

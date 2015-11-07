@@ -47,8 +47,9 @@ import pantauharga.gulajava.android.databases.RMLogin;
 import pantauharga.gulajava.android.fragments.FragmentListHarga;
 import pantauharga.gulajava.android.fragments.FragmentPetaHarga;
 import pantauharga.gulajava.android.internets.Apis;
-import pantauharga.gulajava.android.internets.GsonRekuestArray;
+import pantauharga.gulajava.android.internets.JacksonRequestArray;
 import pantauharga.gulajava.android.internets.Volleys;
+import pantauharga.gulajava.android.messagebus.MessageAktFrag;
 import pantauharga.gulajava.android.messagebus.MessageBusAktAkt;
 import pantauharga.gulajava.android.modelgson.HargaKomoditasItem;
 import pantauharga.gulajava.android.modelgson.KomoditasItem;
@@ -101,7 +102,7 @@ public class MenuUtama extends BaseActivityLocation {
     private List<String> listStrKomoditasItem;
 
     private String namakomoditas = "";
-    private String radiuskm = "50";
+    private String radiuskm = "100";
 
     //lokasi pengguna
     private Location mLocationPengguna;
@@ -122,6 +123,9 @@ public class MenuUtama extends BaseActivityLocation {
             ambilDbJson();
         }
     };
+
+    private int MODE_LIST = Konstan.MODE_TERDEKAT;
+    private List<HargaKomoditasItem> listHargaServers;
 
 
     @Override
@@ -420,7 +424,7 @@ public class MenuUtama extends BaseActivityLocation {
     /** ================================================================================================== **/
     /** =============================== AMBIL DATA DARI SERVER =========================================== **/
     /**
-     * ==================================================================================================
+     * ===================================================================================================
      **/
 
     //PARSE DAFTAR KOMODITAS
@@ -517,7 +521,7 @@ public class MenuUtama extends BaseActivityLocation {
         Map<String, String> parameters = new HashMap<>();
         headers.put(Konstan.TAG_HEADERCONTENTIPE, Konstan.HEADER_JSONTYPE);
 
-        GsonRekuestArray<HargaKomoditasItem> gsonRekuestArray = Apis.postRequestHargaKomoditasSekitar(
+        JacksonRequestArray<HargaKomoditasItem> jacksonRequestArray = Apis.postRequestHargaKomoditasSekitars(
                 urls,
                 headers,
                 parameters,
@@ -547,17 +551,19 @@ public class MenuUtama extends BaseActivityLocation {
         );
 
 
-        Volleys.getInstance(MenuUtama.this).addToRequestQueue(gsonRekuestArray);
+        Volleys.getInstance(MenuUtama.this).addToRequestQueue(jacksonRequestArray);
     }
 
 
     //CEK HASIL RESPON
     private void cekHasilRespons(List<HargaKomoditasItem> listHargaServer) {
 
-        if (listHargaServer != null && listHargaServer.size() > 0) {
+        listHargaServers = listHargaServer;
+
+        if (listHargaServers != null && listHargaServers.size() > 0) {
 
             //kirim ke fragments
-
+            kirimPesanDaftarHarga(listHargaServers, MODE_LIST, mLocationPengguna);
 
         } else {
 
@@ -598,6 +604,44 @@ public class MenuUtama extends BaseActivityLocation {
 
         }
     };
+
+
+    //KIRIM PESAN KE FRAGMENT DAFTAR HARGA
+    private void kirimPesanDaftarHarga(List<HargaKomoditasItem> list, int mode, Location location) {
+
+        if (list != null && location != null) {
+            MessageAktFrag messageAktFrag = new MessageAktFrag();
+            messageAktFrag.setKode(Konstan.KODE_LISTBARU);
+            messageAktFrag.setListHargaKomoditas(list);
+            messageAktFrag.setPesantambahan("");
+            messageAktFrag.setModelist(mode);
+            messageAktFrag.setLocation(location);
+
+            EventBus.getDefault().post(messageAktFrag);
+        }
+    }
+
+
+    //SET PILIHAN DARI DIALOG URUTKAN BERDASARKAN : .....
+    public void setModeUrutanList(int posisi) {
+
+        switch (posisi) {
+
+            case 0:
+                MODE_LIST = Konstan.MODE_TERDEKAT;
+                break;
+
+            case 1:
+                MODE_LIST = Konstan.MODE_TERMURAH;
+                break;
+
+            case 2:
+                MODE_LIST = Konstan.MODE_TERMAHAL;
+                break;
+        }
+
+        kirimPesanDaftarHarga(listHargaServers, MODE_LIST, mLocationPengguna);
+    }
 
 
 }

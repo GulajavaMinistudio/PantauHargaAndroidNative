@@ -24,6 +24,14 @@ public class Konstan {
     public static final String HEADER_JSONTYPE = "application/json";
 
 
+    public static final int KODE_LISTBARU = 611;
+    public static final int MODE_TERDEKAT = 60;
+    public static final int MODE_TERMAHAL = 61;
+    public static final int MODE_TERMURAH = 62;
+
+
+
+
 
 
 

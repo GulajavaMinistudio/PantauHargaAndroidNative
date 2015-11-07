@@ -69,7 +69,7 @@ public class Apis {
     /** AMBIL REQUEST VOLLEY UNTUK KIRIM KE SERVERS  **/
 
     //AMBIL HARGA KOMODITAS TERDEKAT
-    public static GsonRekuestArray<HargaKomoditasItem> postRequestHargaKomoditasSekitar(
+    public static JacksonRequestArray<HargaKomoditasItem> postRequestHargaKomoditasSekitars(
             String urls,
             Map<String,String> headers,
             Map<String, String> params,
@@ -78,7 +78,7 @@ public class Apis {
             Response.ErrorListener listenergagal
     ) {
 
-        GsonRekuestArray<HargaKomoditasItem> gsonRekuestArray = new GsonRekuestArray<>(
+        JacksonRequestArray<HargaKomoditasItem> jacksonRequestArray = new JacksonRequestArray<>(
                 Request.Method.POST,
                 urls,
                 HargaKomoditasItem.class,
@@ -89,9 +89,9 @@ public class Apis {
                 listenergagal
         );
 
-        gsonRekuestArray.setRetryPolicy(getRetryPolicy());
+        jacksonRequestArray.setRetryPolicy(getRetryPolicy());
 
-        return gsonRekuestArray;
+        return jacksonRequestArray;
     }
 
 
