@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import java.lang.reflect.Field;
 
@@ -86,7 +86,7 @@ public class MenuUtama extends AppCompatActivity {
 
         view_navigasi = mNavigationView.inflateHeaderView(R.layout.nav_header);
         gambarheaders = (ImageView) view_navigasi.findViewById(R.id.gambarheader);
-        Picasso.with(MenuUtama.this).load(R.drawable.gbrhero2).into(gambarheaders);
+        Glide.with(MenuUtama.this).load(R.drawable.gbrhero2).into(gambarheaders);
 
         setelDrawerView(mViewPager);
         mNavigationView.setNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -98,7 +98,7 @@ public class MenuUtama extends AppCompatActivity {
 
         mDrawerLayout.setDrawerListener(mDrawerListener);
 
-        //ambil data realms
+        //ambil data realms logins
 
         //cek permisission
 

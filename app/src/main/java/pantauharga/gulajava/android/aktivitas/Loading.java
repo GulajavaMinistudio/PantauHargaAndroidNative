@@ -26,6 +26,7 @@ import io.realm.RealmResults;
 import pantauharga.gulajava.android.Konstan;
 import pantauharga.gulajava.android.R;
 import pantauharga.gulajava.android.databases.RMJsonData;
+import pantauharga.gulajava.android.databases.RMLogin;
 import pantauharga.gulajava.android.internets.Apis;
 import pantauharga.gulajava.android.internets.StrRekuestGet;
 import pantauharga.gulajava.android.internets.Volleys;
@@ -64,6 +65,9 @@ public class Loading extends AppCompatActivity {
     private Realm mRealm;
     private RealmQuery<RMJsonData> mRealmQueryJson;
     private RealmResults<RMJsonData> mRealmResultsJson;
+
+    private RealmQuery<RMLogin> mRealmQueryLogin;
+    private RealmResults<RMLogin> mRealmResultsLogin;
 
     private boolean isAktivitasJalan = false;
     private boolean isRealmUpdate = false;
@@ -124,6 +128,28 @@ public class Loading extends AppCompatActivity {
         mRealmQueryJson = mRealm.where(RMJsonData.class);
         mRealmResultsJson = mRealmQueryJson.findAll();
 
+        mRealmQueryLogin = mRealm.where(RMLogin.class);
+        mRealmResultsLogin = mRealmQueryLogin.findAll();
+
+        //inisialisasi db login
+        if (mRealmResultsLogin.size() == 0) {
+
+            //db belum ada, diisi dulu
+            RMLogin rmLogin = new RMLogin();
+            rmLogin.setUsername("");
+            rmLogin.setNama("");
+            rmLogin.setEmail("");
+            rmLogin.setKtp("");
+            rmLogin.setNohp("");
+            rmLogin.setAlamat("");
+            rmLogin.setKodepos("");
+
+            mRealm.beginTransaction();
+            mRealm.copyToRealm(rmLogin);
+            mRealm.commitTransaction();
+        }
+
+
         if (mRealmResultsJson.size() > 0) {
 
             Log.w("PINDAH HALAMAN", "DATA ADA DAN PINDAH KE HALAMAN BARU");
@@ -172,6 +198,7 @@ public class Loading extends AppCompatActivity {
             public Object call() throws Exception {
 
                 jsonkomoditas = mParseran.ambilJsonAset(Konstan.NAMAJSONASET_KOMODITAS);
+                Log.w("AMBIL JSON", "HASIL JSON " + jsonkomoditas);
 
                 return null;
             }

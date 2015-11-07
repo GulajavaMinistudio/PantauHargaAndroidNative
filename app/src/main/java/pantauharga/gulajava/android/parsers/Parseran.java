@@ -51,7 +51,7 @@ public class Parseran {
             inputstreamjson = asetmanager.open(namajson);
 
             BufferedSource bufferedSource = Okio.buffer(Okio.source(inputstreamjson));
-            jsonrespon = bufferedSource.readUtf8Line();
+            jsonrespon = bufferedSource.readUtf8();
             bufferedSource.close();
 
         }
