@@ -9,7 +9,7 @@ public class HargaKomoditasItem {
     private String latitude = "";
     private String longitude = "";
     private String nohp = "";
-    private String price = "";
+    private int price = 0;
 
     public HargaKomoditasItem() {
     }
@@ -46,11 +46,45 @@ public class HargaKomoditasItem {
         this.nohp = nohp;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

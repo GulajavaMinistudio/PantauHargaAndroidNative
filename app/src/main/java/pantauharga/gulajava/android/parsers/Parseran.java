@@ -11,11 +11,14 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import okio.BufferedSource;
 import okio.Okio;
 import pantauharga.gulajava.android.Konstan;
+import pantauharga.gulajava.android.R;
 import pantauharga.gulajava.android.modelgson.KomoditasItem;
+import pantauharga.gulajava.android.modelgsonkirim.HargaKomoditasCek;
 
 /**
  * Created by Gulajava Ministudio on 11/5/15.
@@ -37,6 +40,23 @@ public class Parseran {
     }
 
 
+    public int acakGambar() {
+
+        int[] alamatgambar = {R.drawable.hero1, R.drawable.hero2, R.drawable.hero3};
+        int kodegambar = R.drawable.hero1;
+        Random random = new Random();
+
+        int posisigambar = 0;
+        try {
+            posisigambar = random.nextInt(alamatgambar.length + 1);
+            kodegambar = alamatgambar[posisigambar];
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return kodegambar;
+    }
+
 
     //AMBIL JSON DARI ASET
     public String ambilJsonAset(String namajson) {
@@ -54,16 +74,13 @@ public class Parseran {
             jsonrespon = bufferedSource.readUtf8();
             bufferedSource.close();
 
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             jsonrespon = "";
         }
 
         return jsonrespon;
     }
-
-
 
 
     //PARSE JSON DARI DB
@@ -74,11 +91,11 @@ public class Parseran {
 
         try {
 
-            Type typelist = new TypeToken<List<KomoditasItem>>(){}.getType();
+            Type typelist = new TypeToken<List<KomoditasItem>>() {
+            }.getType();
             komoditasItemList = mGson.fromJson(json, typelist);
 
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             komoditasItemList = null;
         }
@@ -87,7 +104,7 @@ public class Parseran {
 
             int panjangarray = komoditasItemList.size();
 
-            for (int i=0; i < panjangarray; i++) {
+            for (int i = 0; i < panjangarray; i++) {
 
                 KomoditasItem komoditasItem = komoditasItemList.get(i);
                 String namakomoditas = komoditasItem.getName();
@@ -109,7 +126,6 @@ public class Parseran {
     public void setArrStringNamaKomoditas(List<String> arrStringNamaKomoditas) {
         this.arrStringNamaKomoditas = arrStringNamaKomoditas;
     }
-
 
 
     //CEK STATUS DATA WAKTUNYA
@@ -137,13 +153,22 @@ public class Parseran {
     }
 
 
+    //KONVERSI JSON KOMODITAS KE JSON
+    public String konversiPojoJsonCekKomoditas(HargaKomoditasCek hargaKomoditasCek) {
 
+        String json = "";
 
+        try {
 
+            json = mGson.toJson(hargaKomoditasCek);
 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            json = "";
+        }
 
-
-
+        return json;
+    }
 
 
 }

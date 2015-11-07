@@ -5,12 +5,26 @@ package pantauharga.gulajava.android;
  */
 public class Konstan {
 
+    //-6.91360343 107.60232925
 
     public static final String ALAMATSERVER = "http://pantauharga.id";
 
     public static final String NAMAJSONASET_KOMODITAS = "komoditas.json";
 
     public static final long TAG_SATUJAM = 3600000;
+
+    public static final String TIPENETWORK = "networksgps";
+    public static final String TIPEGPS = "gpssatelitipe";
+
+    public static final int KODE_LOKASIAWAL = 566;
+    public static final int KODE_LOKASIBARU = 567;
+    public static final int REQUEST_CODE_LOCATION = 221;
+
+    public static final String TAG_HEADERCONTENTIPE = "Content-Type";
+    public static final String HEADER_JSONTYPE = "application/json";
+
+
+
 
 
 

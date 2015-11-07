@@ -4,7 +4,12 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 
+import java.util.List;
+import java.util.Map;
+
 import pantauharga.gulajava.android.Konstan;
+import pantauharga.gulajava.android.modelgson.HargaKomoditasItem;
+import pantauharga.gulajava.android.modelgson.KomoditasItem;
 
 /**
  * Created by Gulajava Ministudio on 11/6/15.
@@ -64,6 +69,35 @@ public class Apis {
     /** AMBIL REQUEST VOLLEY UNTUK KIRIM KE SERVERS  **/
 
     //AMBIL HARGA KOMODITAS TERDEKAT
+    public static GsonRekuestArray<HargaKomoditasItem> postRequestHargaKomoditasSekitar(
+            String urls,
+            Map<String,String> headers,
+            Map<String, String> params,
+            String jsonbodystr,
+            Response.Listener<List<HargaKomoditasItem>> listenerok,
+            Response.ErrorListener listenergagal
+    ) {
+
+        GsonRekuestArray<HargaKomoditasItem> gsonRekuestArray = new GsonRekuestArray<>(
+                Request.Method.POST,
+                urls,
+                HargaKomoditasItem.class,
+                headers,
+                params,
+                jsonbodystr,
+                listenerok,
+                listenergagal
+        );
+
+        gsonRekuestArray.setRetryPolicy(getRetryPolicy());
+
+        return gsonRekuestArray;
+    }
+
+
+
+
+
 
     //LAPORKAN HARGA KOMODITAS
 
@@ -71,14 +105,17 @@ public class Apis {
     public static StrRekuestGet getRequestDaftarKomoditas(String urls, Response.Listener<String> listenerok,
                                                    Response.ErrorListener listenergagal) {
 
-        return
-                new StrRekuestGet(
+        StrRekuestGet strRekuestGet = new StrRekuestGet(
                 Request.Method.GET,
                 urls,
                 null,
                 listenerok,
                 listenergagal
         );
+
+        strRekuestGet.setRetryPolicy(getRetryPolicy());
+
+        return strRekuestGet;
     }
 
 

@@ -46,8 +46,8 @@ public class GsonRekuestArray<T> extends Request<List<T>> {
                             Map<String, String> headers,
                             Map<String, String> parameterbody,
                             String jsonRequestBody,
-
-                            Response.Listener<List<T>> listener, Response.ErrorListener errorlistener) {
+                            Response.Listener<List<T>> listener,
+                            Response.ErrorListener errorlistener) {
 
         super(method, url, errorlistener);
 
