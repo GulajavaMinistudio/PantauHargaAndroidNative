@@ -249,6 +249,8 @@ public class Parseran {
 
             if (listkomparator != null) {
 
+                Log.w("MODE LIST","MODE " + modelist);
+
                 try {
                     switch (modelist) {
 

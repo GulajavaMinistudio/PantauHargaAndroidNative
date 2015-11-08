@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_marginkartu"
+            android:layout_marginLeft="@dimen/activity_horizontal_marginkartu"
+            android:layout_marginRight="@dimen/activity_horizontal_marginkartu"
+            android:layout_marginTop="@dimen/activity_vertical_marginkartu"
+            android:text="@string/teks_urutkanberdasarkan"
+            android:textColor="@color/putih"
+            android:textSize="@dimen/ukuran18sp"
+            android:textStyle="bold"/>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/teks_keturutan"
+            android:textColor="@color/warnateksjudul"
+            android:textSize="@dimen/ukuran16sp"/>
+
+
+        <Spinner
+            android:id="@+id/spin_modeurutan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:spinnerMode="dropdown"
+            />
+
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_marginTop="24dp"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

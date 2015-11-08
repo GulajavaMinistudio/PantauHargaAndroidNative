@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -47,6 +48,7 @@ import pantauharga.gulajava.android.adapters.AdapterTabPager;
 import pantauharga.gulajava.android.databases.RMJsonData;
 import pantauharga.gulajava.android.databases.RMLogin;
 import pantauharga.gulajava.android.dialogs.DialogKomoditasCarian;
+import pantauharga.gulajava.android.dialogs.DialogUrutkanBerdasar;
 import pantauharga.gulajava.android.fragments.FragmentListHarga;
 import pantauharga.gulajava.android.fragments.FragmentPetaHarga;
 import pantauharga.gulajava.android.internets.Apis;
@@ -128,8 +130,10 @@ public class MenuUtama extends BaseActivityLocation {
         }
     };
 
+
+    private int posisiurutan_modelist = 0;
     private int MODE_LIST = Konstan.MODE_TERDEKAT;
-    private List<HargaKomoditasItem> listHargaServers;
+    private List<HargaKomoditasItem> listHargaServers = null;
 
 
     @Override
@@ -241,6 +245,13 @@ public class MenuUtama extends BaseActivityLocation {
                     cekInternetKirimServer();
                 }
 
+                return true;
+
+            case R.id.action_urutan:
+
+                if (!isDataAwalDiambil) {
+                    tampilDialogUrutan();
+                }
                 return true;
         }
 
@@ -573,9 +584,10 @@ public class MenuUtama extends BaseActivityLocation {
     //CEK HASIL RESPON
     private void cekHasilRespons(List<HargaKomoditasItem> listHargaServer) {
 
-        listHargaServers = listHargaServer;
 
-        if (listHargaServers != null && listHargaServers.size() > 0) {
+        if (listHargaServer != null && listHargaServer.size() > 0) {
+
+            listHargaServers = listHargaServer;
 
             //kirim ke fragments
             kirimPesanDaftarHarga(listHargaServers, MODE_LIST, mLocationPengguna);
@@ -679,8 +691,31 @@ public class MenuUtama extends BaseActivityLocation {
     }
 
 
+    //TAMPIL DIALOG PILIHAN URUTAN
+    private void tampilDialogUrutan() {
+
+        if (listHargaServers != null) {
+
+            Bundle bundle = new Bundle();
+            bundle.putInt(Konstan.TAG_INTENT_POSISIURUTANPILIH, posisiurutan_modelist);
+
+            DialogUrutkanBerdasar dialogUrutkanBerdasar = new DialogUrutkanBerdasar();
+            dialogUrutkanBerdasar.setCancelable(false);
+            dialogUrutkanBerdasar.setArguments(bundle);
+
+            FragmentTransaction fts = MenuUtama.this.getSupportFragmentManager().beginTransaction();
+            dialogUrutkanBerdasar.show(fts, "urutkan berdasar");
+        } else {
+            Toast.makeText(MenuUtama.this, R.string.toastolahdataurut, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
     //SET PILIHAN DARI DIALOG URUTKAN BERDASARKAN : .....
     public void setModeUrutanList(int posisi) {
+
+        posisiurutan_modelist = posisi;
+        Log.w("MODE URUTAN", "MODE URUTAN " + posisiurutan_modelist);
 
         switch (posisi) {
 

@@ -33,7 +33,7 @@
 
 
         <activity
-            android:name=".aktivitas.Loading"
+            android:name="pantauharga.gulajava.android.aktivitas.Loading"
             android:label="@string/app_name"
             android:theme="@style/AppThemeCompatLoading"
             android:screenOrientation="portrait">
@@ -45,7 +45,7 @@
 
 
         <activity
-            android:name=".aktivitas.MenuUtama"
+            android:name="pantauharga.gulajava.android.aktivitas.MenuUtama"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>

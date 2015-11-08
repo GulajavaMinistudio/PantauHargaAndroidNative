@@ -278,7 +278,7 @@ public class Loading extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
 
                         error.printStackTrace();
-                        Log.w("GAGAL", "GAGAL " + error.networkResponse.statusCode + " " + error.getMessage());
+                        Log.w("GAGAL", "GAGAL");
 
                         if (isAktivitasJalan) {
                             cekSimpanData("");

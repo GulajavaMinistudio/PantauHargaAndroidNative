@@ -31,7 +31,6 @@ import pantauharga.gulajava.android.aktivitas.MenuUtama;
 public class DialogKomoditasCarian extends DialogFragment {
 
 
-    private LayoutInflater mInflaterDialog;
     private View mViewDialog;
 
     @Bind(R.id.spin_namakomoditas)

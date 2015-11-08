@@ -22,8 +22,9 @@
     <string name="teks_isimintalokasi">Aplikasi memerlukan akses lokasi dari perangkat untuk mengambil koordinat lokasi anda</string>
     <string name="toastdialog_pesangagalgps">GPS dan koneksi internet tidak tersedia, sehingga lokasi foto yang didapat akan tidak akurat.</string>
 
-    <string name="toastgagaldata">Gagal mengambil data</string>
+    <string name="toastgagaldata">Data tidak tersedia</string>
     <string name="toastolahdata">Gagal mengolah data</string>
+    <string name="toastolahdataurut">Data tidak tersedia</string>
     <string name="toastnointernet">Koneksi internet tidak tersedia</string>
     <string name="teksketeranganperkg">harga per kilogram</string>
 
@@ -32,6 +33,26 @@
     <string name="tekscarikomoditas">Cari Komoditas Lain</string>
     <string name="teks_spin_namakomoditas">Nama Komoditas</string>
     <string name="teks_seekbar_radius">Radius Pencarian (Kilometer)</string>
+
+
+    <!-- URUTKAN KOMODITAS -->
+    <string name="teks_urutkanberdasarkan">Urutkan</string>
+    <string name="teks_keturutan">Urutkan harga komoditas berdasarkan :</string>
+
+    <string-array name="array_modeurutan">
+        <item>Lokasi terdekat</item>
+        <item>Harga termurah</item>
+        <item>Harga termahal</item>
+    </string-array>
+
+
+
+
+
+
+
+
+
 
 
 </resources>
