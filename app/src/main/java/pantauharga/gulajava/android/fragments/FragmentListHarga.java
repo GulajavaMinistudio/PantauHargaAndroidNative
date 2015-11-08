@@ -82,6 +82,7 @@ public class FragmentListHarga extends Fragment {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new RecyclerDividers(FragmentListHarga.this.getActivity(), R.drawable.dividerlistmenu));
 
+        mFloatingActionButton.setOnClickListener(listenerfloatingbutton);
 
         return view;
     }
@@ -185,6 +186,17 @@ public class FragmentListHarga extends Fragment {
                 }, Task.UI_THREAD_EXECUTOR);
 
     }
+
+
+
+    View.OnClickListener listenerfloatingbutton = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            mMenuUtamaAkt.tampilDialogPilihKomoditas();
+        }
+    };
+
 
 
     //JIKA RECYCLER VIEW DIKLIK

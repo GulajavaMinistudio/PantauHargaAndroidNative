@@ -11,8 +11,6 @@ import android.widget.EditText;
 import com.fasterxml.jackson.jr.ob.JSON;
 
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,7 +36,7 @@ public class Parseran {
     private Context mContext;
 
 
-    private List<String> arrStringNamaKomoditas;
+    private ArrayList<String> arrStringNamaKomoditas;
 
 
     public Parseran(Context context) {
@@ -65,7 +63,7 @@ public class Parseran {
 
     public int acakGambarList() {
 
-        int[] alamatgambar = {R.drawable.ic_action_keranjang1, R.drawable.ic_action_keranjang2, R.drawable.ic_action_keranjang3};
+        int[] alamatgambar = {R.drawable.ic_action_keranjang1, R.drawable.ic_action_keranjang2};
         int kodegambar = R.drawable.ic_action_keranjang1;
         Random random = new Random();
 
@@ -140,14 +138,14 @@ public class Parseran {
         return komoditasItemList;
     }
 
-    public List<String> getArrStringNamaKomoditas() {
+
+    public ArrayList<String> getArrStringNamaKomoditas() {
         return arrStringNamaKomoditas;
     }
 
-    public void setArrStringNamaKomoditas(List<String> arrStringNamaKomoditas) {
+    public void setArrStringNamaKomoditas(ArrayList<String> arrStringNamaKomoditas) {
         this.arrStringNamaKomoditas = arrStringNamaKomoditas;
     }
-
 
     //CEK STATUS DATA WAKTUNYA
     public boolean isCekKadaluarsa(String longstrdatadb, long longwaktusekarang) {
@@ -197,7 +195,7 @@ public class Parseran {
                                                                   Location locationSaya, int modelist) {
 
         List<HargaKomoditasItemKomparator> listkomparator = new ArrayList<>();
-        HargaKomoditasItemKomparator hargaKomoditasItemKomparator = new HargaKomoditasItemKomparator();
+        HargaKomoditasItemKomparator hargaKomoditasItemKomparator;
 
         String barang = "";
         String latitude = "";
@@ -212,8 +210,6 @@ public class Parseran {
         if (hargaKomoditasItemList != null) {
 
             int panjangarray = hargaKomoditasItemList.size();
-            Log.w("PANJANG ARRAY", "PANJANG " + panjangarray);
-
 
             try {
 
@@ -234,12 +230,15 @@ public class Parseran {
 
                     jaraklokasi = locationSaya.distanceTo(lokasicekkomoditas);
 
+                    hargaKomoditasItemKomparator = new HargaKomoditasItemKomparator();
                     hargaKomoditasItemKomparator.setBarang(barang);
                     hargaKomoditasItemKomparator.setLatitude(latitude);
                     hargaKomoditasItemKomparator.setLongitude(longitude);
                     hargaKomoditasItemKomparator.setNohp(nohp);
                     hargaKomoditasItemKomparator.setPrice(price);
                     hargaKomoditasItemKomparator.setJaraklokasi(jaraklokasi + "");
+
+                    Log.w("HARGA BARANG SIMPAN ", "" + barang + " " + price);
 
                     listkomparator.add(hargaKomoditasItemKomparator);
                 }
@@ -357,37 +356,40 @@ public class Parseran {
             e.printStackTrace();
             bilanganpisah = "0";
         }
+
         return bilanganpisah;
     }
 
 
     //UNTUK TEXTVIEW YANG UKURAN KILO
-    public String formatAngkaKilo(int angka) {
-
-        String angkabulatan = "";
-
-        try {
-            double angkabaru = angka / 1000;
-            angkabulatan = pembulatanJarak("" + angkabaru, 3).replace(".", ",");
-        } catch (Exception e) {
-            e.printStackTrace();
-            angkabulatan = "0";
-        }
-
-        return angkabulatan;
-    }
+//    public String formatAngkaKilo(int angka) {
+//
+//        String angkabulatan = "";
+//
+//        try {
+//            Double angkadouble = Double.valueOf(angka + "");
+//            double angkabaru = angkadouble / 1000;
+////            angkabulatan = pembulatanJarak("" + angkabaru, 3).replace(".", ",");
+//            angkabulatan = ("" + angkabaru).replace(".", ",");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            angkabulatan = "0";
+//        }
+//
+//        return angkabulatan;
+//    }
 
 
     //FUNGSI PEMBULAT ANGKA
-    public String pembulatanJarak(String stringnilaiawal, int jumlahpembulatan) {
-
-        double dovalbelumbulat = Double.valueOf(stringnilaiawal);
-
-        BigDecimal bigdesimal = new BigDecimal(dovalbelumbulat);
-        bigdesimal = bigdesimal.setScale(jumlahpembulatan, RoundingMode.DOWN);
-
-        return bigdesimal.intValue() + "";
-    }
+//    public String pembulatanJarak(String stringnilaiawal, int jumlahpembulatan) {
+//
+//        double dovalbelumbulat = Double.valueOf(stringnilaiawal);
+//
+//        BigDecimal bigdesimal = new BigDecimal(dovalbelumbulat);
+//        bigdesimal = bigdesimal.setScale(jumlahpembulatan, RoundingMode.UP);
+//
+//        return bigdesimal.intValue() + "";
+//    }
 
 
 }

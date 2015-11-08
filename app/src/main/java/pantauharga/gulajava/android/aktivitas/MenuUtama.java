@@ -2,12 +2,14 @@ package pantauharga.gulajava.android.aktivitas;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -44,6 +46,7 @@ import pantauharga.gulajava.android.R;
 import pantauharga.gulajava.android.adapters.AdapterTabPager;
 import pantauharga.gulajava.android.databases.RMJsonData;
 import pantauharga.gulajava.android.databases.RMLogin;
+import pantauharga.gulajava.android.dialogs.DialogKomoditasCarian;
 import pantauharga.gulajava.android.fragments.FragmentListHarga;
 import pantauharga.gulajava.android.fragments.FragmentPetaHarga;
 import pantauharga.gulajava.android.internets.Apis;
@@ -99,10 +102,11 @@ public class MenuUtama extends BaseActivityLocation {
     private RealmResults<RMJsonData> mRealmResultsJson;
     private String jsonKomoditas = "";
     private List<KomoditasItem> listKomoditasItem;
-    private List<String> listStrKomoditasItem;
+    private ArrayList<String> listStrKomoditasItem;
 
     private String namakomoditas = "";
-    private String radiuskm = "100";
+    private int radiuskm = 100;
+    private int posisipilih = 0;
 
     //lokasi pengguna
     private Location mLocationPengguna;
@@ -415,10 +419,21 @@ public class MenuUtama extends BaseActivityLocation {
         //progress dialogs
         mProgressDialog = new ProgressDialog(MenuUtama.this);
         mProgressDialog.setMessage(pesan);
-        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCancelable(true);
         mProgressDialog.show();
+        mProgressDialog.setOnCancelListener(listenerbatals);
 
     }
+
+
+    ProgressDialog.OnCancelListener listenerbatals = new ProgressDialog.OnCancelListener() {
+        @Override
+        public void onCancel(DialogInterface dialogInterface) {
+
+            isDataAwalDiambil = false;
+            Volleys.getInstance(MenuUtama.this).cancelPendingRequestsNoTag();
+        }
+    };
 
 
     /** ================================================================================================== **/
@@ -448,7 +463,7 @@ public class MenuUtama extends BaseActivityLocation {
 
                             listStrKomoditasItem = mParseran.getArrStringNamaKomoditas();
 
-                            namakomoditas = listStrKomoditasItem.get(0);
+                            namakomoditas = listStrKomoditasItem.get(posisipilih);
 
                             //ambil data dari server
                             //cek permisission
@@ -489,7 +504,7 @@ public class MenuUtama extends BaseActivityLocation {
 
                 HargaKomoditasCek hargaKomoditasCek = new HargaKomoditasCek();
                 hargaKomoditasCek.setName(namakomoditas);
-                hargaKomoditasCek.setRadius(radiuskm);
+                hargaKomoditasCek.setRadius("" + radiuskm);
                 hargaKomoditasCek.setLat("" + latitudepengguna);
                 hargaKomoditasCek.setLng("" + longitudepengguna);
 
@@ -619,6 +634,48 @@ public class MenuUtama extends BaseActivityLocation {
 
             EventBus.getDefault().post(messageAktFrag);
         }
+    }
+
+
+    /**
+     * ================ TAMPILKAN DIALOG ===================
+     **/
+
+
+    //TAMPIL DIALOG PILIH KOMODITAS
+    public void tampilDialogPilihKomoditas() {
+
+        if (listStrKomoditasItem != null) {
+
+            Bundle bundle = new Bundle();
+            bundle.putInt(Konstan.TAG_INTENT_RADIUS, radiuskm);
+            bundle.putStringArrayList(Konstan.TAG_INTENT_ARRAYKOMODITAS, listStrKomoditasItem);
+            bundle.putInt(Konstan.TAG_INTENT_POSISIPILIH, posisipilih);
+
+            DialogKomoditasCarian dialogKomoditasCarian = new DialogKomoditasCarian();
+            dialogKomoditasCarian.setCancelable(false);
+            dialogKomoditasCarian.setArguments(bundle);
+
+            FragmentTransaction ft = MenuUtama.this.getSupportFragmentManager().beginTransaction();
+            dialogKomoditasCarian.show(ft, "dialog komoditas");
+        }
+    }
+
+
+    //SET PILIHAN DIALOG KOMODITAS
+    public void setPilihanDialogKomoditas(int posisipilihan, int radiuskilos) {
+
+        this.radiuskm = radiuskilos;
+        this.namakomoditas = listStrKomoditasItem.get(posisipilihan);
+        this.posisipilih = posisipilihan;
+
+        Log.w("PILIHAN DIALOG", "" + radiuskilos + " " + namakomoditas + " " + posisipilih);
+
+        //cek status lokasi pengguna
+        if (!isDataAwalDiambil) {
+            cekInternetKirimServer();
+        }
+
     }
 
 

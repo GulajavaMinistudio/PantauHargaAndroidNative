@@ -14,7 +14,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import pantauharga.gulajava.android.Konstan;
 import pantauharga.gulajava.android.R;
 import pantauharga.gulajava.android.modelgson.HargaKomoditasItemKomparator;
 import pantauharga.gulajava.android.parsers.Parseran;
@@ -73,11 +72,9 @@ public class RecyclerDaftarHarga extends RecyclerView.Adapter<RecyclerDaftarHarg
         int hargabarang = hargaKomoItem.getPrice();
 
         String hargaketerangantampil = "Rp " + mParseran.formatAngkaPisah(hargabarang) + ",-";
-        String hargakilos = mParseran.formatAngkaKilo(hargabarang) + "K";
 
         holder.teks_namakomoditas.setText(namakomoditas);
         holder.teks_keteranganharga.setText(hargaketerangantampil);
-        holder.teks_hargakilo.setText(hargakilos);
 
         ImageView gambarlist = holder.gambar_list;
         Picasso.with(konteks).load(kodegambar).into(gambarlist);
@@ -116,8 +113,6 @@ public class RecyclerDaftarHarga extends RecyclerView.Adapter<RecyclerDaftarHarg
 
         public TextView teks_namakomoditas;
         public TextView teks_keteranganharga;
-        public TextView teks_hargakilo;
-
         public ImageView gambar_list;
 
         public View containers;
@@ -130,7 +125,6 @@ public class RecyclerDaftarHarga extends RecyclerView.Adapter<RecyclerDaftarHarg
 
             teks_namakomoditas = (TextView) containers.findViewById(R.id.teks_namakomoditas);
             teks_keteranganharga = (TextView) containers.findViewById(R.id.teks_keteranganharga);
-            teks_hargakilo = (TextView) containers.findViewById(R.id.teks_hargakilo);
 
             gambar_list = (ImageView) containers.findViewById(R.id.gambar_list);
 

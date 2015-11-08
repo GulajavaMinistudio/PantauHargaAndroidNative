@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.bumptech.glide.Glide;
 
 import java.util.Calendar;
 import java.util.concurrent.Callable;
@@ -84,6 +85,7 @@ public class Loading extends AppCompatActivity {
         setContentView(R.layout.loadings);
         ButterKnife.bind(Loading.this);
 
+        Glide.with(Loading.this).load(R.drawable.web_hi_res_512).into(gambarbesar);
 
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(Loading.this).build();
 

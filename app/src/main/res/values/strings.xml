@@ -17,8 +17,6 @@
     <!-- TOAST -->
     <string name="toast_nointernet">Koneksi internet tidak tersedia</string>
 
-    <string name="petalapor_setujuganti">Ok</string>
-    <string name="petalapor_batalganti">Batal</string>
     <string name="teks_ok">OK</string>
     <string name="teks_batal">BATAL</string>
     <string name="teks_isimintalokasi">Aplikasi memerlukan akses lokasi dari perangkat untuk mengambil koordinat lokasi anda</string>
@@ -28,6 +26,12 @@
     <string name="toastolahdata">Gagal mengolah data</string>
     <string name="toastnointernet">Koneksi internet tidak tersedia</string>
     <string name="teksketeranganperkg">harga per kilogram</string>
+
+
+    <!-- CARI KOMODITAS -->
+    <string name="tekscarikomoditas">Cari Komoditas Lain</string>
+    <string name="teks_spin_namakomoditas">Nama Komoditas</string>
+    <string name="teks_seekbar_radius">Radius Pencarian (Kilometer)</string>
 
 
 </resources>

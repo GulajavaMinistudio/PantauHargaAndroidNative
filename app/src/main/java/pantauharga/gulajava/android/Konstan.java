@@ -30,6 +30,9 @@ public class Konstan {
     public static final int MODE_TERMURAH = 62;
 
 
+    public static final String TAG_INTENT_RADIUS = "radiuscari";
+    public static final String TAG_INTENT_ARRAYKOMODITAS = "arraykomods";
+    public static final String TAG_INTENT_POSISIPILIH = "posisipilihan";
 
 
 

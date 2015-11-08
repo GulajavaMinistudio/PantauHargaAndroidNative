@@ -9,17 +9,18 @@
 
     <ImageView
         android:id="@+id/gambarbesar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_mokup"/>
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="@string/app_name"
         android:textColor="@color/putih"
-        android:textSize="@dimen/ukuran18sp"
+        android:textSize="32sp"
         android:textStyle="bold"/>
 
 
