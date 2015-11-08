@@ -54,4 +54,5 @@ dependencies {
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.fasterxml.jackson.jr:jackson-jr-objects:2.6.3'
+    compile 'com.google.android.gms:play-services-maps:8.3.0'
 }

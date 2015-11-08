@@ -136,6 +136,11 @@ public class MenuUtama extends BaseActivityLocation {
     private List<HargaKomoditasItem> listHargaServers = null;
 
 
+    private int posisipagers = 0;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -220,6 +225,22 @@ public class MenuUtama extends BaseActivityLocation {
         Volleys.getInstance(MenuUtama.this).clearVolleyCache();
     }
 
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        MenuItem menuItemPosisiSaya = menu.findItem(R.id.action_lokasisaya);
+
+        if (posisipagers == 1) {
+            menuItemPosisiSaya.setVisible(true).setEnabled(true);
+        }
+        else {
+            menuItemPosisiSaya.setVisible(false).setEnabled(false);
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -252,6 +273,11 @@ public class MenuUtama extends BaseActivityLocation {
                 if (!isDataAwalDiambil) {
                     tampilDialogUrutan();
                 }
+                return true;
+
+            case R.id.action_lokasisaya :
+
+
                 return true;
         }
 
@@ -331,6 +357,9 @@ public class MenuUtama extends BaseActivityLocation {
 
         @Override
         public void onPageSelected(int position) {
+
+            posisipagers = position;
+            MenuUtama.this.supportInvalidateOptionsMenu();
 
             //indikator tab dipilih di atas
             TabLayout.Tab tab = mTabLayout.getTabAt(position);
