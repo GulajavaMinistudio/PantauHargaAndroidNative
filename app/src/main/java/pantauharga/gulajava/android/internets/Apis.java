@@ -10,6 +10,7 @@ import java.util.Map;
 import pantauharga.gulajava.android.Konstan;
 import pantauharga.gulajava.android.modelgson.HargaKomoditasItem;
 import pantauharga.gulajava.android.modelgson.KomoditasItem;
+import pantauharga.gulajava.android.modelgson.Logins;
 
 /**
  * Created by Gulajava Ministudio on 11/6/15.
@@ -78,6 +79,8 @@ public class Apis {
             Response.ErrorListener listenergagal
     ) {
 
+        headers.put(Konstan.TAG_HEADERCONTENTIPE, Konstan.HEADER_JSONTYPE);
+
         JacksonRequestArray<HargaKomoditasItem> jacksonRequestArray = new JacksonRequestArray<>(
                 Request.Method.POST,
                 urls,
@@ -121,7 +124,37 @@ public class Apis {
 
     //REGISTER PENGGUNA
 
+
+
+
+
     //LOGIN PENGGUNA
+    public static JacksonRequest<Logins> postRequestLogin(
+            String urls,
+            Map<String,String> headers,
+            Map<String, String> params,
+            String jsonbodystr,
+            Response.Listener<Logins> listenerok,
+            Response.ErrorListener listenergagal
+            ) {
+
+        headers.put(Konstan.TAG_HEADERCONTENTIPE, Konstan.HEADER_JSONTYPE);
+
+        JacksonRequest<Logins> jacksonRequest = new JacksonRequest<>(
+                Request.Method.POST,
+                urls,
+                Logins.class,
+                headers,
+                params,
+                jsonbodystr,
+                listenerok,
+                listenergagal
+        );
+
+        jacksonRequest.setRetryPolicy(getRetryPolicy());
+
+        return jacksonRequest;
+    }
 
 
 

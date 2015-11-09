@@ -50,6 +50,7 @@
 
 
     <!-- REGISTER -->
+    <string name="login_register_datapengguna">Data Pengguna</string>
     <string name="login_register">Registrasi</string>
     <string name="login_registerket">Buat akun Pantau Harga dengan mendaftarkan data diri anda berikut ini dengan lengkap dan benar</string>
     <string name="login_namalengkap">Nama Lengkap</string>
@@ -69,6 +70,14 @@
     <string name="login_login">Masuk Pantau Harga</string>
     <string name="teks_daftar">DAFTAR</string>
     <string name="teks_masuk">MASUK</string>
+
+    <!-- GAGAL TOAST REGISTER LOGIN-->
+    <string name="oklogin_masuk">Anda berhasil masuk ke akun Pantau Harga anda. Anda bisa lanjut memantau harga serta memperbaharui harga terbaru dari komoditas tersedia.</string>
+    <string name="gagalogin_namapanggil">Isi nama panggilan dengan benar</string>
+    <string name="gagalogin_password">Isi kata kunci dengan benar</string>
+    <string name="gagalogin_masuk">Gagal masuk ke akun Pantau Harga anda</string>
+
+
 
 
 </resources>

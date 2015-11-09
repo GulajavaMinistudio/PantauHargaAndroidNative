@@ -3,6 +3,7 @@ package pantauharga.gulajava.android.aktivitas;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -185,7 +186,6 @@ public class MenuUtama extends BaseActivityLocation {
 
         //ambil data realm login
         mRealm = Realm.getInstance(MenuUtama.this);
-        ambilDbLogin();
 
         Handler handler = new Handler();
         handler.postDelayed(jedakirimdata, 700);
@@ -199,6 +199,8 @@ public class MenuUtama extends BaseActivityLocation {
         if (!EventBus.getDefault().isRegistered(MenuUtama.this)) {
             EventBus.getDefault().register(MenuUtama.this);
         }
+
+        ambilDbLogin();
     }
 
     @Override
@@ -264,6 +266,20 @@ public class MenuUtama extends BaseActivityLocation {
                 //cek status lokasi pengguna
                 if (!isDataAwalDiambil) {
                     cekInternetKirimServer();
+                }
+
+                return true;
+
+            case R.id.action_kirimharga :
+
+                //cek status kirim harga
+                if (isLogin) {
+
+                }
+                else {
+
+                    Intent intentadminpengguna = new Intent(MenuUtama.this, LoginRegistersPengguna.class);
+                    MenuUtama.this.startActivity(intentadminpengguna);
                 }
 
                 return true;
@@ -577,7 +593,6 @@ public class MenuUtama extends BaseActivityLocation {
         String urls = Apis.getLinkHargaKomoditas();
         Map<String, String> headers = new HashMap<>();
         Map<String, String> parameters = new HashMap<>();
-        headers.put(Konstan.TAG_HEADERCONTENTIPE, Konstan.HEADER_JSONTYPE);
 
         JacksonRequestArray<HargaKomoditasItem> jacksonRequestArray = Apis.postRequestHargaKomoditasSekitars(
                 urls,

@@ -79,7 +79,7 @@
                         android:id="@+id/edit_namapanggilan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:digits="@string/karakterbolehnama"
+                        android:digits="@string/karakterboleh"
                         android:hint="@string/login_username"
                         android:imeOptions="actionNext"
                         android:inputType="text"

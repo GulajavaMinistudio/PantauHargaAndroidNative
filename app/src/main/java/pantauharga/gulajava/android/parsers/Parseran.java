@@ -29,6 +29,7 @@ import pantauharga.gulajava.android.modelgson.HargaKomoditasItem;
 import pantauharga.gulajava.android.modelgson.HargaKomoditasItemKomparator;
 import pantauharga.gulajava.android.modelgson.KomoditasItem;
 import pantauharga.gulajava.android.modelgsonkirim.HargaKomoditasCek;
+import pantauharga.gulajava.android.modelgsonkirim.LoginKirim;
 
 /**
  * Created by Gulajava Ministudio on 11/5/15.
@@ -175,7 +176,7 @@ public class Parseran {
     }
 
 
-    //KONVERSI JSON KOMODITAS KE JSON
+    //KONVERSI POJO KOMODITAS KE JSON
     public String konversiPojoJsonCekKomoditas(HargaKomoditasCek hargaKomoditasCek) {
 
         String json = "";
@@ -191,6 +192,29 @@ public class Parseran {
 
         return json;
     }
+
+
+
+    //KONVERSI POJO KE JSON LOGIN
+    public String konversiPojoJsonLogin(LoginKirim loginKirim) {
+
+        String json = "";
+
+        try {
+
+            json = JSON.std.asString(loginKirim);
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            json = "";
+        }
+
+        return json;
+    }
+
+
+
 
 
     //PARSE LIST KOMODITAS KE MODE LIST KOMPARATOR
