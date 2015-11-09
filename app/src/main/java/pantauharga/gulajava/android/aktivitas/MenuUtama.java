@@ -230,12 +230,15 @@ public class MenuUtama extends BaseActivityLocation {
     public boolean onPrepareOptionsMenu(Menu menu) {
 
         MenuItem menuItemPosisiSaya = menu.findItem(R.id.action_lokasisaya);
+        MenuItem menuItemUrutan = menu.findItem(R.id.action_urutan);
 
         if (posisipagers == 1) {
             menuItemPosisiSaya.setVisible(true).setEnabled(true);
+            menuItemUrutan.setVisible(false).setEnabled(false);
         }
         else {
             menuItemPosisiSaya.setVisible(false).setEnabled(false);
+            menuItemUrutan.setVisible(true).setEnabled(true);
         }
 
         return super.onPrepareOptionsMenu(menu);
@@ -277,6 +280,9 @@ public class MenuUtama extends BaseActivityLocation {
 
             case R.id.action_lokasisaya :
 
+                if (mLocationPengguna != null && mFragmentPetaHarga.isVisible()) {
+                    mFragmentPetaHarga.setelPosisiSayaMenu(mLocationPengguna);
+                }
 
                 return true;
         }
