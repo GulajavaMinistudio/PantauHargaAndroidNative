@@ -6,6 +6,7 @@ import android.location.Location;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.widget.EditText;
 
 import com.fasterxml.jackson.jr.ob.JSON;
@@ -17,6 +18,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import okio.BufferedSource;
 import okio.Okio;
@@ -392,6 +395,31 @@ public class Parseran {
 //
 //        return bigdesimal.intValue() + "";
 //    }
+
+
+    //CEK EMAIL http://stackoverflow.com/questions/12947620/email-address-validation-in-android-on-edittext
+    //EMAIL
+    public boolean validasiEmail(String alamatemail) {
+
+        boolean isValid = false;
+
+        Pattern patternemail = Patterns.EMAIL_ADDRESS;
+        Matcher matcheremail = patternemail.matcher(alamatemail);
+
+        if (matcheremail.matches()) {
+            isValid = true;
+        }
+
+        return isValid;
+    }
+
+
+
+
+
+
+
+
 
 
 }

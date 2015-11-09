@@ -49,12 +49,26 @@
     <string name="toastgagalpeta">Peta gagal dimuat</string>
 
 
+    <!-- REGISTER -->
+    <string name="login_register">Registrasi</string>
+    <string name="login_registerket">Buat akun Pantau Harga dengan mendaftarkan data diri anda berikut ini dengan lengkap dan benar</string>
+    <string name="login_namalengkap">Nama Lengkap</string>
+    <string name="login_username">Nama Panggilan (Username)</string>
+    <string name="login_password">Password</string>
+    <string name="login_passwordkonfirm">Konfirmasi Password</string>
+    <string name="login_email">E-mail</string>
+    <string name="login_ktp">Nomor KTP</string>
+    <string name="login_nohp">Nomor Handphone</string>
+    <string name="login_alamat">Alamat Lengkap</string>
+    <string name="login_kodepos">Kode Pos</string>
 
 
+    <string name="karakterboleh">qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890_</string>
+    <string name="karakterbolehnama">qwertyuiopasdfghjklz xcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890_</string>
 
-
-
-
+    <string name="login_login">Masuk Pantau Harga</string>
+    <string name="teks_daftar">DAFTAR</string>
+    <string name="teks_masuk">MASUK</string>
 
 
 </resources>

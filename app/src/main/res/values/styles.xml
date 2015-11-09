@@ -82,7 +82,7 @@
 
     <!--<style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">-->
     <style name="TextAppearence.App.TextInputLayoutError" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/pink_harga</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
     </style>

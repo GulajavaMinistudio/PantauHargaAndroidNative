@@ -36,7 +36,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/ikonfloat_menu"
-            app:backgroundTint="@color/pink_float"
+            app:backgroundTint="@color/hijauterang"
             app:fabSize="normal"/>
 
 

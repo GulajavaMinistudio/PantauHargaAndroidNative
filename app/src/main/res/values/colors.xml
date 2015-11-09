@@ -19,7 +19,13 @@
     <color name="abutransparan_header">#60000000</color>
 
     <color name="pink_harga">#fb5956</color>
-    <color name="pink_float">#4CAF50</color>
+    <color name="hijauterang">#4CAF50</color>
+
+    <color name="hijautombolgelap1">#2E7D32</color>
+    <color name="hijautombolgelap2">#43A047</color>
+
+    <color name="merahtombolgelap1">#a7383f</color>
+    <color name="merahtombolgelap2">#c74a58</color>
 
 
     <!-- WARNATEKS -->

@@ -139,8 +139,6 @@ public class MenuUtama extends BaseActivityLocation {
     private int posisipagers = 0;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -235,8 +233,7 @@ public class MenuUtama extends BaseActivityLocation {
         if (posisipagers == 1) {
             menuItemPosisiSaya.setVisible(true).setEnabled(true);
             menuItemUrutan.setVisible(false).setEnabled(false);
-        }
-        else {
+        } else {
             menuItemPosisiSaya.setVisible(false).setEnabled(false);
             menuItemUrutan.setVisible(true).setEnabled(true);
         }
@@ -278,7 +275,7 @@ public class MenuUtama extends BaseActivityLocation {
                 }
                 return true;
 
-            case R.id.action_lokasisaya :
+            case R.id.action_lokasisaya:
 
                 if (mLocationPengguna != null && mFragmentPetaHarga.isVisible()) {
                     mFragmentPetaHarga.setelPosisiSayaMenu(mLocationPengguna);
@@ -771,10 +768,10 @@ public class MenuUtama extends BaseActivityLocation {
     }
 
 
-
-
-    /** ==================== AMBIL PILIHAN LIST KLIK DARI FRAGMENT DAFTAR DAN
-     * TAMPILKAN KE FRAGMENT PETA =========================================== **/
+    /**
+     * ==================== AMBIL PILIHAN LIST KLIK DARI FRAGMENT DAFTAR DAN
+     * TAMPILKAN KE FRAGMENT PETA ===========================================
+     **/
 
 
     public void setelPilihanKePeta(int posisi) {
@@ -789,7 +786,6 @@ public class MenuUtama extends BaseActivityLocation {
     }
 
 
-
     Runnable jedageser = new Runnable() {
         @Override
         public void run() {
@@ -797,19 +793,6 @@ public class MenuUtama extends BaseActivityLocation {
             mViewPager.setCurrentItem(1);
         }
     };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

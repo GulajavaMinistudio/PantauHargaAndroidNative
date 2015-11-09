@@ -19,6 +19,7 @@
     <dimen name="ukuran18sp">18sp</dimen>
     <dimen name="ukuran20sp">20sp</dimen>
 
+    <dimen name="paddingtombol">5dp</dimen>
 
 
 
