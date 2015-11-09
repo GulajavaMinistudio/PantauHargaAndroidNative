@@ -428,6 +428,100 @@ public class FragmentPetaHarga extends Fragment {
     }
 
 
+    //SETEL PILIHAN DARI FRAGMENT SEBELAH KE DALAM PETA
+    public void setelMarkerSemuaPilihanKlik(int posisiklik) {
+
+        try {
+
+            int panjangarray = mListKomoHargaKomparator.size();
+            HargaKomoditasItemKomparator lokitem;
+            double dolatitude = 0;
+            double dolongitude = 0;
+            hashmapListHarga = new HashMap<>();
+            Marker markeradd;
+
+            String loops_namakomoditas = "";
+
+            map.clear();
+            setelPosisiSayaAwal();
+
+
+            //ambil data awal untuk inisialisasi keterangan
+            HargaKomoditasItemKomparator itemloks = mListKomoHargaKomparator.get(posisiklik);
+            init_namakomoditas = itemloks.getBarang();
+            init_hargakomoditas = itemloks.getPrice();
+            init_telponkomoditas = itemloks.getNohp();
+            init_latitudekomoditas = itemloks.getLatitude();
+            init_longitudekomoditas = itemloks.getLongitude();
+
+            teks_namakomoditas.setText(init_namakomoditas);
+
+            str_formathargakomoditas = "Rp " + mParseran.formatAngkaPisah(init_hargakomoditas) + ",-";
+            teks_hargakomoditas.setText(str_formathargakomoditas);
+
+            if (init_telponkomoditas.length() > 4) {
+                String teksets = "Telp : " + init_telponkomoditas;
+                teks_telponkomoditas.setText(teksets);
+                teks_telponkomoditas.setVisibility(View.VISIBLE);
+            } else {
+                String teksets = "Telp : -";
+                teks_telponkomoditas.setText(teksets);
+                teks_telponkomoditas.setVisibility(View.GONE);
+            }
+
+
+            //task ambil geocoder
+            taskAmbilGeocoder(init_latitudekomoditas, init_longitudekomoditas);
+
+
+            //setel ke peta
+            for (int i = 0; i < panjangarray; i++) {
+
+                lokitem = mListKomoHargaKomparator.get(i);
+
+                loops_namakomoditas = lokitem.getBarang();
+                dolatitude = Double.valueOf(lokitem.getLatitude());
+                dolongitude = Double.valueOf(lokitem.getLongitude());
+
+                LatLng latlnglokasi = new LatLng(dolatitude, dolongitude);
+
+                MarkerOptions markeropsi = new MarkerOptions();
+                markeropsi.position(latlnglokasi);
+                markeropsi.title(loops_namakomoditas);
+                markeropsi.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pinpetaharga));
+
+
+                if (posisiklik == i) {
+
+                    posisikameraklik = new CameraPosition.Builder().target(latlnglokasi)
+                            .zoom(16)
+                            .bearing(0).tilt(0).build();
+
+                    map.moveCamera(CameraUpdateFactory.newCameraPosition(posisikameraklik));
+
+                    markeradd = map.addMarker(markeropsi);
+                    markerklik = markeradd;
+                } else {
+                    markeradd = map.addMarker(markeropsi);
+                }
+
+
+                hashmapListHarga.put(markeradd, lokitem);
+            }
+
+            tombolnavigasikan.setVisibility(View.VISIBLE);
+
+            markerklik.showInfoWindow();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            tombolnavigasikan.setVisibility(View.GONE);
+        }
+    }
+
+
+
+
+
     //LISTENER KLO MARKER DI KLIK
     GoogleMap.OnMarkerClickListener listenermarker = new GoogleMap.OnMarkerClickListener() {
         @Override

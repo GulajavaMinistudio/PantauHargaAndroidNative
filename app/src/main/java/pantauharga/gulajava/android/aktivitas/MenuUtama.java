@@ -771,4 +771,45 @@ public class MenuUtama extends BaseActivityLocation {
     }
 
 
+
+
+    /** ==================== AMBIL PILIHAN LIST KLIK DARI FRAGMENT DAFTAR DAN
+     * TAMPILKAN KE FRAGMENT PETA =========================================== **/
+
+
+    public void setelPilihanKePeta(int posisi) {
+
+        if (mFragmentPetaHarga.isVisible()) {
+
+            mFragmentPetaHarga.setelMarkerSemuaPilihanKlik(posisi);
+
+            Handler handlerjedageser = new Handler();
+            handlerjedageser.postDelayed(jedageser, 500);
+        }
+    }
+
+
+
+    Runnable jedageser = new Runnable() {
+        @Override
+        public void run() {
+
+            mViewPager.setCurrentItem(1);
+        }
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

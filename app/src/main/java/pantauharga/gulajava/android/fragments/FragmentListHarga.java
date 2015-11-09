@@ -60,6 +60,7 @@ public class FragmentListHarga extends Fragment {
 
     private MenuUtama mMenuUtamaAkt;
 
+    private int posisiklikharga = 0;
 
 
 
@@ -204,6 +205,8 @@ public class FragmentListHarga extends Fragment {
         @Override
         public void onItemClick(View view, HargaKomoditasItemKomparator hargaItem, int posisi) {
 
+            posisiklikharga = posisi;
+            mMenuUtamaAkt.setelPilihanKePeta(posisiklikharga);
 
         }
     };
