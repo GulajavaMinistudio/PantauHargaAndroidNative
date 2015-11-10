@@ -163,7 +163,11 @@ public class LoginRegistersPengguna extends AppCompatActivity {
 
             case android.R.id.home:
 
-                LoginRegistersPengguna.this.finish();
+                if (kodepindah == Konstan.KODE_FRAGMENT_REGISTER) {
+                    pindahFragments(Konstan.KODE_FRAGMENT_LOGINREGISTER);
+                } else {
+                    LoginRegistersPengguna.this.finish();
+                }
                 return true;
         }
 
@@ -257,7 +261,7 @@ public class LoginRegistersPengguna extends AppCompatActivity {
         }
 
         Handler handler = new Handler();
-        handler.postDelayed(jedadismisfrag, 950);
+        handler.postDelayed(jedadismisfrag, 900);
 
         //invalidasi menu
 
@@ -536,19 +540,19 @@ public class LoginRegistersPengguna extends AppCompatActivity {
 
             if (str_namalengkap.length() > 0 && str_nomorhandphone.length() > 4) {
 
-                //simpan ke database
+                //simpan ke database registrasi
                 simpanDatabase(str_namapanggilan, str_namalengkap, str_email,
                         str_nomorktp, str_nomorhandphone, str_alamatlengkap,
                         str_kodepos);
 
             } else {
-                munculSnackbar(R.string.gagalogin_masuk);
+                munculSnackbar(R.string.gagalogin_buatakun);
                 isProgresKirim = false;
                 mProgressDialog.dismiss();
             }
         } else {
             //gagal login
-            munculSnackbar(R.string.gagalogin_masuk);
+            munculSnackbar(R.string.gagalogin_buatakun);
             isProgresKirim = false;
             mProgressDialog.dismiss();
         }
@@ -571,19 +575,19 @@ public class LoginRegistersPengguna extends AppCompatActivity {
             Log.w("HASIL DAFTAR LOG", "HASIL REGISTRASI ATAU LOGIN " + username + " " + nomorhp);
 
             //cek tampilkan data pengguna
-//            RMLogin rmLogin = mRealmResultsLogin.first();
-//
-//            mRealm.beginTransaction();
-//
-//            rmLogin.setUsername(username);
-//            rmLogin.setNama(namalengkap);
-//            rmLogin.setEmail(email);
-//            rmLogin.setKtp(nomorktp);
-//            rmLogin.setNohp(nomorhp);
-//            rmLogin.setAlamat(alamat);
-//            rmLogin.setKodepos(kodepos);
-//
-//            mRealm.commitTransaction();
+            RMLogin rmLogin = mRealmResultsLogin.first();
+
+            mRealm.beginTransaction();
+
+            rmLogin.setUsername(username);
+            rmLogin.setNama(namalengkap);
+            rmLogin.setEmail(email);
+            rmLogin.setKtp(nomorktp);
+            rmLogin.setNohp(nomorhp);
+            rmLogin.setAlamat(alamat);
+            rmLogin.setKodepos(kodepos);
+
+            mRealm.commitTransaction();
 
 
             isProgresKirim = false;

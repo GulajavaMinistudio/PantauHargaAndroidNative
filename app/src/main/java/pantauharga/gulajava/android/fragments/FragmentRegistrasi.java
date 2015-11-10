@@ -131,8 +131,8 @@ public class FragmentRegistrasi extends Fragment {
         boolean isValidasiEmail = mParseran.validasiEmail(str_email);
 
 
-        if (str_namalengkap.length() < 3) {
-            setelPeringatan(edit_alamatlengkap, teksinput_namalengkap, R.string.regist_namalengkap);
+        if (str_namalengkap.length() < 5) {
+            setelPeringatan(edit_namalengkap, teksinput_namalengkap, R.string.regist_namalengkap);
         } else if (str_namapanggilan.length() < 3) {
             setelPeringatan(edit_namapanggilan, teksinput_namapanggilan, R.string.regist_namapanggilan);
         } else if (str_password.length() < 6) {
@@ -143,7 +143,7 @@ public class FragmentRegistrasi extends Fragment {
             setelPeringatan(edit_password, teksinput_password, R.string.regist_passgasama);
         } else if (!isValidasiEmail) {
             setelPeringatan(edit_email, teksinput_email, R.string.regist_email);
-        } else if (str_nomorhandphone.length() < 6) {
+        } else if (str_nomorhandphone.length() < 10) {
             setelPeringatan(edit_nomorhandphone, teksinput_nomorhandphone, R.string.regist_nomorhp);
         } else {
             isValidasiData = true;

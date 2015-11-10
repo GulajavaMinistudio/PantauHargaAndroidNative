@@ -61,10 +61,6 @@ public class FragmentLogin extends Fragment {
         tombologin.setOnClickListener(listenertombol);
         tombolregister.setOnClickListener(listenertombol);
 
-        teksinput_namapanggilan.setErrorEnabled(true);
-        teksinput_password.setErrorEnabled(true);
-
-
         return viewfrag;
     }
 

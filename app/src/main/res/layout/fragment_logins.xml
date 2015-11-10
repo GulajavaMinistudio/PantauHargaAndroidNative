@@ -78,7 +78,6 @@
                     android:layout_width="290dp"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
                     app:errorTextAppearance="@style/TextAppearence.App.TextInputLayoutError"
                     app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 

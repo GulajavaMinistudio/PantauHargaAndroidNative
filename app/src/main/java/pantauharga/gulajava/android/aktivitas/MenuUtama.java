@@ -190,7 +190,7 @@ public class MenuUtama extends BaseActivityLocation {
         mRealm = Realm.getInstance(MenuUtama.this);
 
         Handler handler = new Handler();
-        handler.postDelayed(jedakirimdata, 700);
+        handler.postDelayed(jedakirimdata, 750);
     }
 
 
