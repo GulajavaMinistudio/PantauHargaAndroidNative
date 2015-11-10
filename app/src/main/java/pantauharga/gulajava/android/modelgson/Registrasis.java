@@ -1,21 +1,20 @@
-package pantauharga.gulajava.android.databases;
-
-import io.realm.RealmObject;
+package pantauharga.gulajava.android.modelgson;
 
 /**
- * Created by Gulajava Ministudio on 11/5/15.
+ * Created by Gulajava Ministudio on 11/6/15.
  */
-public class RMLogin extends RealmObject {
+public class Registrasis {
 
-    private String username;
-    private String nama;
-    private String email;
-    private String ktp;
-    private String nohp;
-    private String alamat;
-    private String kodepos;
+    private String username = "";
+    private String nama = "";
+    private String email = "";
+    private String ktp = "";
+    private String nohp = "";
+    private String alamat = "";
+    private String kodepos = "";
 
-    public RMLogin() {
+
+    public Registrasis() {
     }
 
     public String getUsername() {

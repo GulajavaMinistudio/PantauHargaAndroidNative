@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,9 +43,9 @@ public class FragmentLogin extends Fragment {
     private LoginRegistersPengguna mLoginRegistersPenggunaAkt;
 
     @Bind(R.id.tomboldaftar)
-    Button tombologin;
-    @Bind(R.id.tombolmasuk)
     Button tombolregister;
+    @Bind(R.id.tombolmasuk)
+    Button tombologin;
 
 
     @Nullable
@@ -94,8 +95,8 @@ public class FragmentLogin extends Fragment {
 
             //kirim pesan ke aktivitas untuk kirim data
             Bundle bundle = new Bundle();
-            bundle.putString(Konstan.TAG_INTENT_USERNAME,str_namapanggilan);
-            bundle.putString(Konstan.TAG_INTENT_PASSWORD,str_password);
+            bundle.putString(Konstan.TAG_INTENT_USERNAME, str_namapanggilan);
+            bundle.putString(Konstan.TAG_INTENT_PASSWORD, str_password);
 
             mLoginRegistersPenggunaAkt.terimaDataLogin(bundle);
 
@@ -107,6 +108,15 @@ public class FragmentLogin extends Fragment {
     private void setelPeringatan(EditText edits, TextInputLayout textInputLayout, int resId) {
         edits.requestFocus();
         textInputLayout.setError(FragmentLogin.this.getResources().getString(resId));
+
+        Log.w("SET ERROR", "SET ERROR");
+    }
+
+    //RESET PERINGATAN
+    private void resetPeringatan() {
+
+        teksinput_namapanggilan.setError("");
+        teksinput_password.setError("");
     }
 
 
@@ -115,13 +125,14 @@ public class FragmentLogin extends Fragment {
         public void onClick(View view) {
 
             sembunyikeyboard(FragmentLogin.this.getActivity(), view);
+            resetPeringatan();
 
             switch (view.getId()) {
 
                 case R.id.tomboldaftar:
 
                     //pindah ke halaman daftar
-
+                    mLoginRegistersPenggunaAkt.pindahFragments(Konstan.KODE_FRAGMENT_REGISTER);
 
                     break;
 

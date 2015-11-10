@@ -510,5 +510,4 @@ public abstract class BaseActivityLocation extends AppCompatActivity {
     }
 
 
-
 }

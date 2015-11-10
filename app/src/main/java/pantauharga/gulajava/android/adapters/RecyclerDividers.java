@@ -6,8 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import pantauharga.gulajava.android.R;
-
 
 /**
  * Created by Gulajava Ministudio on 6/7/15.

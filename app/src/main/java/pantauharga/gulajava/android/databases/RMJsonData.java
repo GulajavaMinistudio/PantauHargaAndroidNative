@@ -5,7 +5,7 @@ import io.realm.RealmObject;
 /**
  * Created by Gulajava Ministudio on 11/5/15.
  */
-public class RMJsonData extends RealmObject{
+public class RMJsonData extends RealmObject {
 
     private String waktukadaluarsa;
     private String jsonkomoditas;

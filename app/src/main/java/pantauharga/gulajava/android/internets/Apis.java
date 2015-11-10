@@ -9,8 +9,8 @@ import java.util.Map;
 
 import pantauharga.gulajava.android.Konstan;
 import pantauharga.gulajava.android.modelgson.HargaKomoditasItem;
-import pantauharga.gulajava.android.modelgson.KomoditasItem;
 import pantauharga.gulajava.android.modelgson.Logins;
+import pantauharga.gulajava.android.modelgson.Registrasis;
 
 /**
  * Created by Gulajava Ministudio on 11/6/15.
@@ -25,7 +25,9 @@ public class Apis {
     }
 
 
-    /** AMBIL LINK **/
+    /**
+     * AMBIL LINK
+     **/
 
     //AMBIL HARGA KOMODITAS TERDEKAT
     ///Api/hargaall.json
@@ -59,20 +61,20 @@ public class Apis {
     }
 
 
-
     private static DefaultRetryPolicy getRetryPolicy() {
 
         return new DefaultRetryPolicy(JUMLAH_TIMEOUT, JUMLAH_COBA, PENGALI_TIMEOUT);
     }
 
 
-
-    /** AMBIL REQUEST VOLLEY UNTUK KIRIM KE SERVERS  **/
+    /**
+     * AMBIL REQUEST VOLLEY UNTUK KIRIM KE SERVERS
+     **/
 
     //AMBIL HARGA KOMODITAS TERDEKAT
     public static JacksonRequestArray<HargaKomoditasItem> postRequestHargaKomoditasSekitars(
             String urls,
-            Map<String,String> headers,
+            Map<String, String> headers,
             Map<String, String> params,
             String jsonbodystr,
             Response.Listener<List<HargaKomoditasItem>> listenerok,
@@ -98,15 +100,11 @@ public class Apis {
     }
 
 
-
-
-
-
     //LAPORKAN HARGA KOMODITAS
 
     //AMBIL DAFTAR KOMODITAS
     public static StrRekuestGet getRequestDaftarKomoditas(String urls, Response.Listener<String> listenerok,
-                                                   Response.ErrorListener listenergagal) {
+                                                          Response.ErrorListener listenergagal) {
 
         StrRekuestGet strRekuestGet = new StrRekuestGet(
                 Request.Method.GET,
@@ -123,20 +121,43 @@ public class Apis {
 
 
     //REGISTER PENGGUNA
+    public static JacksonRequest<Registrasis> postRequestRegistrasi(
+            String urls,
+            Map<String, String> headers,
+            Map<String, String> params,
+            String jsonbodystr,
+            Response.Listener<Registrasis> listenerok,
+            Response.ErrorListener listenergagal
+    ) {
 
+        headers.put(Konstan.TAG_HEADERCONTENTIPE, Konstan.HEADER_JSONTYPE);
 
+        JacksonRequest<Registrasis> jacksonRequest = new JacksonRequest<>(
+                Request.Method.POST,
+                urls,
+                Registrasis.class,
+                headers,
+                params,
+                jsonbodystr,
+                listenerok,
+                listenergagal
+        );
 
+        jacksonRequest.setRetryPolicy(getRetryPolicy());
+
+        return jacksonRequest;
+    }
 
 
     //LOGIN PENGGUNA
     public static JacksonRequest<Logins> postRequestLogin(
             String urls,
-            Map<String,String> headers,
+            Map<String, String> headers,
             Map<String, String> params,
             String jsonbodystr,
             Response.Listener<Logins> listenerok,
             Response.ErrorListener listenergagal
-            ) {
+    ) {
 
         headers.put(Konstan.TAG_HEADERCONTENTIPE, Konstan.HEADER_JSONTYPE);
 
@@ -155,13 +176,6 @@ public class Apis {
 
         return jacksonRequest;
     }
-
-
-
-
-
-
-
 
 
 }

@@ -14,7 +14,7 @@ import pantauharga.gulajava.android.aktivitas.LoginRegistersPengguna;
 /**
  * Created by Gulajava Ministudio on 11/9/15.
  */
-public class DialogOkLogin extends DialogFragment {
+public class DialogOkLogOut extends DialogFragment {
 
 
     private LoginRegistersPengguna mLoginRegistersPengguna;
@@ -25,10 +25,10 @@ public class DialogOkLogin extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
 
-        mLoginRegistersPengguna = (LoginRegistersPengguna) DialogOkLogin.this.getActivity();
+        mLoginRegistersPengguna = (LoginRegistersPengguna) DialogOkLogOut.this.getActivity();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(DialogOkLogin.this.getActivity());
-        builder.setMessage(R.string.oklogin_masuk);
+        AlertDialog.Builder builder = new AlertDialog.Builder(DialogOkLogOut.this.getActivity());
+        builder.setMessage(R.string.toast_loginkeluarok);
         builder.setPositiveButton(R.string.teks_ok, listenerok);
 
         Dialog dialog = builder.create();
@@ -42,9 +42,8 @@ public class DialogOkLogin extends DialogFragment {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
 
-            mLoginRegistersPengguna.setOkLogin();
-
-            DialogOkLogin.this.dismiss();
+            mLoginRegistersPengguna.setOkLogOut();
+            DialogOkLogOut.this.dismiss();
         }
     };
 

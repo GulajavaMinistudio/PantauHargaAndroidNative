@@ -22,7 +22,6 @@ public class DialogMintaAksesLoks extends DialogFragment {
     private BaseActivityLocation baseLocationAktivitas;
 
 
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

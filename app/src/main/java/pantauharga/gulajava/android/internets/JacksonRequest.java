@@ -24,7 +24,9 @@ public class JacksonRequest<T> extends Request<T> {
     private final Map<String, String> params;
     private final String mRequestBody;
 
-    /** Content type for request. */
+    /**
+     * Content type for request.
+     */
     protected static final String PROTOCOL_CHARSET = "utf-8";
     private static final String PROTOCOL_CONTENT_TYPE =
             String.format("application/json; charset=%s", PROTOCOL_CHARSET);
@@ -46,7 +48,6 @@ public class JacksonRequest<T> extends Request<T> {
     }
 
 
-
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
         return headers != null ? headers : super.getHeaders();
@@ -57,7 +58,6 @@ public class JacksonRequest<T> extends Request<T> {
     protected Map<String, String> getParams() throws AuthFailureError {
         return params != null ? params : super.getParams();
     }
-
 
 
     @Override

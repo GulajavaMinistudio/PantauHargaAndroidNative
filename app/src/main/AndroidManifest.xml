@@ -63,7 +63,8 @@
         <activity
             android:name="pantauharga.gulajava.android.aktivitas.LoginRegistersPengguna"
             android:label="@string/login_register_datapengguna"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.NOLAUNCHER"/>

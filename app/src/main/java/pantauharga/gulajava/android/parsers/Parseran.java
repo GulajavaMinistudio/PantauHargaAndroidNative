@@ -30,6 +30,7 @@ import pantauharga.gulajava.android.modelgson.HargaKomoditasItemKomparator;
 import pantauharga.gulajava.android.modelgson.KomoditasItem;
 import pantauharga.gulajava.android.modelgsonkirim.HargaKomoditasCek;
 import pantauharga.gulajava.android.modelgsonkirim.LoginKirim;
+import pantauharga.gulajava.android.modelgsonkirim.RegisterKirim;
 
 /**
  * Created by Gulajava Ministudio on 11/5/15.
@@ -179,7 +180,7 @@ public class Parseran {
     //KONVERSI POJO KOMODITAS KE JSON
     public String konversiPojoJsonCekKomoditas(HargaKomoditasCek hargaKomoditasCek) {
 
-        String json = "";
+        String json;
 
         try {
 
@@ -194,18 +195,16 @@ public class Parseran {
     }
 
 
-
     //KONVERSI POJO KE JSON LOGIN
     public String konversiPojoJsonLogin(LoginKirim loginKirim) {
 
-        String json = "";
+        String json;
 
         try {
 
             json = JSON.std.asString(loginKirim);
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             json = "";
         }
@@ -214,7 +213,22 @@ public class Parseran {
     }
 
 
+    //KONVERSI POJO KE JSON REGISTRASI
+    public String konversiPojoRegistrasi(RegisterKirim registerKirim) {
 
+        String json;
+
+        try {
+
+            json = JSON.std.asString(registerKirim);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            json = "";
+        }
+
+        return json;
+    }
 
 
     //PARSE LIST KOMODITAS KE MODE LIST KOMPARATOR
@@ -276,7 +290,7 @@ public class Parseran {
 
             if (listkomparator != null) {
 
-                Log.w("MODE LIST","MODE " + modelist);
+                Log.w("MODE LIST", "MODE " + modelist);
 
                 try {
                     switch (modelist) {
@@ -436,14 +450,6 @@ public class Parseran {
 
         return isValid;
     }
-
-
-
-
-
-
-
-
 
 
 }

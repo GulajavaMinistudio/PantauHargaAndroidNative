@@ -2,6 +2,7 @@ package pantauharga.gulajava.android.dialogs;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -14,10 +15,7 @@ import pantauharga.gulajava.android.aktivitas.LoginRegistersPengguna;
 /**
  * Created by Gulajava Ministudio on 11/9/15.
  */
-public class DialogOkLogin extends DialogFragment {
-
-
-    private LoginRegistersPengguna mLoginRegistersPengguna;
+public class DialogPeringatanLoginDulu extends DialogFragment {
 
 
     @NonNull
@@ -25,11 +23,11 @@ public class DialogOkLogin extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
 
-        mLoginRegistersPengguna = (LoginRegistersPengguna) DialogOkLogin.this.getActivity();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(DialogOkLogin.this.getActivity());
-        builder.setMessage(R.string.oklogin_masuk);
+        AlertDialog.Builder builder = new AlertDialog.Builder(DialogPeringatanLoginDulu.this.getActivity());
+        builder.setMessage(R.string.toast_loginmasukdulu);
         builder.setPositiveButton(R.string.teks_ok, listenerok);
+        builder.setNegativeButton(R.string.teks_batal, listenerbatal);
 
         Dialog dialog = builder.create();
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -42,9 +40,17 @@ public class DialogOkLogin extends DialogFragment {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
 
-            mLoginRegistersPengguna.setOkLogin();
+            Intent intentadminpengguna = new Intent(DialogPeringatanLoginDulu.this.getActivity(), LoginRegistersPengguna.class);
+            DialogPeringatanLoginDulu.this.startActivity(intentadminpengguna);
+            DialogPeringatanLoginDulu.this.dismiss();
+        }
+    };
 
-            DialogOkLogin.this.dismiss();
+    DialogInterface.OnClickListener listenerbatal = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+
+            DialogPeringatanLoginDulu.this.dismiss();
         }
     };
 

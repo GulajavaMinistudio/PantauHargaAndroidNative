@@ -35,22 +35,20 @@ public class Konstan {
     public static final String TAG_INTENT_POSISIPILIH = "posisipilihan";
     public static final String TAG_INTENT_POSISIURUTANPILIH = "urutanpilihan";
 
+    public static final String TAG_INTENT_NAMALENGKAP = "namalengkap";
     public static final String TAG_INTENT_USERNAME = "username";
     public static final String TAG_INTENT_PASSWORD = "password";
-
+    public static final String TAG_INTENT_EMAIL = "email";
+    public static final String TAG_INTENT_NOMORKTP = "nomorktp";
+    public static final String TAG_INTENT_NOMORHP = "nomorhp";
+    public static final String TAG_INTENT_ALAMATLENGKAP = "alamatlengkap";
+    public static final String TAG_INTENT_KODEPOS = "kodepos";
 
 
     //KODE PINDAH FRAGMENT
     public static final int KODE_FRAGMENT_LOGINREGISTER = 40;
     public static final int KODE_FRAGMENT_REGISTER = 41;
     public static final int KODE_FRAGMENT_DATAPENGGUNA = 42;
-
-
-
-
-
-
-
 
 
 }

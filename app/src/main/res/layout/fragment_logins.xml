@@ -9,7 +9,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:fadingEdge="none">
 
 
@@ -53,7 +54,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
                     app:errorTextAppearance="@style/TextAppearence.App.TextInputLayoutError"
-                    app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+                    app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout"
+                    >
 
 
                     <EditText
@@ -76,7 +78,7 @@
                     android:layout_width="290dp"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="1dp"
                     app:errorTextAppearance="@style/TextAppearence.App.TextInputLayoutError"
                     app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
@@ -105,31 +107,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="34dp"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:gravity="center"
                 android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/tomboldaftar"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="150dp"
-                    android:layout_height="45dp"
-                    android:background="@drawable/desaintombolmenu"
-                    android:text="@string/teks_masuk"
-                    android:textColor="@color/putih"
-                    android:textSize="@dimen/ukuran16sp"
-                    android:textStyle="bold"/>
-
 
                 <Button
                     android:id="@+id/tombolmasuk"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="150dp"
-                    android:layout_height="45dp"
+                    android:layout_height="42dp"
+                    android:background="@drawable/desaintombolmenu"
+                    android:text="@string/teks_masuk"
+                    android:textColor="@color/putih"
+                    android:textSize="@dimen/ukuran14sp"
+                    android:textStyle="bold"/>
+
+
+                <Button
+                    android:id="@+id/tomboldaftar"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="150dp"
+                    android:layout_height="42dp"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/desaintombolmenudaftar"
                     android:text="@string/teks_daftar"
                     android:textColor="@color/putih"
-                    android:textSize="@dimen/ukuran16sp"
+                    android:textSize="@dimen/ukuran14sp"
                     android:textStyle="bold"/>
 
             </LinearLayout>

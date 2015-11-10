@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.android.volley.Response;
@@ -30,13 +32,18 @@ import io.realm.RealmResults;
 import pantauharga.gulajava.android.Konstan;
 import pantauharga.gulajava.android.R;
 import pantauharga.gulajava.android.databases.RMLogin;
+import pantauharga.gulajava.android.dialogs.DialogOkLogOut;
 import pantauharga.gulajava.android.dialogs.DialogOkLogin;
+import pantauharga.gulajava.android.fragments.FragmentDataPengguna;
 import pantauharga.gulajava.android.fragments.FragmentLogin;
+import pantauharga.gulajava.android.fragments.FragmentRegistrasi;
 import pantauharga.gulajava.android.internets.Apis;
 import pantauharga.gulajava.android.internets.JacksonRequest;
 import pantauharga.gulajava.android.internets.Volleys;
 import pantauharga.gulajava.android.modelgson.Logins;
+import pantauharga.gulajava.android.modelgson.Registrasis;
 import pantauharga.gulajava.android.modelgsonkirim.LoginKirim;
+import pantauharga.gulajava.android.modelgsonkirim.RegisterKirim;
 import pantauharga.gulajava.android.parsers.CekGPSNet;
 import pantauharga.gulajava.android.parsers.Parseran;
 
@@ -61,11 +68,19 @@ public class LoginRegistersPengguna extends AppCompatActivity {
     private String str_loginnamapanggilan = "";
     private String str_loginpassword = "";
 
+    //registrasi
+    private String str_regis_namalengkap = "";
+    private String str_regis_namapanggilan = "";
+    private String str_regis_password = "";
+    private String str_regis_email = "";
+    private String str_regis_nomorktp = "";
+    private String str_regis_nomorhandphone = "";
+    private String str_regis_alamatlengkap = "";
+    private String str_regis_kodepos = "";
 
+    //hasil login atau registrasi
     private String str_namalengkap = "";
     private String str_namapanggilan = "";
-    private String str_password = "";
-    private String str_konfirmasipassword = "";
     private String str_email = "";
     private String str_nomorktp = "";
     private String str_nomorhandphone = "";
@@ -89,6 +104,8 @@ public class LoginRegistersPengguna extends AppCompatActivity {
     private boolean isAktJalan = false;
 
     private FragmentLogin mFragmentLogin;
+    private FragmentRegistrasi mFragmentRegistrasi;
+    private FragmentDataPengguna mFragmentDataPengguna;
 
 
     @Override
@@ -133,6 +150,26 @@ public class LoginRegistersPengguna extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+
+                LoginRegistersPengguna.this.finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     //AMBIL DATA REALM LOGIN
     private void ambilDataRealmLogins() {
 
@@ -170,6 +207,7 @@ public class LoginRegistersPengguna extends AppCompatActivity {
         if (isLogin) {
 
             //tampilkan fragment data pengguna
+            pindahFragments(Konstan.KODE_FRAGMENT_DATAPENGGUNA);
 
         } else {
 
@@ -201,17 +239,29 @@ public class LoginRegistersPengguna extends AppCompatActivity {
 
             case Konstan.KODE_FRAGMENT_REGISTER:
 
+                mFragmentRegistrasi = new FragmentRegistrasi();
+                mFragmentTransaction = LoginRegistersPengguna.this.getSupportFragmentManager().beginTransaction();
+                mFragmentTransaction.replace(R.id.frag_containers, mFragmentRegistrasi);
+                mFragmentTransaction.commit();
 
                 break;
 
             case Konstan.KODE_FRAGMENT_DATAPENGGUNA:
 
+                mFragmentDataPengguna = new FragmentDataPengguna();
+                mFragmentTransaction = LoginRegistersPengguna.this.getSupportFragmentManager().beginTransaction();
+                mFragmentTransaction.replace(R.id.frag_containers, mFragmentDataPengguna);
+                mFragmentTransaction.commit();
 
                 break;
         }
 
         Handler handler = new Handler();
         handler.postDelayed(jedadismisfrag, 950);
+
+        //invalidasi menu
+
+
     }
 
 
@@ -310,6 +360,7 @@ public class LoginRegistersPengguna extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
+                        error.printStackTrace();
                         Log.w("GAGAL", "GAGAL");
                         if (isAktJalan) {
                             cekHasilLogin(null);
@@ -360,6 +411,151 @@ public class LoginRegistersPengguna extends AppCompatActivity {
 
 
     /**
+     * ===========  REGISTRASI ============
+     **/
+
+    //MENERIMA DATA REGISTRASI
+    public void terimaDataRegistrasi(Bundle bundel) {
+
+        isInternet = mCekGPSNet.cekStatsInternet();
+
+        if (isInternet) {
+
+            str_regis_namalengkap = bundel.getString(Konstan.TAG_INTENT_NAMALENGKAP);
+            str_regis_namapanggilan = bundel.getString(Konstan.TAG_INTENT_USERNAME);
+            str_regis_password = bundel.getString(Konstan.TAG_INTENT_PASSWORD);
+            str_regis_email = bundel.getString(Konstan.TAG_INTENT_EMAIL);
+            str_regis_nomorktp = bundel.getString(Konstan.TAG_INTENT_NOMORKTP);
+            str_regis_nomorhandphone = bundel.getString(Konstan.TAG_INTENT_NOMORHP);
+            str_regis_alamatlengkap = bundel.getString(Konstan.TAG_INTENT_ALAMATLENGKAP);
+            str_regis_kodepos = bundel.getString(Konstan.TAG_INTENT_KODEPOS);
+
+            //parse data registrasi
+            parseDataRegistrasi();
+
+        } else {
+            munculSnackbar(R.string.toastnointernet);
+        }
+
+    }
+
+
+    //PARSE DATA REGISTRASI JADI KE JSON
+    private void parseDataRegistrasi() {
+
+        //progress dialog
+        isProgresKirim = true;
+        tampilProgressDialog("Mengirim data...");
+
+        Task.callInBackground(new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+
+                RegisterKirim registerKirim = new RegisterKirim();
+                registerKirim.setUsername(str_regis_namapanggilan);
+                registerKirim.setNama(str_regis_namalengkap);
+                registerKirim.setPassword(str_regis_password);
+                registerKirim.setEmail(str_regis_email);
+                registerKirim.setKtp(str_regis_nomorktp);
+                registerKirim.setNohp(str_regis_nomorhandphone);
+                registerKirim.setAlamat(str_regis_alamatlengkap);
+                registerKirim.setKodepos(str_regis_kodepos);
+
+                return mParseran.konversiPojoRegistrasi(registerKirim);
+            }
+        })
+
+                .continueWith(new Continuation<String, Object>() {
+                    @Override
+                    public Object then(Task<String> task) throws Exception {
+
+                        String hasiljson = task.getResult();
+                        Log.w("HASIL PARSE CEK", "HASIL PARSE JSON CEK " + hasiljson);
+
+                        kirimJsonServerRegistrasi(hasiljson);
+                        return null;
+                    }
+                }, Task.UI_THREAD_EXECUTOR);
+    }
+
+
+    //KIRIM DATA REGISTRASI VOLLEY
+    private void kirimJsonServerRegistrasi(String responbody) {
+
+        String urls = Apis.getLinkRegisterPengguna();
+        Map<String, String> headers = new HashMap<>();
+        Map<String, String> parameters = new HashMap<>();
+
+        JacksonRequest<Registrasis> jacksonRequest = Apis.postRequestRegistrasi(
+                urls,
+                headers,
+                parameters,
+                responbody,
+
+                new Response.Listener<Registrasis>() {
+                    @Override
+                    public void onResponse(Registrasis response) {
+
+                        Log.w("SUKSES", "SUKSES");
+                        if (isAktJalan) {
+                            cekHasilRegistrasi(response);
+                        }
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        error.printStackTrace();
+                        Log.w("GAGAL", "GAGAL");
+                        if (isAktJalan) {
+
+                            cekHasilRegistrasi(null);
+                        }
+                    }
+                }
+        );
+
+        Volleys.getInstance(LoginRegistersPengguna.this).addToRequestQueue(jacksonRequest);
+    }
+
+
+    //CEK HASIL REGISTRASI
+    private void cekHasilRegistrasi(Registrasis registrasis) {
+
+        if (registrasis != null) {
+
+            str_namalengkap = registrasis.getNama();
+            str_namapanggilan = registrasis.getUsername();
+            str_email = registrasis.getEmail();
+            str_nomorktp = registrasis.getKtp();
+            str_nomorhandphone = registrasis.getNohp();
+            str_alamatlengkap = registrasis.getAlamat();
+            str_kodepos = registrasis.getKodepos();
+
+            if (str_namalengkap.length() > 0 && str_nomorhandphone.length() > 4) {
+
+                //simpan ke database
+                simpanDatabase(str_namapanggilan, str_namalengkap, str_email,
+                        str_nomorktp, str_nomorhandphone, str_alamatlengkap,
+                        str_kodepos);
+
+            } else {
+                munculSnackbar(R.string.gagalogin_masuk);
+                isProgresKirim = false;
+                mProgressDialog.dismiss();
+            }
+        } else {
+            //gagal login
+            munculSnackbar(R.string.gagalogin_masuk);
+            isProgresKirim = false;
+            mProgressDialog.dismiss();
+        }
+    }
+
+
+    /**
      * ========= SIMPAN DATABASE ===========
      **/
 
@@ -400,8 +596,13 @@ public class LoginRegistersPengguna extends AppCompatActivity {
     }
 
 
+    /**
+     * ============ TAMPIL DIALOG ===========
+     **/
+
+
     //TAMPIL DIALOG OK LOGIN
-    private void tampilDialogOkLogin() {
+    public void tampilDialogOkLogin() {
 
         FragmentTransaction fts = LoginRegistersPengguna.this.getSupportFragmentManager().beginTransaction();
         DialogOkLogin dialogOkLogin = new DialogOkLogin();
@@ -449,6 +650,33 @@ public class LoginRegistersPengguna extends AppCompatActivity {
     };
 
 
+    //TAMPIL DIALOG LOG OUT
+    public void tampilDialogLogOut() {
+
+        FragmentTransaction fts = LoginRegistersPengguna.this.getSupportFragmentManager().beginTransaction();
+        DialogOkLogOut dialogOkLogOut = new DialogOkLogOut();
+        dialogOkLogOut.setCancelable(false);
+        dialogOkLogOut.show(fts, "keluar aplikasi ok");
+
+    }
+
+
+    public void setOkLogOut() {
+
+        Handler handler = new Handler();
+        handler.postDelayed(jedaLogouts, 500);
+
+    }
+
+    Runnable jedaLogouts = new Runnable() {
+        @Override
+        public void run() {
+
+            pindahFragments(Konstan.KODE_FRAGMENT_LOGINREGISTER);
+        }
+    };
+
+
     //MUNCUL SNACKBAR
     private void munculSnackbar(int resPesan) {
 
@@ -465,6 +693,21 @@ public class LoginRegistersPengguna extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (kodepindah == Konstan.KODE_FRAGMENT_REGISTER) {
+
+            switch (keyCode) {
+
+                case KeyEvent.KEYCODE_BACK:
+
+                    //jika di halaman registrasi batal, balikan kembali ke halaman login
+                    pindahFragments(Konstan.KODE_FRAGMENT_LOGINREGISTER);
+                    return true;
+            }
+
+        }
+
+
         return super.onKeyDown(keyCode, event);
     }
 

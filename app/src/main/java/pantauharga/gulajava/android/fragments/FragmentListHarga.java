@@ -63,8 +63,6 @@ public class FragmentListHarga extends Fragment {
     private int posisiklikharga = 0;
 
 
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -189,7 +187,6 @@ public class FragmentListHarga extends Fragment {
     }
 
 
-
     View.OnClickListener listenerfloatingbutton = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -197,7 +194,6 @@ public class FragmentListHarga extends Fragment {
             mMenuUtamaAkt.tampilDialogPilihKomoditas();
         }
     };
-
 
 
     //JIKA RECYCLER VIEW DIKLIK

@@ -49,6 +49,7 @@ import pantauharga.gulajava.android.adapters.AdapterTabPager;
 import pantauharga.gulajava.android.databases.RMJsonData;
 import pantauharga.gulajava.android.databases.RMLogin;
 import pantauharga.gulajava.android.dialogs.DialogKomoditasCarian;
+import pantauharga.gulajava.android.dialogs.DialogPeringatanLoginDulu;
 import pantauharga.gulajava.android.dialogs.DialogUrutkanBerdasar;
 import pantauharga.gulajava.android.fragments.FragmentListHarga;
 import pantauharga.gulajava.android.fragments.FragmentPetaHarga;
@@ -138,6 +139,7 @@ public class MenuUtama extends BaseActivityLocation {
 
 
     private int posisipagers = 0;
+    private int kodedrawerklik = 0;
 
 
     @Override
@@ -270,16 +272,14 @@ public class MenuUtama extends BaseActivityLocation {
 
                 return true;
 
-            case R.id.action_kirimharga :
+            case R.id.action_kirimharga:
 
                 //cek status kirim harga
                 if (isLogin) {
 
-                }
-                else {
+                } else {
 
-                    Intent intentadminpengguna = new Intent(MenuUtama.this, LoginRegistersPengguna.class);
-                    MenuUtama.this.startActivity(intentadminpengguna);
+                    tampilDialogLoginDulu();
                 }
 
                 return true;
@@ -399,7 +399,60 @@ public class MenuUtama extends BaseActivityLocation {
     NavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(MenuItem item) {
+
+            item.setChecked(false);
+            Handler handler = new Handler();
+
+            kodedrawerklik = item.getItemId();
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+            handler.postDelayed(jedadrawerklik, 550);
+
             return false;
+        }
+    };
+
+
+    //RUNNABLE JEDA DRAWER KLIK
+    Runnable jedadrawerklik = new Runnable() {
+        @Override
+        public void run() {
+
+            switch (kodedrawerklik) {
+
+                case R.id.menu_kirimharga:
+
+                    //cek status kirim harga dengan cek login
+                    if (isLogin) {
+
+                    } else {
+                        tampilDialogLoginDulu();
+                    }
+
+                    break;
+
+                case R.id.menu_jual_komoditas:
+
+                    //cek status kirim harga dengan cek login
+                    if (isLogin) {
+
+                    } else {
+                        tampilDialogLoginDulu();
+                    }
+
+                    break;
+
+                case R.id.menu_data_pengguna:
+
+                    Intent intentadminpengguna = new Intent(MenuUtama.this, LoginRegistersPengguna.class);
+                    MenuUtama.this.startActivity(intentadminpengguna);
+
+                    break;
+
+                case R.id.ic_tentang_app:
+
+
+                    break;
+            }
         }
     };
 
@@ -780,6 +833,17 @@ public class MenuUtama extends BaseActivityLocation {
         }
 
         kirimPesanDaftarHarga(listHargaServers, MODE_LIST, mLocationPengguna);
+    }
+
+
+    //TAMPILKAN DIALOG UNTUK DISURUH LOGIN DAHULU
+    private void tampilDialogLoginDulu() {
+
+        DialogPeringatanLoginDulu dialogPeringatanLoginDulu = new DialogPeringatanLoginDulu();
+        FragmentTransaction fragmentTransaction = MenuUtama.this.getSupportFragmentManager().beginTransaction();
+        dialogPeringatanLoginDulu.setCancelable(false);
+        dialogPeringatanLoginDulu.show(fragmentTransaction, "dialog login dulu deh");
+
     }
 
 

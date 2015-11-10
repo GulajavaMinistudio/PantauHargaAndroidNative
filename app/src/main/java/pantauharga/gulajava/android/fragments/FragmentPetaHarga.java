@@ -519,9 +519,6 @@ public class FragmentPetaHarga extends Fragment {
     }
 
 
-
-
-
     //LISTENER KLO MARKER DI KLIK
     GoogleMap.OnMarkerClickListener listenermarker = new GoogleMap.OnMarkerClickListener() {
         @Override

@@ -8,7 +8,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:fadingEdge="none">
 
 
@@ -262,6 +263,7 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
                     android:background="@drawable/desaintombolmenu"
                     android:text="@string/teks_daftar"
                     android:textColor="@color/putih"
