@@ -58,7 +58,9 @@ public class Konstan {
     public static final int KODE_KIRIMHARGAJUALKOMO_AKT = 678;
 
 
-
+    public static final String TAG_INTENT_LAT = "latitudes";
+    public static final String TAG_INTENT_LONG = "longitudes";
+    public static final String TAG_INTENT_ALAMATGABUNGANS = "alamatgabungans";
 
 
 

@@ -1,5 +1,6 @@
 package pantauharga.gulajava.android.aktivitas;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -137,6 +138,7 @@ public class LaporHarga extends BaseActivityLocation {
     private String gecoder_alamat = "";
     private String gecoder_namakota = "";
     private String alamatgabungan = "";
+    private String alamatgabungansetel = "";
 
 
     private ProgressDialog mProgressDialog;
@@ -357,6 +359,8 @@ public class LaporHarga extends BaseActivityLocation {
         tombolkirim.setOnClickListener(listenertombol);
         tombolsetelpeta.setOnClickListener(listenertombol);
         tomboldraft.setOnClickListener(listenertombol);
+        tombolsetelpeta.setOnClickListener(listenertombol);
+
 
         switch (kodeperintah) {
 
@@ -390,7 +394,7 @@ public class LaporHarga extends BaseActivityLocation {
         setelEditTextLokasi(strkoordinatlokasi);
 
         //ambil data awal alamat lokasi pengguna
-        taskAmbilGeocoder(latitudepengguna + "", longitudepengguna + "");
+//        taskAmbilGeocoder(latitudepengguna + "", longitudepengguna + "");
 
     }
 
@@ -423,7 +427,8 @@ public class LaporHarga extends BaseActivityLocation {
     //SUNTING LOKASI DENGAN PETA
     private void setelLokasiPeta() {
 
-
+        Intent intentkordinat = new Intent(LaporHarga.this, PetaAmbilLokasi.class);
+        LaporHarga.this.startActivityForResult(intentkordinat, Konstan.REQUEST_CODE_LOCATION);
     }
 
 
@@ -432,7 +437,49 @@ public class LaporHarga extends BaseActivityLocation {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (resultCode == Activity.RESULT_OK) {
 
+            if (requestCode == Konstan.REQUEST_CODE_LOCATION) {
+
+                Bundle bundels = data.getExtras();
+                String str_latitudesetel = bundels.getString(Konstan.TAG_INTENT_LAT);
+                String str_longitudesetel = bundels.getString(Konstan.TAG_INTENT_LONG);
+                alamatgabungansetel = bundels.getString(Konstan.TAG_INTENT_ALAMATGABUNGANS);
+
+                Log.w("LOKASI SETEL", "lokasi setel " + str_latitudesetel + " , " + str_longitudesetel);
+
+                double dolatsetel = 0;
+                double dolongisetel = 0;
+
+                try {
+                    if (str_latitudesetel != null && str_longitudesetel != null) {
+                        dolatsetel = Double.valueOf(str_latitudesetel);
+                        dolongisetel = Double.valueOf(str_longitudesetel);
+                    } else {
+                        dolatsetel = 0;
+                        dolongisetel = 0;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    dolatsetel = 0;
+                    dolongisetel = 0;
+                }
+
+                if (dolatsetel != 0 && dolongisetel != 0) {
+
+                    isLokasiSetels = true;
+
+                    LaporHarga.this.latitudepengguna = dolatsetel;
+                    LaporHarga.this.longitudepengguna = dolongisetel;
+
+                    setelEditTextLokasi(latitudepengguna + " , " + longitudepengguna);
+
+                    //ambil geocoder
+                    taskAmbilGeocoder("" + latitudepengguna, "" + longitudepengguna);
+                }
+
+            }
+        }
     }
 
 
@@ -492,9 +539,6 @@ public class LaporHarga extends BaseActivityLocation {
         simpanDatabase(false, idkomoditas, namakomoditas, latitude, longitude,
                 namalokasi, datakirim_nohp, hargakomoditas, jumlahkomoditas);
     }
-
-
-
 
 
     //PERINGATAN JIKA SALAH ISI
@@ -829,7 +873,7 @@ public class LaporHarga extends BaseActivityLocation {
 
                 case R.id.tombol_setelpeta:
 
-
+                    setelLokasiPeta();
                     break;
 
                 case R.id.tombol_kirim:
@@ -837,7 +881,7 @@ public class LaporHarga extends BaseActivityLocation {
                     ambilDataPengguna();
                     break;
 
-                case R.id.tombol_simpandraft :
+                case R.id.tombol_simpandraft:
 
                     ambilDataPenggunaDraft();
                     break;
