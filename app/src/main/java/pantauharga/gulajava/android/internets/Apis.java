@@ -9,6 +9,7 @@ import java.util.Map;
 
 import pantauharga.gulajava.android.Konstan;
 import pantauharga.gulajava.android.modelgson.HargaKomoditasItem;
+import pantauharga.gulajava.android.modelgson.HargaKomoditasLapor;
 import pantauharga.gulajava.android.modelgson.Logins;
 import pantauharga.gulajava.android.modelgson.Registrasis;
 
@@ -101,6 +102,33 @@ public class Apis {
 
 
     //LAPORKAN HARGA KOMODITAS
+    public static JacksonRequest<HargaKomoditasLapor> postRequestHargaLapor(
+            String urls,
+            Map<String, String> headers,
+            Map<String, String> params,
+            String jsonbodystr,
+            Response.Listener<HargaKomoditasLapor> listenerok,
+            Response.ErrorListener listenergagal
+    ) {
+
+        headers.put(Konstan.TAG_HEADERCONTENTIPE, Konstan.HEADER_JSONTYPE);
+
+        JacksonRequest<HargaKomoditasLapor> jacksonRequest = new JacksonRequest<>(
+                Request.Method.POST,
+                urls,
+                HargaKomoditasLapor.class,
+                headers,
+                params,
+                jsonbodystr,
+                listenerok,
+                listenergagal
+        );
+
+        jacksonRequest.setRetryPolicy(getRetryPolicy());
+
+        return jacksonRequest;
+    }
+
 
     //AMBIL DAFTAR KOMODITAS
     public static StrRekuestGet getRequestDaftarKomoditas(String urls, Response.Listener<String> listenerok,

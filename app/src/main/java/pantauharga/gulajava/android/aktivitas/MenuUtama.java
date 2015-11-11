@@ -608,8 +608,8 @@ public class MenuUtama extends BaseActivityLocation {
             isDataAwalDiambil = true;
             susunJsonKirimServer();
         } else {
-            munculSnackbar(R.string.toastnointernet);
             isDataAwalDiambil = false;
+            munculSnackbar(R.string.toastnointernet);
         }
     }
 
@@ -678,6 +678,7 @@ public class MenuUtama extends BaseActivityLocation {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
+                        error.printStackTrace();
                         Log.w("GAGAL", "GAGAL");
 
                         if (isAktJalan) {

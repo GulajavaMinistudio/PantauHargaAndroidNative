@@ -10,6 +10,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -25,10 +26,16 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.Callable;
 
 import bolts.Continuation;
@@ -41,12 +48,17 @@ import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import pantauharga.gulajava.android.Konstan;
 import pantauharga.gulajava.android.R;
+import pantauharga.gulajava.android.databases.RMDataRiwayat;
 import pantauharga.gulajava.android.databases.RMJsonData;
 import pantauharga.gulajava.android.databases.RMLogin;
+import pantauharga.gulajava.android.dialogs.DialogOkKirim;
+import pantauharga.gulajava.android.internets.Apis;
+import pantauharga.gulajava.android.internets.JacksonRequest;
 import pantauharga.gulajava.android.internets.Volleys;
 import pantauharga.gulajava.android.messagebus.MessageBusAktAkt;
+import pantauharga.gulajava.android.modelgson.HargaKomoditasLapor;
 import pantauharga.gulajava.android.modelgson.KomoditasItem;
-import pantauharga.gulajava.android.parsers.CekGPSNet;
+import pantauharga.gulajava.android.modelgsonkirim.HargaKomoditasKirim;
 import pantauharga.gulajava.android.parsers.Parseran;
 
 /**
@@ -74,6 +86,9 @@ public class LaporHarga extends BaseActivityLocation {
     @Bind(R.id.tombol_kirim)
     Button tombolkirim;
 
+    @Bind(R.id.tombol_simpandraft)
+    Button tomboldraft;
+
     @Bind(R.id.layout_jumlahkomoditas)
     LinearLayout layout_jumlahkomoditas;
 
@@ -97,14 +112,12 @@ public class LaporHarga extends BaseActivityLocation {
 
     private String datakirim_nohp = "0";
     private String jsondata_komoditas = "";
-    private String jsondata_kirimserver = "";
 
     private List<KomoditasItem> mListKomoditasItem;
     private List<String> mStringListNamaKomoditas;
     private ArrayAdapter<String> mAdapterSpin;
 
     private Parseran mParseran;
-    private CekGPSNet mCekGPSNet;
 
     private boolean isAktJalan = false;
     private boolean isProsesKirim = false;
@@ -141,6 +154,13 @@ public class LaporHarga extends BaseActivityLocation {
     private int kode_kirimKomoditas = Konstan.KODE_KIRIMHARGAJUALKOMO_AKT;
 
 
+    //simpan database
+    private String datasimpan_id = "";
+    private String datasimpan_harga = "";
+    private String datasimpan_lat = "";
+    private String datasimpan_lng = "";
+    private String datasimpan_nohp = "";
+    private String datasimpan_quantity = "";
 
 
     @Override
@@ -148,6 +168,7 @@ public class LaporHarga extends BaseActivityLocation {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_laporharga);
         ButterKnife.bind(LaporHarga.this);
+        munculMenuAction(LaporHarga.this);
 
         Bundle bundle = LaporHarga.this.getIntent().getExtras();
         kode_kirimKomoditas = bundle.getInt(Konstan.TAG_INTENT_STATKIRIMHARGA);
@@ -163,20 +184,18 @@ public class LaporHarga extends BaseActivityLocation {
 
         mRealm = Realm.getInstance(LaporHarga.this);
         mParseran = new Parseran(LaporHarga.this);
-        mCekGPSNet = new CekGPSNet(LaporHarga.this);
 
         isAktJalan = true;
 
         if (kode_kirimKomoditas == Konstan.KODE_KIRIMHARGA_AKT) {
             layout_jumlahkomoditas.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             layout_jumlahkomoditas.setVisibility(View.VISIBLE);
         }
 
 
         edit_harga.addTextChangedListener(new Parseran.NumberTextWatcher(edit_harga));
-
+        edit_kordinatlokasi.setEnabled(false);
 
         //cek permisi lokasi tapi dengan jeda dulu
         Handler handler = new Handler();
@@ -224,7 +243,7 @@ public class LaporHarga extends BaseActivityLocation {
 
         switch (item.getItemId()) {
 
-            case android.R.id.home :
+            case android.R.id.home:
 
                 LaporHarga.this.finish();
                 return true;
@@ -337,6 +356,7 @@ public class LaporHarga extends BaseActivityLocation {
         //setel listener tombol
         tombolkirim.setOnClickListener(listenertombol);
         tombolsetelpeta.setOnClickListener(listenertombol);
+        tomboldraft.setOnClickListener(listenertombol);
 
         switch (kodeperintah) {
 
@@ -419,7 +439,7 @@ public class LaporHarga extends BaseActivityLocation {
     //AMBIL DATA DARI MASUKAN PENGGUNA
     private void ambilDataPengguna() {
 
-        hargakomoditas = edit_harga.getText().toString().replace(",","").replace(".","");
+        hargakomoditas = edit_harga.getText().toString().replace(",", "").replace(".", "");
 
         if (kode_kirimKomoditas == Konstan.KODE_KIRIMHARGAJUALKOMO_AKT) {
             jumlahkomoditas = edit_jumlahkomoditas.getText().toString();
@@ -431,24 +451,50 @@ public class LaporHarga extends BaseActivityLocation {
         latitude = "" + latitudepengguna;
         longitude = "" + longitudepengguna;
 
-        boolean isValids =  false;
+        boolean isValids = false;
 
         if (hargakomoditas.length() < 4) {
-
+            tampilPeringatanGagalIsi(edit_harga, R.string.lapor_toast_gagalharga);
+        } else if (kode_kirimKomoditas == Konstan.KODE_KIRIMHARGAJUALKOMO_AKT && jumlahkomoditas.length() < 1) {
+            tampilPeringatanGagalIsi(edit_jumlahkomoditas, R.string.lapor_toast_jumlahkomod);
+        } else if (namalokasi.length() < 4) {
+            tampilPeringatanGagalIsi(edit_kordinatlokasi, R.string.lapor_toast_gagalokasi);
+        } else if (latitude.length() < 3 || longitude.length() < 3) {
+            tampilPeringatanGagalIsi(edit_kordinatlokasi, R.string.lapor_toast_gagalokasi);
+        } else {
+            isValids = true;
         }
-        else if(kode_kirimKomoditas == Konstan.KODE_KIRIMHARGAJUALKOMO_AKT && jumlahkomoditas.length() < 1) {
 
-        }
-        else if (namalokasi.length() < 4){
+        if (isValids && !isProsesKirim) {
 
-        }
-        else if (latitude.length() < 3 || longitude.length() < 3) {
-
-        }
-        else {
+            //kirim ke server
+            cekKoneksiInternet();
 
         }
     }
+
+
+    //AMBIL DATA DARI MASUKAN PENGGUNA
+    private void ambilDataPenggunaDraft() {
+
+        hargakomoditas = edit_harga.getText().toString().replace(",", "").replace(".", "");
+
+        if (kode_kirimKomoditas == Konstan.KODE_KIRIMHARGAJUALKOMO_AKT) {
+            jumlahkomoditas = edit_jumlahkomoditas.getText().toString();
+        } else {
+            jumlahkomoditas = "0";
+        }
+
+        namalokasi = alamatgabungan;
+        latitude = "" + latitudepengguna;
+        longitude = "" + longitudepengguna;
+
+        simpanDatabase(false, idkomoditas, namakomoditas, latitude, longitude,
+                namalokasi, datakirim_nohp, hargakomoditas, jumlahkomoditas);
+    }
+
+
+
 
 
     //PERINGATAN JIKA SALAH ISI
@@ -458,26 +504,165 @@ public class LaporHarga extends BaseActivityLocation {
     }
 
 
+    //CEK KONEKSI INTERNET
+    private void cekKoneksiInternet() {
+
+        if (isInternet) {
+            isProsesKirim = true;
+            susunJsonKirimHarga();
+        } else {
+            isProsesKirim = false;
+            munculSnackbar(R.string.toastnointernet);
+        }
+    }
 
 
     //SUSUN JSON DATA KIRIM HARGA
     private void susunJsonKirimHarga() {
 
+        //progress dialog
+        tampilProgressDialog("Mengirim data laporan...");
 
+        Task.callInBackground(new Callable<String>() {
+            @Override
+            public String call() throws Exception {
 
+                //{"id": "1034","lat":"-6.217","lng":"106.9","nohp":08123123,"harga":"20000","quantity":"30"}
+                HargaKomoditasKirim hargaKomoditasKirim = new HargaKomoditasKirim();
+                hargaKomoditasKirim.setId(idkomoditas);
+                hargaKomoditasKirim.setLat(latitude);
+                hargaKomoditasKirim.setLng(longitude);
+                hargaKomoditasKirim.setNohp(datakirim_nohp);
+                hargaKomoditasKirim.setHarga(hargakomoditas);
+                hargaKomoditasKirim.setQuantity(jumlahkomoditas);
+
+                return mParseran.konversiPojoKirimHarga(hargaKomoditasKirim);
+            }
+        })
+
+                .continueWith(new Continuation<String, Object>() {
+                    @Override
+                    public Object then(Task<String> task) throws Exception {
+
+                        String hasiljsons = task.getResult();
+                        Log.w("HASIL PARSE CEK", "HASIL PARSE JSON CEK " + hasiljsons);
+
+                        //kirim ke server
+                        kirimDataServer(hasiljsons);
+
+                        return null;
+                    }
+                }, Task.UI_THREAD_EXECUTOR);
     }
-
 
 
     //KIRIM DATA KE SERVER
-    private void kirimDataServer() {
+    private void kirimDataServer(String jsonbody) {
 
+        String urls = Apis.getLinkLaporHargaKomoditas();
+        Map<String, String> headers = new HashMap<>();
+        Map<String, String> parameters = new HashMap<>();
 
+        JacksonRequest<HargaKomoditasLapor> jacksonRequest = Apis.postRequestHargaLapor(
+                urls,
+                headers,
+                parameters,
+                jsonbody,
+                new Response.Listener<HargaKomoditasLapor>() {
+                    @Override
+                    public void onResponse(HargaKomoditasLapor response) {
 
+                        Log.w("SUKSES", "SUKSES");
+                        if (isAktJalan) {
+                            cekHasilRespon(response);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        error.printStackTrace();
+                        Log.w("GAGAL", "GAGAL");
+                        if (isAktJalan) {
+                            cekHasilRespon(null);
+                        }
+                    }
+                }
+        );
+
+        Volleys.getInstance(LaporHarga.this).addToRequestQueue(jacksonRequest);
     }
 
 
+    //CEK HASIL RESPON DARI VOLLEY
+    private void cekHasilRespon(HargaKomoditasLapor hargaKomoditasLapor) {
 
+        if (hargaKomoditasLapor != null) {
+
+            datasimpan_id = hargaKomoditasLapor.getId();
+            datasimpan_harga = hargaKomoditasLapor.getHarga();
+            datasimpan_lat = hargaKomoditasLapor.getLat();
+            datasimpan_lng = hargaKomoditasLapor.getLng();
+            datasimpan_nohp = hargaKomoditasLapor.getNohp();
+            datasimpan_quantity = hargaKomoditasLapor.getQuantity();
+
+            if (datakirim_nohp.length() > 1 && datakirim_nohp.length() > 3) {
+
+                //simpan ke database riwayat
+                simpanDatabase(true, datasimpan_id, namakomoditas, datasimpan_lat,
+                        datasimpan_lng, namalokasi, datasimpan_nohp, datasimpan_harga, datasimpan_quantity);
+
+            } else {
+                //gagal kirim data laporan
+                munculSnackbar(R.string.lapor_gagalkirimdata);
+                isProsesKirim = false;
+                mProgressDialog.dismiss();
+            }
+        } else {
+            //gagal kirim data laporan
+            munculSnackbar(R.string.lapor_gagalkirimdata);
+            isProsesKirim = false;
+            mProgressDialog.dismiss();
+        }
+    }
+
+
+    //SIMPAN KE DALAM DATABASE
+    private void simpanDatabase(boolean isKirim, String id, String namakomoditas, String lats,
+                                String lngs, String alamatkomods, String nohps,
+                                String hargas, String quantitis) {
+
+
+        RMDataRiwayat rmDataRiwayat = new RMDataRiwayat();
+        rmDataRiwayat.setId(id);
+        rmDataRiwayat.setNamakomoditas(namakomoditas);
+        rmDataRiwayat.setLat(lats);
+        rmDataRiwayat.setLng(lngs);
+        rmDataRiwayat.setAlamatkomoditas(alamatkomods);
+        rmDataRiwayat.setNohp(nohps);
+        rmDataRiwayat.setHarga(hargas);
+        rmDataRiwayat.setQuantity(quantitis);
+        rmDataRiwayat.setIsKirim(isKirim);
+
+        mRealm.beginTransaction();
+        mRealm.copyToRealm(rmDataRiwayat);
+        mRealm.commitTransaction();
+
+        isProsesKirim = false;
+
+        if (isKirim) {
+
+            mProgressDialog.dismiss();
+
+            //tampil dialog data telah dikirim
+            tampilDialogBerhasil();
+        } else {
+            Toast.makeText(LaporHarga.this, R.string.lapor_okkirimdraft, Toast.LENGTH_SHORT).show();
+            LaporHarga.this.finish();
+        }
+
+    }
 
 
     //AMBIL GEOCODER LOKASI
@@ -573,7 +758,9 @@ public class LaporHarga extends BaseActivityLocation {
 
 
     /** ======== TAMPIL DIALOG ======== **/
-    /** ======== TAMPIL DIALOG ======== **/
+    /**
+     * ======== TAMPIL DIALOG ========
+     **/
 
 
     //TAMPILKAN PROGRESS DIALOG
@@ -600,7 +787,21 @@ public class LaporHarga extends BaseActivityLocation {
 
 
     //TAMPIL DIALOG BERHASIL
+    private void tampilDialogBerhasil() {
 
+        DialogOkKirim dialogOkKirim = new DialogOkKirim();
+        dialogOkKirim.setCancelable(false);
+
+        FragmentTransaction fts = LaporHarga.this.getSupportFragmentManager().beginTransaction();
+        dialogOkKirim.show(fts, "dialog ok kirim");
+
+    }
+
+
+    //SET DIALOG OK TERKIRIM
+    public void setOkTerkirim() {
+        LaporHarga.this.finish();
+    }
 
     //LISTENER SPINNER
     AdapterView.OnItemSelectedListener listenerspinner = new AdapterView.OnItemSelectedListener() {
@@ -626,13 +827,19 @@ public class LaporHarga extends BaseActivityLocation {
             sembunyikeyboard(LaporHarga.this, view);
             switch (view.getId()) {
 
-                case R.id.tombol_setelpeta :
+                case R.id.tombol_setelpeta:
 
 
                     break;
 
-                case R.id.tombol_kirim :
+                case R.id.tombol_kirim:
 
+                    ambilDataPengguna();
+                    break;
+
+                case R.id.tombol_simpandraft :
+
+                    ambilDataPenggunaDraft();
                     break;
             }
         }
@@ -653,14 +860,11 @@ public class LaporHarga extends BaseActivityLocation {
     };
 
 
-
-
     //SEMBUNYIKAN KEYBOARD
     private static void sembunyikeyboard(Context context, View view) {
         InputMethodManager manager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         manager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
     }
-
 
 
     //MENAMPILKAN MENU ACTION BAR

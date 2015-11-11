@@ -242,10 +242,23 @@
                 <Button
                     android:id="@+id/tombol_kirim"
                     style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="155dp"
+                    android:layout_width="145dp"
                     android:layout_height="42dp"
-                    android:background="@drawable/desaintombolmenudaftar"
+                    android:background="@drawable/desaintombolmenu"
                     android:text="@string/lapor_kirimdata"
+                    android:textColor="@color/putih"
+                    android:textSize="@dimen/ukuran14sp"
+                    android:textStyle="bold"/>
+
+
+                <Button
+                    android:id="@+id/tombol_simpandraft"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="145dp"
+                    android:layout_height="42dp"
+                    android:layout_marginLeft="14dp"
+                    android:background="@drawable/desaintombolmenudaftar"
+                    android:text="@string/lapor_simpandata"
                     android:textColor="@color/putih"
                     android:textSize="@dimen/ukuran14sp"
                     android:textStyle="bold"/>

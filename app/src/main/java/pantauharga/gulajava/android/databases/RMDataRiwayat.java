@@ -1,9 +1,11 @@
 package pantauharga.gulajava.android.databases;
 
+import io.realm.RealmObject;
+
 /**
  * Created by Gulajava Ministudio on 11/10/15.
  */
-public class RMDataRiwayat {
+public class RMDataRiwayat extends RealmObject {
 
     private String id;
     private String namakomoditas;
@@ -13,6 +15,8 @@ public class RMDataRiwayat {
     private String nohp;
     private String harga;
     private String quantity;
+
+    private boolean isKirim;
 
     public RMDataRiwayat() {
     }
@@ -80,5 +84,13 @@ public class RMDataRiwayat {
 
     public void setQuantity(String quantity) {
         this.quantity = quantity;
+    }
+
+    public boolean isKirim() {
+        return isKirim;
+    }
+
+    public void setIsKirim(boolean isKirim) {
+        this.isKirim = isKirim;
     }
 }

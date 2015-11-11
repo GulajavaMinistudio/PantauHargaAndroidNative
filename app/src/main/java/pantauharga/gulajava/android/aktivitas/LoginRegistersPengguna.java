@@ -435,9 +435,11 @@ public class LoginRegistersPengguna extends AppCompatActivity {
             str_regis_kodepos = bundel.getString(Konstan.TAG_INTENT_KODEPOS);
 
             //parse data registrasi
+            isProgresKirim = true;
             parseDataRegistrasi();
 
         } else {
+            isProgresKirim = false;
             munculSnackbar(R.string.toastnointernet);
         }
 
@@ -448,7 +450,6 @@ public class LoginRegistersPengguna extends AppCompatActivity {
     private void parseDataRegistrasi() {
 
         //progress dialog
-        isProgresKirim = true;
         tampilProgressDialog("Mengirim data...");
 
         Task.callInBackground(new Callable<String>() {

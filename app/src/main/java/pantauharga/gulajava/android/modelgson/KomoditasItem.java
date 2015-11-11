@@ -12,6 +12,7 @@ public class KomoditasItem {
     public KomoditasItem() {
     }
 
+
     public String getId() {
         return id;
     }

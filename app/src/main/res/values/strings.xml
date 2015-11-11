@@ -11,7 +11,7 @@
     <string name="ic_teks_menu_kirimharga">Kirim Harga</string>
     <string name="ic_teks_menu_jualkomoditas">Jual Komoditas</string>
     <string name="ic_teks_menu_datapengguna">Data Pengguna</string>
-    <string name="ic_teks_menu_setelanapp">Setelan</string>
+    <string name="ic_teks_menu_riwayatlaporan">Riwayat Laporan</string>
     <string name="ic_teks_menu_tentangapp">Tentang Aplikasi</string>
 
 
@@ -109,11 +109,19 @@
     <string name="lapor_kuantitashint">jumlah komoditas pangan</string>
     <string name="lapor_koordinat">Lokasi</string>
     <string name="lapor_kirimdata">KIRIM DATA</string>
+    <string name="lapor_simpandata">SIMPAN DRAFT</string>
 
+    <string name="lapor_toast_gagalharga">Isi harga komoditas dengan benar</string>
+    <string name="lapor_toast_jumlahkomod">Isi jumlah komoditas dengan benar</string>
+    <string name="lapor_toast_gagalokasi">Lokasi tidak diketahui. Aktifkan GPS dan internet perangkat anda untuk mengambil koordinat lokasi.</string>
+    <string name="lapor_gagalkirimdata">Gagal mengirim data laporan</string>
 
+    <string name="lapor_okkirimdata">Data laporan harga telah dikirim</string>
 
+    <string name="lapor_okkirimdraft">Data laporan disimpan sementara</string>
 
-
+    <string name="teks_dialog_kirim">KIRIM LAGI</string>
+    <string name="teks_dialog_selesai">SELESAI</string>
 
 
 
