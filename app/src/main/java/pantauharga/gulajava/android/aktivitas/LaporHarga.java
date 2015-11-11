@@ -232,6 +232,9 @@ public class LaporHarga extends BaseActivityLocation {
         isAktJalan = false;
 
         hentikanListenerLokasi();
+
+        Volleys.getInstance(LaporHarga.this).cancelPendingRequestsNoTag();
+        Volleys.getInstance(LaporHarga.this).clearVolleyCache();
     }
 
 
@@ -645,11 +648,14 @@ public class LaporHarga extends BaseActivityLocation {
         if (hargaKomoditasLapor != null) {
 
             datasimpan_id = hargaKomoditasLapor.getId();
-            datasimpan_harga = hargaKomoditasLapor.getHarga();
-            datasimpan_lat = hargaKomoditasLapor.getLat();
-            datasimpan_lng = hargaKomoditasLapor.getLng();
+            datasimpan_harga = hargaKomoditasLapor.getHarga() + "";
+            datasimpan_lat = hargaKomoditasLapor.getLat() + "";
+            datasimpan_lng = hargaKomoditasLapor.getLng() + "";
             datasimpan_nohp = hargaKomoditasLapor.getNohp();
-            datasimpan_quantity = hargaKomoditasLapor.getQuantity();
+            datasimpan_quantity = hargaKomoditasLapor.getQuantity() + "";
+
+            Log.w("HASIL HARGA", datasimpan_id + " harga " + datasimpan_harga + " jumlah "
+                    + datasimpan_quantity + " lat " + datasimpan_lat + " lng " + datasimpan_lng);
 
             if (datakirim_nohp.length() > 1 && datakirim_nohp.length() > 3) {
 

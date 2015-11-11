@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <include layout="@layout/toolbars"/>
+
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@color/transparan"
+        android:divider="@drawable/dividerlistmenu"
+        android:fadingEdge="none"
+        android:visibility="visible"
+        />
+
+    <LinearLayout
+        android:id="@+id/layout_riwayatkosong"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:text="@string/riwayat_datatidakada"
+            android:layout_gravity="center"
+            android:textSize="@dimen/ukuran18sp"/>
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

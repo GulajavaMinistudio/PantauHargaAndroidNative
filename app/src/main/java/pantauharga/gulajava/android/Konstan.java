@@ -63,9 +63,4 @@ public class Konstan {
     public static final String TAG_INTENT_ALAMATGABUNGANS = "alamatgabungans";
 
 
-
-
-
-
-
 }

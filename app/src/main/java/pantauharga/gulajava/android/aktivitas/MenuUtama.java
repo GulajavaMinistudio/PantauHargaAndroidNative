@@ -41,6 +41,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import pantauharga.gulajava.android.Konstan;
@@ -107,6 +108,7 @@ public class MenuUtama extends BaseActivityLocation {
     private String jsonKomoditas = "";
     private List<KomoditasItem> listKomoditasItem;
     private ArrayList<String> listStrKomoditasItem;
+    private RealmConfiguration realmconfig;
 
     private String namakomoditas = "";
     private int radiuskm = 100;
@@ -187,7 +189,8 @@ public class MenuUtama extends BaseActivityLocation {
 
 
         //ambil data realm login
-        mRealm = Realm.getInstance(MenuUtama.this);
+        realmconfig = new RealmConfiguration.Builder(MenuUtama.this).build();
+        mRealm = Realm.getInstance(realmconfig);
 
         Handler handler = new Handler();
         handler.postDelayed(jedakirimdata, 750);
@@ -220,6 +223,8 @@ public class MenuUtama extends BaseActivityLocation {
 
         isAktJalan = false;
         mRealm.close();
+
+        Realm.compactRealm(realmconfig);
 
         hentikanListenerLokasi();
 
@@ -448,6 +453,12 @@ public class MenuUtama extends BaseActivityLocation {
                         tampilDialogLoginDulu();
                     }
 
+                    break;
+
+                case R.id.menu_riwayatlaporan:
+
+                    Intent intentriwatat = new Intent(MenuUtama.this, LaporRiwayat.class);
+                    MenuUtama.this.startActivity(intentriwatat);
                     break;
 
                 case R.id.menu_data_pengguna:

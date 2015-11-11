@@ -7,6 +7,8 @@
     <string name="action_lokasisaya">Cek Lokasi Saya</string>
     <string name="action_ambilkordinatbantuan">Bantuan Setel Koordinat</string>
 
+    <string name="action_hapusriwayatsemua">Hapus Semua Riwayat</string>
+
 
     <!-- MENU APLIKASI -->
     <string name="ic_teks_menu_kirimharga">Kirim Harga</string>
@@ -138,6 +140,12 @@
     <string name="toastgagal_ambilkordinat">Koordinat lokasi foto gagal diambil, aktifkan GPS dan koneksi internet untuk mengambil lokasi dengan akurat.</string>
 
 
+
+    <!-- RIWAYAT LAPORAN -->
+    <string name="riwayat_judul">Riwayat Laporan Harga</string>
+    <string name="riwayat_datatidakada">Data riwayat tidak tersedia</string>
+    <string name="riwayat_ingathapus">Hapus semua data riwayat laporan ?</string>
+    <string name="riwayat_hapusdataselesai">Data telah dihapus</string>
 
 
 </resources>

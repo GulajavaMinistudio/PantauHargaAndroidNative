@@ -12,6 +12,8 @@ import android.widget.EditText;
 import com.fasterxml.jackson.jr.ob.JSON;
 
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -232,7 +234,6 @@ public class Parseran {
     }
 
 
-
     //KONVERSI POJO KE JSON KIRIM HARGA
     public String konversiPojoKirimHarga(HargaKomoditasKirim hargaKomoditasKirim) {
 
@@ -240,22 +241,13 @@ public class Parseran {
 
         try {
             json = JSON.std.asString(hargaKomoditasKirim);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.getMessage();
             json = "";
         }
 
         return json;
     }
-
-
-
-
-
-
-
-
 
 
     //PARSE LIST KOMODITAS KE MODE LIST KOMPARATOR
@@ -451,15 +443,15 @@ public class Parseran {
 
 
     //FUNGSI PEMBULAT ANGKA
-//    public String pembulatanJarak(String stringnilaiawal, int jumlahpembulatan) {
-//
-//        double dovalbelumbulat = Double.valueOf(stringnilaiawal);
-//
-//        BigDecimal bigdesimal = new BigDecimal(dovalbelumbulat);
-//        bigdesimal = bigdesimal.setScale(jumlahpembulatan, RoundingMode.UP);
-//
-//        return bigdesimal.intValue() + "";
-//    }
+    public String pembulatanBilangan(String stringnilaiawal, int jumlahpembulatan) {
+
+        double dovalbelumbulat = Double.valueOf(stringnilaiawal);
+
+        BigDecimal bigdesimal = new BigDecimal(dovalbelumbulat);
+        bigdesimal = bigdesimal.setScale(jumlahpembulatan, RoundingMode.UP);
+
+        return bigdesimal.intValue() + "";
+    }
 
 
     //CEK EMAIL http://stackoverflow.com/questions/12947620/email-address-validation-in-android-on-edittext
