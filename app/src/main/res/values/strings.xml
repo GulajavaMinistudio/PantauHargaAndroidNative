@@ -98,4 +98,28 @@
     <string name="datapengguna_tombol_keluar">KELUAR AKUN</string>
 
 
+
+    <!-- KIRIM LAPORAN HARGA BARANG -->
+    <string name="lapor_hargajudul">Lapor Harga</string>
+    <string name="lapor_keterangan">Laporkan harga komoditas pangan dengan mengisi data-data di bawah ini dengan lengkap dan benar</string>
+    <string name="lapor_jeniskomoditas">Nama Komoditas</string>
+    <string name="lapor_harga">Harga (Rp/Kg)</string>
+    <string name="lapor_hargahint">harga komoditas</string>
+    <string name="lapor_kuantitas">Jumlah (Kg)</string>
+    <string name="lapor_kuantitashint">jumlah komoditas pangan</string>
+    <string name="lapor_koordinat">Lokasi</string>
+    <string name="lapor_kirimdata">KIRIM DATA</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </resources>

@@ -277,8 +277,11 @@ public class MenuUtama extends BaseActivityLocation {
                 //cek status kirim harga
                 if (isLogin) {
 
-                } else {
+                    Intent intentlaporharga = new Intent(MenuUtama.this, LaporHarga.class);
+                    intentlaporharga.putExtra(Konstan.TAG_INTENT_STATKIRIMHARGA, Konstan.KODE_KIRIMHARGA_AKT);
+                    MenuUtama.this.startActivity(intentlaporharga);
 
+                } else {
                     tampilDialogLoginDulu();
                 }
 
@@ -423,7 +426,10 @@ public class MenuUtama extends BaseActivityLocation {
 
                     //cek status kirim harga dengan cek login
                     if (isLogin) {
-
+                        Intent intentlaporharga = new Intent(MenuUtama.this, LaporHarga.class);
+                        //intent pembeda masukan komoditas
+                        intentlaporharga.putExtra(Konstan.TAG_INTENT_STATKIRIMHARGA, Konstan.KODE_KIRIMHARGA_AKT);
+                        MenuUtama.this.startActivity(intentlaporharga);
                     } else {
                         tampilDialogLoginDulu();
                     }
@@ -434,7 +440,10 @@ public class MenuUtama extends BaseActivityLocation {
 
                     //cek status kirim harga dengan cek login
                     if (isLogin) {
-
+                        Intent intentlaporharga = new Intent(MenuUtama.this, LaporHarga.class);
+                        //intent pembeda masukan komoditas
+                        intentlaporharga.putExtra(Konstan.TAG_INTENT_STATKIRIMHARGA, Konstan.KODE_KIRIMHARGAJUALKOMO_AKT);
+                        MenuUtama.this.startActivity(intentlaporharga);
                     } else {
                         tampilDialogLoginDulu();
                     }
@@ -532,8 +541,8 @@ public class MenuUtama extends BaseActivityLocation {
         mProgressDialog = new ProgressDialog(MenuUtama.this);
         mProgressDialog.setMessage(pesan);
         mProgressDialog.setCancelable(true);
-        mProgressDialog.show();
         mProgressDialog.setOnCancelListener(listenerbatals);
+        mProgressDialog.show();
 
     }
 
@@ -580,11 +589,13 @@ public class MenuUtama extends BaseActivityLocation {
                             //ambil data dari server
                             //cek permisission
                             cekPermissionLokasi();
+
                         } else {
                             //gagal parse
                             munculSnackbar(R.string.toastgagaldata);
                         }
                         return null;
+
                     }
                 }, Task.UI_THREAD_EXECUTOR);
 

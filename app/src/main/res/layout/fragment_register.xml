@@ -61,7 +61,8 @@
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:maxLength="100"
-                        android:singleLine="true"/>
+                        android:singleLine="true"
+                        android:textSize="@dimen/ukuran16sp"/>
 
 
                 </android.support.design.widget.TextInputLayout>
@@ -85,6 +86,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:maxLength="100"
+                        android:textSize="@dimen/ukuran16sp"
                         android:singleLine="true"/>
 
 
@@ -109,6 +111,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="textPassword"
                         android:maxLength="10"
+                        android:textSize="@dimen/ukuran16sp"
                         android:singleLine="true"
                         />
 
@@ -134,6 +137,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="textPassword"
                         android:maxLength="10"
+                        android:textSize="@dimen/ukuran16sp"
                         android:singleLine="true"/>
 
 
@@ -157,6 +161,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
                         android:maxLength="100"
+                        android:textSize="@dimen/ukuran16sp"
                         android:singleLine="true"/>
 
 
@@ -181,6 +186,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="number"
                         android:maxLength="100"
+                        android:textSize="@dimen/ukuran16sp"
                         android:singleLine="true"/>
 
 
@@ -205,6 +211,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="number"
                         android:maxLength="20"
+                        android:textSize="@dimen/ukuran16sp"
                         android:singleLine="true"/>
 
 
@@ -228,6 +235,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:maxLength="200"
+                        android:textSize="@dimen/ukuran16sp"
                         android:singleLine="true"/>
 
 
@@ -251,6 +259,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="number"
                         android:maxLength="5"
+                        android:textSize="@dimen/ukuran16sp"
                         android:singleLine="true"/>
 
 

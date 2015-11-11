@@ -44,11 +44,26 @@ public class Konstan {
     public static final String TAG_INTENT_ALAMATLENGKAP = "alamatlengkap";
     public static final String TAG_INTENT_KODEPOS = "kodepos";
 
+    public static final String TAG_INTENT_STATKIRIMHARGA = "statuskirimharga";
+
 
     //KODE PINDAH FRAGMENT
     public static final int KODE_FRAGMENT_LOGINREGISTER = 40;
     public static final int KODE_FRAGMENT_REGISTER = 41;
     public static final int KODE_FRAGMENT_DATAPENGGUNA = 42;
+
+
+    public static final int KODE_REQUEST_LOKASI = 676;
+    public static final int KODE_KIRIMHARGA_AKT = 677;
+    public static final int KODE_KIRIMHARGAJUALKOMO_AKT = 678;
+
+
+
+
+
+
+
+
 
 
 }

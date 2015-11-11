@@ -67,6 +67,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:maxLength="100"
+                        android:textSize="@dimen/ukuran16sp"
                         android:singleLine="true"/>
 
 
@@ -91,6 +92,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="textPassword"
                         android:maxLength="10"
+                        android:textSize="@dimen/ukuran16sp"
                         android:singleLine="true"
                         />
 

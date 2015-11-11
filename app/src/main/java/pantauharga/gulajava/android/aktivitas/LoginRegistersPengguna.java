@@ -629,8 +629,8 @@ public class LoginRegistersPengguna extends AppCompatActivity {
         mProgressDialog = new ProgressDialog(LoginRegistersPengguna.this);
         mProgressDialog.setMessage(pesan);
         mProgressDialog.setCancelable(true);
-        mProgressDialog.show();
         mProgressDialog.setOnCancelListener(listenerbatals);
+        mProgressDialog.show();
 
     }
 
