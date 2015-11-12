@@ -81,7 +81,6 @@ public class LaporRiwayat extends AppCompatActivity {
 
         //ambil data realm
         mRealm = Realm.getInstance(LaporRiwayat.this);
-        ambilDataRealm();
 
     }
 
@@ -90,6 +89,7 @@ public class LaporRiwayat extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         mRealm.refresh();
+        ambilDataRealm();
     }
 
     @Override

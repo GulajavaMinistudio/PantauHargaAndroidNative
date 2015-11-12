@@ -17,6 +17,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -125,12 +126,13 @@ public class MenuUtama extends BaseActivityLocation {
     //ambil dari server
     private ProgressDialog mProgressDialog;
 
-    Runnable jedakirimdata = new Runnable() {
+
+    Runnable jedakirimdatas = new Runnable() {
         @Override
         public void run() {
 
             //ambil db json komoditas
-            ambilDbJson();
+            cekInternetKirimServer();
         }
     };
 
@@ -155,6 +157,10 @@ public class MenuUtama extends BaseActivityLocation {
 
         if (mToolbar != null) {
             MenuUtama.this.setSupportActionBar(mToolbar);
+        }
+
+        if (!EventBus.getDefault().isRegistered(MenuUtama.this)) {
+            EventBus.getDefault().register(MenuUtama.this);
         }
 
         mActionBar = MenuUtama.this.getSupportActionBar();
@@ -187,13 +193,13 @@ public class MenuUtama extends BaseActivityLocation {
 
         mDrawerLayout.setDrawerListener(mDrawerListener);
 
+        MenuUtama.this.supportInvalidateOptionsMenu();
 
         //ambil data realm login
         realmconfig = new RealmConfiguration.Builder(MenuUtama.this).build();
         mRealm = Realm.getInstance(realmconfig);
 
-        Handler handler = new Handler();
-        handler.postDelayed(jedakirimdata, 750);
+        ambilDbJson();
     }
 
 
@@ -201,11 +207,13 @@ public class MenuUtama extends BaseActivityLocation {
     protected void onResume() {
         super.onResume();
 
+        Log.w("RESUME", "ON RESUME");
+        ambilDbLogin();
+
         if (!EventBus.getDefault().isRegistered(MenuUtama.this)) {
             EventBus.getDefault().register(MenuUtama.this);
         }
 
-        ambilDbLogin();
     }
 
     @Override
@@ -224,7 +232,11 @@ public class MenuUtama extends BaseActivityLocation {
         isAktJalan = false;
         mRealm.close();
 
-        Realm.compactRealm(realmconfig);
+        try {
+            Realm.compactRealm(realmconfig);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         hentikanListenerLokasi();
 
@@ -345,7 +357,9 @@ public class MenuUtama extends BaseActivityLocation {
         Log.w("LOKASI AWAL", "lokasi awal pengguna " + latitudepengguna + " , " + longitudepengguna);
 
         //ambil data dari server untuk lokasi gps dan marker
-        cekInternetKirimServer();
+        //beri jeda agar eventbus bisa melepaskan resource
+        Handler handler = new Handler();
+        handler.postDelayed(jedakirimdatas, 750);
     }
 
 
@@ -701,7 +715,10 @@ public class MenuUtama extends BaseActivityLocation {
                 }
         );
 
-
+        if (jacksonRequestArray == null) {
+            Log.w("KIRIM SERVERS", "JACK KIRIMS NULL");
+        }
+        Log.w("KIRIM SERVERS", "VOLLEY KIRIMS");
         Volleys.getInstance(MenuUtama.this).addToRequestQueue(jacksonRequestArray);
     }
 
@@ -871,6 +888,26 @@ public class MenuUtama extends BaseActivityLocation {
 
     }
 
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        switch (keyCode) {
+
+            case KeyEvent.KEYCODE_BACK:
+
+                if (isDrawerBuka) {
+                    mDrawerLayout.closeDrawer(GravityCompat.START);
+                } else {
+                    MenuUtama.this.finish();
+                }
+
+                return true;
+        }
+
+
+        return super.onKeyDown(keyCode, event);
+    }
 
     /**
      * ==================== AMBIL PILIHAN LIST KLIK DARI FRAGMENT DAFTAR DAN

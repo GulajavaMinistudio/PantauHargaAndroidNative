@@ -51,6 +51,7 @@ import pantauharga.gulajava.android.R;
 import pantauharga.gulajava.android.databases.RMDataRiwayat;
 import pantauharga.gulajava.android.databases.RMJsonData;
 import pantauharga.gulajava.android.databases.RMLogin;
+import pantauharga.gulajava.android.dialogs.DialogHapusDataIni;
 import pantauharga.gulajava.android.dialogs.DialogOkKirimEdit;
 import pantauharga.gulajava.android.internets.Apis;
 import pantauharga.gulajava.android.internets.JacksonRequest;
@@ -254,6 +255,7 @@ public class LaporHargaEdit extends BaseActivityLocation {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        LaporHargaEdit.this.getMenuInflater().inflate(R.menu.menu_hapusdataini, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -265,6 +267,11 @@ public class LaporHargaEdit extends BaseActivityLocation {
             case android.R.id.home:
 
                 LaporHargaEdit.this.finish();
+                return true;
+
+            case R.id.action_riwayathapus:
+
+                tampilDialogHapusDataIni();
                 return true;
         }
 
@@ -903,6 +910,41 @@ public class LaporHargaEdit extends BaseActivityLocation {
     public void setOkTerkirim() {
         LaporHargaEdit.this.finish();
     }
+
+
+    //TAMPIL DIALOG HAPUS DATA
+    private void tampilDialogHapusDataIni() {
+
+        DialogHapusDataIni dialogHapusDataIni = new DialogHapusDataIni();
+        dialogHapusDataIni.setCancelable(false);
+
+        FragmentTransaction fts = LaporHargaEdit.this.getSupportFragmentManager().beginTransaction();
+        dialogHapusDataIni.show(fts, "hapus data ini");
+
+    }
+
+
+    //SETEL DARI DIALOG UNTUK HAPUS DATA
+    public void setOkHapusDataIni() {
+
+        mRealmQueryRiwayat = mRealm.where(RMDataRiwayat.class);
+        mRealmResultsRiwayat = mRealmQueryRiwayat.findAll();
+
+        //update data riwayat
+        if (mRealmResultsRiwayat.size() > 0) {
+
+            RMDataRiwayat rmDataRiwayat = mRealmResultsRiwayat.get(posisiklik);
+
+            mRealm.beginTransaction();
+            rmDataRiwayat.removeFromRealm();
+            mRealm.commitTransaction();
+
+            Toast.makeText(LaporHargaEdit.this, R.string.riwayat_hapusdataselesai, Toast.LENGTH_SHORT).show();
+            LaporHargaEdit.this.finish();
+        }
+
+    }
+
 
     //LISTENER SPINNER
     AdapterView.OnItemSelectedListener listenerspinner = new AdapterView.OnItemSelectedListener() {

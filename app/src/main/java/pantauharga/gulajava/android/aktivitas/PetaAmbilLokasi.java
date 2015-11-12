@@ -247,9 +247,11 @@ public class PetaAmbilLokasi extends BaseActivityLocation {
             petagoogle.setIndoorEnabled(true);
             petagoogle.setBuildingsEnabled(true);
 
-            //listener marker
-            petagoogle.setOnMapClickListener(listenermapklik);
-            petagoogle.setOnMarkerDragListener(listenermarkergeser);
+            //listener marker jika belum dikirim dan masih draft
+            if (!isKirimin && isDraft) {
+                petagoogle.setOnMapClickListener(listenermapklik);
+                petagoogle.setOnMarkerDragListener(listenermarkergeser);
+            }
 
             //ambil lokasi
             cekPermissionLokasi();
@@ -324,7 +326,7 @@ public class PetaAmbilLokasi extends BaseActivityLocation {
 
             MarkerOptions markerOptions = new MarkerOptions()
                     .position(kordinatsaya)
-                    .title("Posisi saya")
+                    .title("Lokasi laporan")
                     .draggable(true);
 
             markersaya = petagoogle.addMarker(markerOptions);

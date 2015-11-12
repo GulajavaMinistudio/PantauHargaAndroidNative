@@ -7,6 +7,7 @@
     <string name="action_ambilkordinatbantuan">Bantuan Setel Koordinat</string>
 
     <string name="action_hapusriwayatsemua">Hapus Semua Riwayat</string>
+    <string name="action_hapusriwayatini">Hapus riwayat ini</string>
 
 
     <!-- MENU APLIKASI -->
@@ -145,6 +146,7 @@
     <string name="riwayat_judul">Riwayat Laporan Harga</string>
     <string name="riwayat_datatidakada">Data riwayat tidak tersedia</string>
     <string name="riwayat_ingathapus">Hapus semua data riwayat laporan ?</string>
+    <string name="riwayat_ingathapussatu">Hapus data laporan ini ?</string>
     <string name="riwayat_hapusdataselesai">Data telah dihapus</string>
 
 

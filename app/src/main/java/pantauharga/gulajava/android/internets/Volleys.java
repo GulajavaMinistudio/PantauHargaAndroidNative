@@ -18,7 +18,7 @@ public class Volleys {
     private static Volleys volleys;
     private RequestQueue requestQueue;
     private static Context context;
-    private OkHttpStacks okHttpStacks;
+    private static OkHttpStacks okHttpStacks;
 
 
     public Volleys(Context ctx) {
@@ -29,6 +29,8 @@ public class Volleys {
 
     public static synchronized Volleys getInstance(Context ctx) {
 
+        okHttpStacks = new OkHttpStacks();
+
         if (volleys == null) {
             volleys = new Volleys(ctx);
         }
@@ -37,7 +39,7 @@ public class Volleys {
     }
 
 
-    private RequestQueue getRequestQueue() {
+    public RequestQueue getRequestQueue() {
 
         if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(context.getApplicationContext(), okHttpStacks);
