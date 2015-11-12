@@ -210,6 +210,12 @@ public class LaporRiwayat extends AppCompatActivity {
                 viewHolderan.getTeks_alamatkomoditas().setText(namalokasi);
                 viewHolderan.getTeks_hargakomoditas().setText(hargapisah);
 
+                if (namalokasi.length() < 4) {
+                    viewHolderan.getTeks_alamatkomoditas().setVisibility(View.GONE);
+                } else {
+                    viewHolderan.getTeks_alamatkomoditas().setVisibility(View.VISIBLE);
+                }
+
                 if (isKiriman) {
                     Glide.with(LaporRiwayat.this).load(R.drawable.ic_action_terkirim).into(viewHolderan.getGambar_statuskirim());
                 } else {

@@ -515,13 +515,16 @@ public class LaporHarga extends BaseActivityLocation {
             tampilPeringatanGagalIsi(edit_harga, R.string.lapor_toast_gagalharga);
         } else if (kode_kirimKomoditas == Konstan.KODE_KIRIMHARGAJUALKOMO_AKT && jumlahkomoditas.length() < 1) {
             tampilPeringatanGagalIsi(edit_jumlahkomoditas, R.string.lapor_toast_jumlahkomod);
-        } else if (namalokasi.length() < 4) {
-            tampilPeringatanGagalIsi(edit_kordinatlokasi, R.string.lapor_toast_gagalokasi);
         } else if (latitude.length() < 3 || longitude.length() < 3) {
             tampilPeringatanGagalIsi(edit_kordinatlokasi, R.string.lapor_toast_gagalokasi);
         } else {
             isValids = true;
         }
+
+//        else if (namalokasi.length() < 4) {
+//            tampilPeringatanGagalIsi(edit_kordinatlokasi, R.string.lapor_toast_gagalokasi);
+//        }
+
 
         if (isValids && !isProsesKirim) {
 
