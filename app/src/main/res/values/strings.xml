@@ -116,7 +116,7 @@
 
     <string name="lapor_toast_gagalharga">Isi harga komoditas dengan benar</string>
     <string name="lapor_toast_jumlahkomod">Isi jumlah komoditas dengan benar</string>
-    <string name="lapor_toast_gagalokasi">Lokasi pelaporan tidak dapat diambil. Aktifkan GPS dan internet perangkat anda.</string>
+    <string name="lapor_toast_gagalokasi">Lokasi pelaporan tidak ada. Aktifkan GPS dan internet perangkat anda.</string>
     <string name="lapor_gagalkirimdata">Gagal mengirim data laporan</string>
 
     <string name="lapor_okkirimdata">Data laporan harga telah dikirim</string>
