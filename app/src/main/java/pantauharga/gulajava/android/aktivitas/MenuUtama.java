@@ -470,6 +470,8 @@ public class MenuUtama extends BaseActivityLocation {
 
                 case R.id.ic_tentang_app:
 
+                    Intent intenttentangapl = new Intent(MenuUtama.this, TentangApl.class);
+                    MenuUtama.this.startActivity(intenttentangapl);
 
                     break;
             }

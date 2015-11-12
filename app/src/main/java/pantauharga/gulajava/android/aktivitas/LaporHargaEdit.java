@@ -743,6 +743,7 @@ public class LaporHargaEdit extends BaseActivityLocation {
             rmDataRiwayat.setHarga(hargas);
             rmDataRiwayat.setQuantity(quantitis);
             rmDataRiwayat.setIsKirim(isKirim);
+            rmDataRiwayat.setIsDraft(isDraft);
 
 
             mRealm.commitTransaction();

@@ -3,7 +3,7 @@
     package="pantauharga.gulajava.android"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:installLocation="auto"
-    android:versionCode="1"
+    android:versionCode="2"
     android:versionName="1.0.0">
 
 
@@ -109,7 +109,6 @@
         </activity>
 
 
-
         <activity
             android:name="pantauharga.gulajava.android.aktivitas.LaporHargaEdit"
             android:label="@string/riwayat_judul"
@@ -122,6 +121,16 @@
         </activity>
 
 
+        <activity
+            android:name="pantauharga.gulajava.android.aktivitas.TentangApl"
+            android:label="@string/tentangapl_judul"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.NOLAUNCHER"/>
+            </intent-filter>
+        </activity>
 
 
         <meta-data
@@ -136,10 +145,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBYUpSY7Yy4Lg2enfLps8PPcgPxRuDajjU"/>
-
-        <!--<meta-data-->
-        <!--android:name="com.google.android.maps.v2.API_KEY"-->
-        <!--android:value="AIzaSyBYUpSY7Yy4Lg2enfLps8PPcgPxRuDajjU"/>-->
 
 
     </application>

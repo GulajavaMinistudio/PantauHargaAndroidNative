@@ -24,4 +24,23 @@
         android:textStyle="bold"/>
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/tentangapl_olehstelsel"
+        android:textColor="@color/putih"
+        android:textSize="@dimen/ukuran18sp"
+        android:textStyle="bold"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Memuat data..."
+        android:textColor="@color/putih"
+        android:textSize="@dimen/ukuran16sp"/>
+
+
 </LinearLayout>

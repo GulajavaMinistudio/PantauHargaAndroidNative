@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Pantau Harga</string>
-    <string name="action_settings">Settings</string>
     <string name="action_segarkan">Segarkan Daftar</string>
     <string name="action_kirimharga">Kirim Harga</string>
     <string name="action_urutkan">Urutkan Daftar</string>
@@ -149,5 +148,30 @@
     <string name="riwayat_ingathapus">Hapus semua data riwayat laporan ?</string>
     <string name="riwayat_hapusdataselesai">Data telah dihapus</string>
 
+    
+    
+    <!-- TENTANG APLIKASI -->
+    <string name="tentangapl_judul">Tentang Aplikasi</string>
+    <string name="tentangapl_judulversi">versi 2.0.0</string>
+    <string name="tentangapl_olehstelsel">CodingStelsel @2015</string>
+
+    <string name="tentangapl_facebook">Facebook Page</string>
+    <string name="tentangapl_facebooklink">https://www.facebook.com/pantauharga</string>
+
+    <string name="tentangapl_pembuat">Dibuat oleh tim CodingStelsel di Code4Nation.org</string>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 </resources>
