@@ -357,7 +357,7 @@ public class PetaAmbilLokasi extends BaseActivityLocation {
             MarkerOptions markerOptions = new MarkerOptions()
                     .position(latLng)
                     .draggable(true)
-                    .title("Posisi saya");
+                    .title("Lokasi laporan");
 
             markerklik = petagoogle.addMarker(markerOptions);
             markerklik.showInfoWindow();
@@ -402,7 +402,7 @@ public class PetaAmbilLokasi extends BaseActivityLocation {
 
             MarkerOptions markerOptions = new MarkerOptions()
                     .position(kordinatklikgeser)
-                    .title("Posisi saya")
+                    .title("Lokasi laporan")
 //                    .snippet(latitudesaya_fixes + " , " + longitudesaya_fixes)
                     .draggable(true);
 
