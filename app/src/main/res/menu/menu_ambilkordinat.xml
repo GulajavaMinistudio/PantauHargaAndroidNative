@@ -9,5 +9,11 @@
         android:title="@string/action_ambilkordinatbantuan"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/action_lokasisaya"
+        android:title="@string/action_lokasisaya"
+        android:icon="@drawable/ic_action_cekloksaya"
+        app:showAsAction="ifRoom"/>
+
 
 </menu>

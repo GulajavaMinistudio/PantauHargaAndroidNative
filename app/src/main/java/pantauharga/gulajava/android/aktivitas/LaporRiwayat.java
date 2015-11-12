@@ -1,6 +1,7 @@
 package pantauharga.gulajava.android.aktivitas;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -27,6 +29,7 @@ import io.realm.Realm;
 import io.realm.RealmBaseAdapter;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
+import pantauharga.gulajava.android.Konstan;
 import pantauharga.gulajava.android.R;
 import pantauharga.gulajava.android.adapters.ViewHolderan;
 import pantauharga.gulajava.android.databases.RMDataRiwayat;
@@ -86,6 +89,7 @@ public class LaporRiwayat extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        mRealm.refresh();
     }
 
     @Override
@@ -149,6 +153,8 @@ public class LaporRiwayat extends AppCompatActivity {
             mListView.setVisibility(View.VISIBLE);
             layout_riwayatkosong.setVisibility(View.GONE);
             isDataAda = true;
+
+            mListView.setOnItemClickListener(listenerlist);
 
         } else {
             layout_riwayatkosong.setVisibility(View.VISIBLE);
@@ -252,6 +258,17 @@ public class LaporRiwayat extends AppCompatActivity {
 
         ambilDataRealm();
     }
+
+
+    AdapterView.OnItemClickListener listenerlist = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            Intent intendetil = new Intent(LaporRiwayat.this, LaporHargaEdit.class);
+            intendetil.putExtra(Konstan.TAG_INTENT_EDIT_POSISIDB, i);
+            LaporRiwayat.this.startActivity(intendetil);
+        }
+    };
 
 
     //MENAMPILKAN MENU ACTION BAR

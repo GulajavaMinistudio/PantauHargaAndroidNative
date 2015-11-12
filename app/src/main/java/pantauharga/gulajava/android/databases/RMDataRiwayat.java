@@ -17,6 +17,7 @@ public class RMDataRiwayat extends RealmObject {
     private String quantity;
 
     private boolean isKirim;
+    private boolean isDraft;
 
     public RMDataRiwayat() {
     }
@@ -92,5 +93,13 @@ public class RMDataRiwayat extends RealmObject {
 
     public void setIsKirim(boolean isKirim) {
         this.isKirim = isKirim;
+    }
+
+    public boolean isDraft() {
+        return isDraft;
+    }
+
+    public void setIsDraft(boolean isDraft) {
+        this.isDraft = isDraft;
     }
 }

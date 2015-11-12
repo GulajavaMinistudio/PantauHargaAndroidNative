@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
@@ -52,7 +51,7 @@ import pantauharga.gulajava.android.R;
 import pantauharga.gulajava.android.databases.RMDataRiwayat;
 import pantauharga.gulajava.android.databases.RMJsonData;
 import pantauharga.gulajava.android.databases.RMLogin;
-import pantauharga.gulajava.android.dialogs.DialogOkKirim;
+import pantauharga.gulajava.android.dialogs.DialogOkKirimEdit;
 import pantauharga.gulajava.android.internets.Apis;
 import pantauharga.gulajava.android.internets.JacksonRequest;
 import pantauharga.gulajava.android.internets.Volleys;
@@ -65,7 +64,7 @@ import pantauharga.gulajava.android.parsers.Parseran;
 /**
  * Created by Gulajava Ministudio on 11/10/15.
  */
-public class LaporHarga extends BaseActivityLocation {
+public class LaporHargaEdit extends BaseActivityLocation {
 
 
     @Bind(R.id.toolbar)
@@ -93,14 +92,17 @@ public class LaporHarga extends BaseActivityLocation {
     @Bind(R.id.layout_jumlahkomoditas)
     LinearLayout layout_jumlahkomoditas;
 
+    @Bind(R.id.layout_tombolkirimdraft)
+    LinearLayout layout_tombolkirimdraft;
+
 
     private String idkomoditas = "";
     private String namakomoditas = "";
     private String hargakomoditas = "";
     private String jumlahkomoditas = "0";
     private String namalokasi = "";
-    private String latitude = "";
-    private String longitude = "";
+    private String latitude = "0";
+    private String longitude = "0";
 
 
     //database
@@ -110,6 +112,9 @@ public class LaporHarga extends BaseActivityLocation {
 
     private RealmQuery<RMJsonData> mRealmQueryJsonData;
     private RealmResults<RMJsonData> mRealmResultsJsonData;
+
+    private RealmQuery<RMDataRiwayat> mRealmQueryRiwayat;
+    private RealmResults<RMDataRiwayat> mRealmResultsRiwayat;
 
     private String datakirim_nohp = "0";
     private String jsondata_komoditas = "";
@@ -127,7 +132,6 @@ public class LaporHarga extends BaseActivityLocation {
 
 
     //lokasi pengguna
-    private Location mLocationPengguna;
     private double longitudepengguna = 0;
     private double latitudepengguna = 0;
 
@@ -165,30 +169,37 @@ public class LaporHarga extends BaseActivityLocation {
     private String datasimpan_quantity = "";
 
 
-    private boolean statusKirim = false;
+    //BUNDEL DATA EDIT
+    private Bundle bundels;
+    private boolean isKirim = false;
+    private boolean isDraft = false;
+    private int posisiklik = 0;
+    private int posisispin = 0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_laporharga);
-        ButterKnife.bind(LaporHarga.this);
-        munculMenuAction(LaporHarga.this);
+        ButterKnife.bind(LaporHargaEdit.this);
+        munculMenuAction(LaporHargaEdit.this);
 
-        Bundle bundle = LaporHarga.this.getIntent().getExtras();
-        kode_kirimKomoditas = bundle.getInt(Konstan.TAG_INTENT_STATKIRIMHARGA);
 
         if (toolbar != null) {
-            LaporHarga.this.setSupportActionBar(toolbar);
+            LaporHargaEdit.this.setSupportActionBar(toolbar);
         }
 
-        aksibar = LaporHarga.this.getSupportActionBar();
+        bundels = LaporHargaEdit.this.getIntent().getExtras();
+        posisiklik = bundels.getInt(Konstan.TAG_INTENT_EDIT_POSISIDB);
+
+
+        aksibar = LaporHargaEdit.this.getSupportActionBar();
         assert aksibar != null;
         aksibar.setDisplayHomeAsUpEnabled(true);
-        aksibar.setTitle(R.string.lapor_hargajudul);
+        aksibar.setTitle(R.string.lapor_hargajuduledit);
 
-        mRealm = Realm.getInstance(LaporHarga.this);
-        mParseran = new Parseran(LaporHarga.this);
+        mRealm = Realm.getInstance(LaporHargaEdit.this);
+        mParseran = new Parseran(LaporHargaEdit.this);
 
         isAktJalan = true;
 
@@ -213,8 +224,8 @@ public class LaporHarga extends BaseActivityLocation {
     protected void onResume() {
         super.onResume();
 
-        if (!EventBus.getDefault().isRegistered(LaporHarga.this)) {
-            EventBus.getDefault().register(LaporHarga.this);
+        if (!EventBus.getDefault().isRegistered(LaporHargaEdit.this)) {
+            EventBus.getDefault().register(LaporHargaEdit.this);
         }
     }
 
@@ -223,8 +234,8 @@ public class LaporHarga extends BaseActivityLocation {
     protected void onPause() {
         super.onPause();
 
-        if (EventBus.getDefault().isRegistered(LaporHarga.this)) {
-            EventBus.getDefault().unregister(LaporHarga.this);
+        if (EventBus.getDefault().isRegistered(LaporHargaEdit.this)) {
+            EventBus.getDefault().unregister(LaporHargaEdit.this);
         }
     }
 
@@ -236,8 +247,8 @@ public class LaporHarga extends BaseActivityLocation {
 
         hentikanListenerLokasi();
 
-        Volleys.getInstance(LaporHarga.this).cancelPendingRequestsNoTag();
-        Volleys.getInstance(LaporHarga.this).clearVolleyCache();
+        Volleys.getInstance(LaporHargaEdit.this).cancelPendingRequestsNoTag();
+        Volleys.getInstance(LaporHargaEdit.this).clearVolleyCache();
     }
 
 
@@ -253,7 +264,7 @@ public class LaporHarga extends BaseActivityLocation {
 
             case android.R.id.home:
 
-                LaporHarga.this.finish();
+                LaporHargaEdit.this.finish();
                 return true;
         }
 
@@ -302,6 +313,81 @@ public class LaporHarga extends BaseActivityLocation {
             //muncul snackbar peringatan gagal data
             munculSnackbar(R.string.toastgagaldata);
         }
+
+    }
+
+
+    //AMBIL DATA JSON RIWAYAT
+    private void ambilDataRiwayat() {
+
+        mRealmQueryRiwayat = mRealm.where(RMDataRiwayat.class);
+        mRealmResultsRiwayat = mRealmQueryRiwayat.findAll();
+
+        if (mRealmResultsRiwayat.size() > 0) {
+
+            RMDataRiwayat rmDataRiwayat = mRealmResultsRiwayat.get(posisiklik);
+            idkomoditas = rmDataRiwayat.getId();
+            namakomoditas = rmDataRiwayat.getNamakomoditas();
+            hargakomoditas = rmDataRiwayat.getHarga();
+            jumlahkomoditas = rmDataRiwayat.getQuantity();
+            namalokasi = rmDataRiwayat.getAlamatkomoditas();
+            latitude = rmDataRiwayat.getLat();
+            longitude = rmDataRiwayat.getLng();
+            isKirim = rmDataRiwayat.isKirim();
+            isDraft = rmDataRiwayat.isDraft();
+
+            setelTampilan();
+        }
+    }
+
+
+    //SETEL TAMPILAN
+    private void setelTampilan() {
+
+        int panjangarraykomods = mListKomoditasItem.size();
+
+        for (int i = 0; i < panjangarraykomods; i++) {
+
+            KomoditasItem komoditasItem = mListKomoditasItem.get(i);
+            String idkomoditasarr = komoditasItem.getId();
+
+            if (idkomoditas.contentEquals(idkomoditasarr)) {
+                posisispin = i;
+                break;
+            }
+        }
+
+        spinkomoditas.setSelection(posisispin);
+
+        edit_harga.setText(hargakomoditas);
+
+        edit_jumlahkomoditas.setText(jumlahkomoditas);
+
+        setelEditTextLokasi(latitude + " , " + longitude);
+        taskAmbilGeocoder(latitude, longitude);
+
+        if (isKirim && !isDraft) {
+            spinkomoditas.setEnabled(false);
+            edit_harga.setEnabled(false);
+            edit_jumlahkomoditas.setEnabled(false);
+            edit_kordinatlokasi.setEnabled(false);
+
+            layout_tombolkirimdraft.setVisibility(View.GONE);
+        } else {
+            spinkomoditas.setEnabled(true);
+            edit_harga.setEnabled(true);
+            edit_jumlahkomoditas.setEnabled(true);
+            edit_kordinatlokasi.setEnabled(true);
+
+            layout_tombolkirimdraft.setVisibility(View.VISIBLE);
+        }
+
+        try {
+            latitudepengguna = Double.valueOf(latitude);
+            longitudepengguna = Double.valueOf(longitude);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -347,7 +433,7 @@ public class LaporHarga extends BaseActivityLocation {
     //TAMPILKAN KE SPINNER
     private void tampilSpinnerList() {
 
-        mAdapterSpin = new ArrayAdapter<>(LaporHarga.this, android.R.layout.simple_spinner_item, mStringListNamaKomoditas);
+        mAdapterSpin = new ArrayAdapter<>(LaporHargaEdit.this, android.R.layout.simple_spinner_item, mStringListNamaKomoditas);
         mAdapterSpin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinkomoditas.setAdapter(mAdapterSpin);
         spinkomoditas.setOnItemSelectedListener(listenerspinner);
@@ -367,79 +453,25 @@ public class LaporHarga extends BaseActivityLocation {
         tomboldraft.setOnClickListener(listenertombol);
         tombolsetelpeta.setOnClickListener(listenertombol);
 
-
-        switch (kodeperintah) {
-
-            case Konstan.KODE_LOKASIAWAL:
-
-                ambilLokasiPenggunaAwal();
-                break;
-
-            case Konstan.KODE_LOKASIBARU:
-
-                ambilLokasiPenggunaUpdate();
-                break;
-        }
-    }
-
-
-    //AMBIL LOKASI AWAL PENGGUNA
-    private void ambilLokasiPenggunaAwal() {
-
-        LaporHarga.this.latitudepengguna = getLatitudesaya();
-        LaporHarga.this.longitudepengguna = getLongitudesaya();
-
-        isInternet = isInternet();
-        mLocationPengguna = getLokasisaya();
-
-        Log.w("LOKASI AWAL", "lokasi awal pengguna " + latitudepengguna + " , " + longitudepengguna);
-
-
-        //setel ke edit text lokasi
-        String strkoordinatlokasi = latitudepengguna + " , " + longitudepengguna;
-        setelEditTextLokasi(strkoordinatlokasi);
-
-        //ambil data awal alamat lokasi pengguna
-//        taskAmbilGeocoder(latitudepengguna + "", longitudepengguna + "");
-
-    }
-
-
-    //AMBIL LOKASI UPDATE DARI PENGGUNA
-    private void ambilLokasiPenggunaUpdate() {
-
-        //jika lokasi tidak disetel dengan peta, update lokasi pengguna
-        if (!isLokasiSetels) {
-            LaporHarga.this.latitudepengguna = getLatitudesaya();
-            LaporHarga.this.longitudepengguna = getLongitudesaya();
-            mLocationPengguna = getLokasisaya();
-
-            //setel ke edit text lokasi
-            String strkoordinatlokasi = latitudepengguna + " , " + longitudepengguna;
-            setelEditTextLokasi(strkoordinatlokasi);
-
-            //ambil data awal alamat lokasi pengguna
-            taskAmbilGeocoder(latitudepengguna + "", longitudepengguna + "");
-        }
-
-
-        cekInternet();
         isInternet = isInternet();
 
-        Log.w("LOKASI UPDATE", "lokasi update pengguna " + latitudepengguna + " , " + longitudepengguna);
+        if (kodeperintah == Konstan.KODE_LOKASIAWAL) {
+
+            ambilDataRiwayat();
+        }
     }
 
 
     //SUNTING LOKASI DENGAN PETA
     private void setelLokasiPeta() {
 
-        Intent intentkordinat = new Intent(LaporHarga.this, PetaAmbilLokasi.class);
-        intentkordinat.putExtra(Konstan.TAG_INTENT_EDIT_KIRIM, statusKirim);
-        intentkordinat.putExtra(Konstan.TAG_INTENT_EDIT_DRAFTKIRIM, true);
+        Intent intentkordinat = new Intent(LaporHargaEdit.this, PetaAmbilLokasi.class);
+        intentkordinat.putExtra(Konstan.TAG_INTENT_EDIT_KIRIM, isKirim);
+        intentkordinat.putExtra(Konstan.TAG_INTENT_EDIT_DRAFTKIRIM, isDraft);
         intentkordinat.putExtra(Konstan.TAG_INTENT_LATEDIT, latitudepengguna + "");
         intentkordinat.putExtra(Konstan.TAG_INTENT_LONGEDIT, longitudepengguna + "");
 
-        LaporHarga.this.startActivityForResult(intentkordinat, Konstan.KODE_REQUEST_LOKASI);
+        LaporHargaEdit.this.startActivityForResult(intentkordinat, Konstan.REQUEST_CODE_LOCATION);
     }
 
 
@@ -450,7 +482,7 @@ public class LaporHarga extends BaseActivityLocation {
 
         if (resultCode == Activity.RESULT_OK) {
 
-            if (requestCode == Konstan.KODE_REQUEST_LOKASI) {
+            if (requestCode == Konstan.REQUEST_CODE_LOCATION) {
 
                 Bundle bundels = data.getExtras();
                 String str_latitudesetel = bundels.getString(Konstan.TAG_INTENT_LAT);
@@ -480,8 +512,8 @@ public class LaporHarga extends BaseActivityLocation {
 
                     isLokasiSetels = true;
 
-                    LaporHarga.this.latitudepengguna = dolatsetel;
-                    LaporHarga.this.longitudepengguna = dolongisetel;
+                    LaporHargaEdit.this.latitudepengguna = dolatsetel;
+                    LaporHargaEdit.this.longitudepengguna = dolongisetel;
 
                     setelEditTextLokasi(latitudepengguna + " , " + longitudepengguna);
 
@@ -646,7 +678,7 @@ public class LaporHarga extends BaseActivityLocation {
                 }
         );
 
-        Volleys.getInstance(LaporHarga.this).addToRequestQueue(jacksonRequest);
+        Volleys.getInstance(LaporHargaEdit.this).addToRequestQueue(jacksonRequest);
     }
 
 
@@ -692,21 +724,30 @@ public class LaporHarga extends BaseActivityLocation {
                                 String hargas, String quantitis) {
 
 
-        RMDataRiwayat rmDataRiwayat = new RMDataRiwayat();
-        rmDataRiwayat.setId(id);
-        rmDataRiwayat.setNamakomoditas(namakomoditas);
-        rmDataRiwayat.setLat(lats);
-        rmDataRiwayat.setLng(lngs);
-        rmDataRiwayat.setAlamatkomoditas(alamatkomods);
-        rmDataRiwayat.setNohp(nohps);
-        rmDataRiwayat.setHarga(hargas);
-        rmDataRiwayat.setQuantity(quantitis);
-        rmDataRiwayat.setIsKirim(isKirim);
-        rmDataRiwayat.setIsDraft(isDraft);
+        mRealmQueryRiwayat = mRealm.where(RMDataRiwayat.class);
+        mRealmResultsRiwayat = mRealmQueryRiwayat.findAll();
 
-        mRealm.beginTransaction();
-        mRealm.copyToRealm(rmDataRiwayat);
-        mRealm.commitTransaction();
+        //update data riwayat
+        if (mRealmResultsRiwayat.size() > 0) {
+
+            RMDataRiwayat rmDataRiwayat = mRealmResultsRiwayat.get(posisiklik);
+
+            mRealm.beginTransaction();
+
+            rmDataRiwayat.setId(id);
+            rmDataRiwayat.setNamakomoditas(namakomoditas);
+            rmDataRiwayat.setLat(lats);
+            rmDataRiwayat.setLng(lngs);
+            rmDataRiwayat.setAlamatkomoditas(alamatkomods);
+            rmDataRiwayat.setNohp(nohps);
+            rmDataRiwayat.setHarga(hargas);
+            rmDataRiwayat.setQuantity(quantitis);
+            rmDataRiwayat.setIsKirim(isKirim);
+
+
+            mRealm.commitTransaction();
+
+        }
 
         isProsesKirim = false;
 
@@ -717,8 +758,8 @@ public class LaporHarga extends BaseActivityLocation {
             //tampil dialog data telah dikirim
             tampilDialogBerhasil();
         } else {
-            Toast.makeText(LaporHarga.this, R.string.lapor_okkirimdraft, Toast.LENGTH_SHORT).show();
-            LaporHarga.this.finish();
+            Toast.makeText(LaporHargaEdit.this, R.string.lapor_okkirimdraft, Toast.LENGTH_SHORT).show();
+            LaporHargaEdit.this.finish();
         }
 
     }
@@ -727,7 +768,7 @@ public class LaporHarga extends BaseActivityLocation {
     //AMBIL GEOCODER LOKASI
     private void ambilGeocoderPengguna(String latitude, String longitude) {
 
-        geocoderPengguna = new Geocoder(LaporHarga.this, Locale.getDefault());
+        geocoderPengguna = new Geocoder(LaporHargaEdit.this, Locale.getDefault());
         double dolatitu = 0;
         double dolongi = 0;
 
@@ -825,7 +866,7 @@ public class LaporHarga extends BaseActivityLocation {
     //TAMPILKAN PROGRESS DIALOG
     private void tampilProgressDialog(String pesan) {
 
-        mProgressDialog = new ProgressDialog(LaporHarga.this);
+        mProgressDialog = new ProgressDialog(LaporHargaEdit.this);
         mProgressDialog.setMessage(pesan);
         mProgressDialog.setCancelable(true);
         mProgressDialog.setOnCancelListener(listenerprogresbatal);
@@ -840,7 +881,7 @@ public class LaporHarga extends BaseActivityLocation {
         public void onCancel(DialogInterface dialogInterface) {
 
             isProsesKirim = false;
-            Volleys.getInstance(LaporHarga.this).cancelPendingRequestsNoTag();
+            Volleys.getInstance(LaporHargaEdit.this).cancelPendingRequestsNoTag();
         }
     };
 
@@ -848,10 +889,10 @@ public class LaporHarga extends BaseActivityLocation {
     //TAMPIL DIALOG BERHASIL
     private void tampilDialogBerhasil() {
 
-        DialogOkKirim dialogOkKirim = new DialogOkKirim();
+        DialogOkKirimEdit dialogOkKirim = new DialogOkKirimEdit();
         dialogOkKirim.setCancelable(false);
 
-        FragmentTransaction fts = LaporHarga.this.getSupportFragmentManager().beginTransaction();
+        FragmentTransaction fts = LaporHargaEdit.this.getSupportFragmentManager().beginTransaction();
         dialogOkKirim.show(fts, "dialog ok kirim");
 
     }
@@ -859,7 +900,7 @@ public class LaporHarga extends BaseActivityLocation {
 
     //SET DIALOG OK TERKIRIM
     public void setOkTerkirim() {
-        LaporHarga.this.finish();
+        LaporHargaEdit.this.finish();
     }
 
     //LISTENER SPINNER
@@ -883,16 +924,12 @@ public class LaporHarga extends BaseActivityLocation {
         @Override
         public void onClick(View view) {
 
-            sembunyikeyboard(LaporHarga.this, view);
+            sembunyikeyboard(LaporHargaEdit.this, view);
             switch (view.getId()) {
 
                 case R.id.tombol_setelpeta:
 
-                    if (mLocationPengguna != null) {
-                        setelLokasiPeta();
-                    } else {
-                        Toast.makeText(LaporHarga.this, R.string.toast_gagalokasisetelpeta, Toast.LENGTH_SHORT).show();
-                    }
+                    setelLokasiPeta();
                     break;
 
                 case R.id.tombol_kirim:
@@ -913,7 +950,7 @@ public class LaporHarga extends BaseActivityLocation {
     private void munculSnackbar(int resPesan) {
 
         Snackbar.make(toolbar, resPesan, Snackbar.LENGTH_LONG).setAction("OK", listenersnackbar)
-                .setActionTextColor(LaporHarga.this.getResources().getColor(R.color.kuning_indikator)).show();
+                .setActionTextColor(LaporHargaEdit.this.getResources().getColor(R.color.kuning_indikator)).show();
     }
 
     View.OnClickListener listenersnackbar = new View.OnClickListener() {

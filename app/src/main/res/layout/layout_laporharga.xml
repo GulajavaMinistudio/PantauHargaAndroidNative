@@ -205,7 +205,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:maxLength="100"
-                        android:singleLine="true"
+                        android:maxLines="3"
                         android:textSize="@dimen/ukuran16sp"
                         />
 
@@ -232,6 +232,7 @@
                 android:background="@color/abubayangan"/>
 
             <LinearLayout
+                android:id="@+id/layout_tombolkirimdraft"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"

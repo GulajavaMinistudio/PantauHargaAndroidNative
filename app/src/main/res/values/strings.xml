@@ -104,6 +104,7 @@
 
     <!-- KIRIM LAPORAN HARGA BARANG -->
     <string name="lapor_hargajudul">Lapor Harga</string>
+    <string name="lapor_hargajuduledit">Detil Laporan Harga</string>
     <string name="lapor_keterangan">Laporkan harga komoditas pangan dengan mengisi data-data di bawah ini dengan lengkap dan benar</string>
     <string name="lapor_jeniskomoditas">Nama Komoditas</string>
     <string name="lapor_harga">Harga (Rp/Kg)</string>
@@ -139,6 +140,7 @@
     <string name="toast_oksimpan">Koordinat lokasi foto berhasil diambil</string>
     <string name="toastgagal_ambilkordinat">Koordinat lokasi foto gagal diambil, aktifkan GPS dan koneksi internet untuk mengambil lokasi dengan akurat.</string>
 
+    <string name="toast_gagalokasisetelpeta">Tidak dapat membuka peta karena GPS dan internet anda tidak aktif</string>
 
 
     <!-- RIWAYAT LAPORAN -->

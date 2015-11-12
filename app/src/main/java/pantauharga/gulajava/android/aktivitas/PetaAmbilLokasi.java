@@ -102,6 +102,17 @@ public class PetaAmbilLokasi extends BaseActivityLocation {
     private String alamatgabungan = "";
 
 
+    private Bundle mBundle;
+    private boolean isKirimin = true;
+    private boolean isDraft = true;
+
+    private String str_latitudesebelum = "0";
+    private String str_longitudesebelum = "0";
+
+    private double latitudeobjek = 0;
+    private double longitudeobjek = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +124,13 @@ public class PetaAmbilLokasi extends BaseActivityLocation {
             PetaAmbilLokasi.this.setSupportActionBar(tolbar);
         }
 
+        mBundle = PetaAmbilLokasi.this.getIntent().getExtras();
+        isKirimin = mBundle.getBoolean(Konstan.TAG_INTENT_EDIT_KIRIM);
+        isDraft = mBundle.getBoolean(Konstan.TAG_INTENT_EDIT_DRAFTKIRIM);
+        str_latitudesebelum = mBundle.getString(Konstan.TAG_INTENT_LATEDIT);
+        str_longitudesebelum = mBundle.getString(Konstan.TAG_INTENT_LONGEDIT);
+
+
         aksibar = PetaAmbilLokasi.this.getSupportActionBar();
         assert aksibar != null;
         aksibar.setTitle(R.string.petaambil_judulhalaman);
@@ -122,6 +140,16 @@ public class PetaAmbilLokasi extends BaseActivityLocation {
         supportMapFragment.getMapAsync(onMapReadyCallback);
 
         tombolsimpan.setOnClickListener(listenertombolsimpan);
+
+        //jika sudah dikirim dan bukan draft
+        if (isKirimin || !isDraft) {
+            tombolsimpan.setVisibility(View.GONE);
+        } else {
+            tombolsimpan.setVisibility(View.VISIBLE);
+        }
+
+
+        PetaAmbilLokasi.this.supportInvalidateOptionsMenu();
     }
 
 
@@ -151,6 +179,23 @@ public class PetaAmbilLokasi extends BaseActivityLocation {
 
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        MenuItem itembantuan = menu.findItem(R.id.action_bantuan);
+        MenuItem itemposisisaya = menu.findItem(R.id.action_lokasisaya);
+
+        if (isKirimin && !isDraft) {
+            itembantuan.setVisible(false).setEnabled(false);
+            itemposisisaya.setVisible(false).setEnabled(false);
+        } else {
+            itembantuan.setVisible(true).setEnabled(true);
+            itemposisisaya.setVisible(true).setEnabled(true);
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         PetaAmbilLokasi.this.getMenuInflater().inflate(R.menu.menu_ambilkordinat, menu);
@@ -172,6 +217,11 @@ public class PetaAmbilLokasi extends BaseActivityLocation {
             case R.id.action_bantuan:
 
                 tampilDialogGeserLokasi();
+                return true;
+
+            case R.id.action_lokasisaya:
+
+                setelPosisiSayaMarker();
                 return true;
         }
 
@@ -246,6 +296,43 @@ public class PetaAmbilLokasi extends BaseActivityLocation {
 
             latitudesaya_fixes = latitudesaya;
             longitudesaya_fixes = longitudesaya;
+
+            setelKeEditTextLokasi();
+
+            //ambil geocoder
+            taskAmbilGeocoder();
+        }
+    }
+
+
+    private void setelPosisiMarkerObjek() {
+
+        if (lokasisaya != null) {
+
+            petagoogle.clear();
+
+            latitudeobjek = Double.valueOf(str_latitudesebelum);
+            longitudeobjek = Double.valueOf(str_longitudesebelum);
+
+            kordinatsaya = new LatLng(latitudeobjek, longitudeobjek);
+
+            posisikamerasaya = new CameraPosition.Builder().target(kordinatsaya)
+                    .zoom(16)
+                    .bearing(0)
+                    .tilt(0)
+                    .build();
+
+            MarkerOptions markerOptions = new MarkerOptions()
+                    .position(kordinatsaya)
+                    .title("Posisi saya")
+                    .draggable(true);
+
+            markersaya = petagoogle.addMarker(markerOptions);
+            petagoogle.moveCamera(CameraUpdateFactory.newCameraPosition(posisikamerasaya));
+            markersaya.showInfoWindow();
+
+            latitudesaya_fixes = latitudeobjek;
+            longitudesaya_fixes = longitudeobjek;
 
             setelKeEditTextLokasi();
 
@@ -384,7 +471,7 @@ public class PetaAmbilLokasi extends BaseActivityLocation {
 
         Log.w("LOKASI SEKARANG", "lokasi sekarang " + latitudesaya + " , " + longitudesaya);
 
-        setelPosisiSayaMarker();
+        setelPosisiMarkerObjek();
     }
 
 

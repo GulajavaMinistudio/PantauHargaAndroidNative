@@ -60,7 +60,13 @@ public class Konstan {
 
     public static final String TAG_INTENT_LAT = "latitudes";
     public static final String TAG_INTENT_LONG = "longitudes";
+    public static final String TAG_INTENT_LATEDIT = "latitudesedit";
+    public static final String TAG_INTENT_LONGEDIT = "longitudesedit";
     public static final String TAG_INTENT_ALAMATGABUNGANS = "alamatgabungans";
 
+
+    public static final String TAG_INTENT_EDIT_KIRIM = "statuskirim";
+    public static final String TAG_INTENT_EDIT_DRAFTKIRIM = "statusDraft";
+    public static final String TAG_INTENT_EDIT_POSISIDB = "posisidb";
 
 }
