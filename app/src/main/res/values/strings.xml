@@ -152,7 +152,7 @@
     
     <!-- TENTANG APLIKASI -->
     <string name="tentangapl_judul">Tentang Aplikasi</string>
-    <string name="tentangapl_judulversi">versi 2.0.0</string>
+    <string name="tentangapl_judulversi">versi 1.0.0</string>
     <string name="tentangapl_olehstelsel">CodingStelsel @2015</string>
 
     <string name="tentangapl_facebook">Facebook Page</string>
