@@ -9,10 +9,8 @@
     <!-- latar belakang -->
     <color name="abubgnow">#ededed</color>
     <color name="putih">#ffffff</color>
-    <color name="putihabu">#f2f2f2</color>
     <color name="transparan">#00000000</color>
     <color name="abubayangan">#dbdbdb</color>
-    <color name="putihtransparan">#60ffffff</color>
 
     <color name="kuning_indikator">#FFC107</color>
     <color name="abu_teks_transparan">#50ffffff</color>
@@ -36,14 +34,6 @@
     <color name="abu_teks_tebal500">#607D8B</color>
     <color name="abu_teks_tebal100">#CFD8DC</color>
     <color name="abu_teks_tebal200">#90A4AE</color>
-
-
-
-
-
-
-
-
 
 
 </resources>

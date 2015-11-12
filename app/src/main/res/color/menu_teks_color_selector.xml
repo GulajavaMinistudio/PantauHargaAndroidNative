@@ -2,10 +2,14 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_pressed="true" android:color="@color/warnatekssubjudul" /> <!-- pressed -->
-    <item android:state_focused="true" android:color="@color/warnatekssubjudul" /> <!-- focused -->
-    <item android:state_selected="true" android:color="@color/warnateksjudul" /> <!-- selected -->
+    <item android:state_pressed="true" android:color="@color/warnatekssubjudul"/>
+    <!-- pressed -->
+    <item android:state_focused="true" android:color="@color/warnatekssubjudul"/>
+    <!-- focused -->
+    <item android:state_selected="true" android:color="@color/warnateksjudul"/>
+    <!-- selected -->
     <item android:state_checked="true" android:color="@color/warnateksjudul"/>
-    <item android:color="@color/warnatekssubjudul" /> <!-- default -->
+    <item android:color="@color/warnatekssubjudul"/>
+    <!-- default -->
 
 </selector>

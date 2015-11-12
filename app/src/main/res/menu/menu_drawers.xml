@@ -27,7 +27,6 @@
             android:title="@string/ic_teks_menu_datapengguna"/>
 
 
-
         <item
             android:id="@+id/ic_tentang_app"
             android:icon="@drawable/ic_action_tentangapl"

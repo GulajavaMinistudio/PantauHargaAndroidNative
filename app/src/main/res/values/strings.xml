@@ -100,7 +100,6 @@
     <string name="datapengguna_tombol_keluar">KELUAR AKUN</string>
 
 
-
     <!-- KIRIM LAPORAN HARGA BARANG -->
     <string name="lapor_hargajudul">Lapor Harga</string>
     <string name="lapor_hargajuduledit">Detil Laporan Harga</string>
@@ -148,8 +147,7 @@
     <string name="riwayat_ingathapus">Hapus semua data riwayat laporan ?</string>
     <string name="riwayat_hapusdataselesai">Data telah dihapus</string>
 
-    
-    
+
     <!-- TENTANG APLIKASI -->
     <string name="tentangapl_judul">Tentang Aplikasi</string>
     <string name="tentangapl_judulversi">versi 1.0.0</string>
@@ -160,18 +158,5 @@
 
     <string name="tentangapl_pembuat">Dibuat oleh tim CodingStelsel di Code4Nation.org</string>
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
 </resources>

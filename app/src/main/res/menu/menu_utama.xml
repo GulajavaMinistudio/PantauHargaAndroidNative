@@ -9,7 +9,6 @@
         app:showAsAction="ifRoom"/>
 
 
-
     <item
         android:id="@+id/action_kirimharga"
         android:title="@string/action_kirimharga"
@@ -24,13 +23,11 @@
         app:showAsAction="ifRoom"/>
 
 
-
     <item
         android:id="@+id/action_lokasisaya"
         android:title="@string/action_lokasisaya"
         android:icon="@drawable/ic_action_cekloksaya"
         app:showAsAction="ifRoom"/>
-
 
 
 </menu>

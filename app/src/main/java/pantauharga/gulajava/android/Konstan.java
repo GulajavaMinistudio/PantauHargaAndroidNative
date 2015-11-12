@@ -85,10 +85,4 @@ public class Konstan {
     public static final String CREDIT_PEMBUAT_5b = "gulajava.mini@gmail.com";
 
 
-
-
-
-
-
-
 }

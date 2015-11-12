@@ -21,11 +21,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-
-
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
 
     <!-- Base application theme. -->
@@ -41,21 +39,11 @@
     </style>
 
 
-
-
-
-
-
-
-
-
     <!-- STYLE UNTUK GAYA TEKS JUDUL  -->
     <style name="Navigation.TitleTextStyle" parent="@style/TextAppearance.AppCompat.Menu">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/menu_teks_color_selector</item>
     </style>
-
-
 
 
     <!-- STYLE UNTUK GAYA TEKS JUDUL  -->
@@ -92,11 +80,6 @@
         <item name="android:textColor">@color/putih</item>
         <item name="android:textSize">@dimen/ukuran14sp</item>
     </style>
-
-
-
-
-
 
 
 </resources>

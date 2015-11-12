@@ -2,9 +2,13 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_pressed="true" android:color="@color/abu_teks_transparan" /> <!-- pressed -->
-    <item android:state_focused="true" android:color="@color/abu_teks_transparan" /> <!-- focused -->
-    <item android:state_selected="true" android:color="@color/putih" /> <!-- selected -->
-    <item android:color="@color/abu_teks_transparan" /> <!-- default -->
+    <item android:state_pressed="true" android:color="@color/abu_teks_transparan"/>
+    <!-- pressed -->
+    <item android:state_focused="true" android:color="@color/abu_teks_transparan"/>
+    <!-- focused -->
+    <item android:state_selected="true" android:color="@color/putih"/>
+    <!-- selected -->
+    <item android:color="@color/abu_teks_transparan"/>
+    <!-- default -->
 
 </selector>

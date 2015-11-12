@@ -5,10 +5,10 @@
     <!-- KETIKA TOMBOL DITEKAN -->
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <stroke android:width="0dp" android:color="@color/transparan" />
-            <solid android:color="@color/abubayangan" />
-            <corners android:radius="3dp" />
-            <padding android:left="@dimen/paddingtombol" android:top="@dimen/paddingtombol" android:bottom="@dimen/paddingtombol" android:right="@dimen/paddingtombol" />
+            <stroke android:width="0dp" android:color="@color/transparan"/>
+            <solid android:color="@color/abubayangan"/>
+            <corners android:radius="3dp"/>
+            <padding android:left="@dimen/paddingtombol" android:top="@dimen/paddingtombol" android:bottom="@dimen/paddingtombol" android:right="@dimen/paddingtombol"/>
         </shape>
     </item>
 
@@ -16,10 +16,10 @@
     <!-- KETIKA TOMBOL FOKUS -->
     <item android:state_focused="true">
         <shape>
-            <stroke android:width="0dp" android:color="@color/transparan" />
+            <stroke android:width="0dp" android:color="@color/transparan"/>
             <solid android:color="@color/abubayangan"/>
-            <corners android:radius="3dp" />
-            <padding android:left="@dimen/paddingtombol" android:top="@dimen/paddingtombol" android:bottom="@dimen/paddingtombol" android:right="@dimen/paddingtombol" />
+            <corners android:radius="3dp"/>
+            <padding android:left="@dimen/paddingtombol" android:top="@dimen/paddingtombol" android:bottom="@dimen/paddingtombol" android:right="@dimen/paddingtombol"/>
         </shape>
     </item>
 
@@ -27,10 +27,10 @@
     <!-- KETIKA TOMBOL TIDAK DIAPA-APAKAN -->
     <item>
         <shape>
-            <stroke android:width="0dp" android:color="@color/transparan" />
-            <solid android:color="@color/abu_teks_tebal100" />
-            <corners android:radius="3dp" />
-            <padding android:left="@dimen/paddingtombol" android:top="@dimen/paddingtombol" android:bottom="@dimen/paddingtombol" android:right="@dimen/paddingtombol" />
+            <stroke android:width="0dp" android:color="@color/transparan"/>
+            <solid android:color="@color/abu_teks_tebal100"/>
+            <corners android:radius="3dp"/>
+            <padding android:left="@dimen/paddingtombol" android:top="@dimen/paddingtombol" android:bottom="@dimen/paddingtombol" android:right="@dimen/paddingtombol"/>
         </shape>
     </item>
 
