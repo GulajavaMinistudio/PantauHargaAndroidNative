@@ -73,9 +73,9 @@ public class Konstan {
     //PEMBUAT APLIKASI
     public static final String CREDIT_PEMBUAT_1 = "Ivan Sugiarto Widodo (Web Developer)";
     public static final String CREDIT_PEMBUAT_1s = "ivan.sugiarto@gmail.com";
-    public static final String CREDIT_PEMBUAT_2 = "Ronny Perdana (SMS Gateway Developer";
+    public static final String CREDIT_PEMBUAT_2 = "Ronny Perdana (SMS Gateway Developer)";
     public static final String CREDIT_PEMBUAT_2s = "panduwana@gmail.com";
-    public static final String CREDIT_PEMBUAT_3 = "Widodo Pangestu (Web Developer";
+    public static final String CREDIT_PEMBUAT_3 = "Widodo Pangestu (Web Developer)";
     public static final String CREDIT_PEMBUAT_3s = "wid.pangestu@gmail.com";
     public static final String CREDIT_PEMBUAT_4 = "Yohanes Gultom (Android Developer)";
     public static final String CREDIT_PEMBUAT_4s = "yohanes.gultom@gmail.com";
