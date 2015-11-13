@@ -24,7 +24,7 @@
     <string name="teks_ok">OK</string>
     <string name="teks_batal">BATAL</string>
     <string name="teks_isimintalokasi">Aplikasi memerlukan akses lokasi dari perangkat untuk mengambil koordinat lokasi anda</string>
-    <string name="toastdialog_pesangagalgps">GPS dan koneksi internet tidak tersedia, sehingga lokasi foto yang didapat akan tidak akurat.</string>
+    <string name="toastdialog_pesangagalgps">GPS dan koneksi internet tidak tersedia, sehingga lokasi yang didapat akan tidak akurat.</string>
 
     <string name="toastgagaldata">Data tidak tersedia</string>
     <string name="toastolahdata">Gagal mengolah data</string>

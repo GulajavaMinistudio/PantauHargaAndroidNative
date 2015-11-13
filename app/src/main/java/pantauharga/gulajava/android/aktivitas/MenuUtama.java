@@ -120,6 +120,7 @@ public class MenuUtama extends BaseActivityLocation {
     private double longitudepengguna = 0;
     private double latitudepengguna = 0;
     private boolean isInternet = false;
+    private boolean isInternetLama = true;
 
     private boolean isDataAwalDiambil = false;
 
@@ -631,12 +632,34 @@ public class MenuUtama extends BaseActivityLocation {
 
     private void cekInternetKirimServer() {
 
+        //cek koneksi internet dulu
+        cekInternet();
+        isInternet = isInternet();
+
+        //baru baru ada koneksi
         if (isInternet) {
-            isDataAwalDiambil = true;
-            susunJsonKirimServer();
+
+            //sebelumnya juga ada koneksi
+            if (isInternetLama) {
+
+                isDataAwalDiambil = true;
+                susunJsonKirimServer();
+
+            }
+            else {
+
+                //sebelumnya ga ada koneksi. cek permision lokasi dulu deh, sambil susun json
+                //ulangi ambil db json dan parse, cek permission
+                ambilDbJson();
+
+            }
+
+            isInternetLama = isInternet;
+
         } else {
             isDataAwalDiambil = false;
             munculSnackbar(R.string.toastnointernet);
+            isInternetLama = isInternet;
         }
     }
 

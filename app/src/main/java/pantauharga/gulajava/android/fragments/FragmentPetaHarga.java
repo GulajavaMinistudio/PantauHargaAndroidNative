@@ -493,6 +493,10 @@ public class FragmentPetaHarga extends Fragment {
 
                 if (posisiklik == i) {
 
+                    latpeta = dolatitude + "";
+                    longipeta = dolongitude + "";
+
+
                     posisikameraklik = new CameraPosition.Builder().target(latlnglokasi)
                             .zoom(16)
                             .bearing(0).tilt(0).build();
@@ -579,6 +583,7 @@ public class FragmentPetaHarga extends Fragment {
             String kordinatsaya = latitudesaya + "," + longitudesaya;
             String alamatpeta = "http://maps.google.com/maps?saddr=" + kordinatsaya + "&daddr=" + kordinatpetakirim + "&mode=driving";
 
+            Log.w("ALAMAT PETA BUKA", "" + alamatpeta);
             Toast.makeText(FragmentPetaHarga.this.getActivity(), "Membuka Google Maps", Toast.LENGTH_SHORT).show();
 
             try {
