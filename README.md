@@ -1,3 +1,4 @@
+Welcome to the PantauHargaAndroidNative wiki!
 ## **DOKUMENTASI PANTAU HARGA**
 ![enter image description here](http://pantauharga.id/images/banana.png)
 
@@ -24,6 +25,7 @@ Aplikasi ini juga membutuhkan beberapa hal agar kode sumbernya bisa dibuka :
 ```sh
 http://pantauharga.id
 ```
+
 ###**Content-Type** 
 ```json
 application/json
@@ -49,6 +51,7 @@ Ambil harga komoditas pangan.
 **POST (/Api/hargaall.json)**
 
 **PARAMETER** :
+
 Parameter  | Tipe | Keterangan
 ---------- | -----|-----
 name       | String | nama komoditas
@@ -72,6 +75,7 @@ Kirim harga komoditas pangan.
 **POST (/Api/input.json)**
 
 **PARAMETER** :
+
 Parameter  | Tipe | Keterangan
 ---------- | -----|-----
 id       | String | id komoditas komoditas
@@ -98,6 +102,7 @@ Pengguna yang belum terdaftar wajib mendaftarkan dirinya.
 **POST (/Api/register.json)**
 
 **PARAMETER** :
+
 Parameter  | Tipe | Keterangan
 ---------- | -----|-----
 nama | String | nama lengkap pengguna
@@ -124,10 +129,11 @@ Pengguna yang sudah terdaftar, bisa langsung masuk ke akun Pantau Harga.
 **POST (/Api/login.json)**
 
 **PARAMETER** :
-Parameter  | Tipe | Keterangan
----------- | -----|-----
-username       | String | nama panggilan atau username untuk login
-password     | String | password pengguna minimal 6 karakter
+
+|Parameter  | Tipe   | Keterangan                               |
+|---------- | -------|------------------------------------------|
+|username   | String | nama panggilan atau username untuk login |
+|password   | String | password pengguna minimal 6 karakter     |
 
 
 Disusun dalam bentuk respon body String tipe JSON dengan contoh berikut :
