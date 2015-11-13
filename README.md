@@ -163,4 +163,4 @@ Disusun dalam bentuk respon body String tipe JSON dengan contoh berikut :
 > 1. [Facebook Pantau Harga](https://www.facebook.com/pantauharga)
  >2. [Twitter Pantau Harga](https://twitter.com/pantauharga)
  >3. [Web Pantau Harga](http://pantauharga.id/)
- >4. Kontak Email **[pantauharga@gmail.com](pantauharga@gmail.com)**
+ >4. Kontak Email **[pantauharga@gmail.com](pantauharga.kru@gmail.com)**
