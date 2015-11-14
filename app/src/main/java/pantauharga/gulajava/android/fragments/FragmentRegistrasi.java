@@ -34,8 +34,6 @@ public class FragmentRegistrasi extends Fragment {
     TextInputLayout teksinput_password;
     @Bind(R.id.teksinputlay_editkonfirmasipass)
     TextInputLayout teksinput_konfirmasipassword;
-    @Bind(R.id.teksinputlay_editemail)
-    TextInputLayout teksinput_email;
     @Bind(R.id.teksinputlay_editktp)
     TextInputLayout teksinput_nomorktp;
     @Bind(R.id.teksinputlay_editnomorhp)
@@ -54,8 +52,6 @@ public class FragmentRegistrasi extends Fragment {
     EditText edit_password;
     @Bind(R.id.edit_konfirmasipass)
     EditText edit_konfirmasipassword;
-    @Bind(R.id.edit_email)
-    EditText edit_email;
     @Bind(R.id.edit_nomorktp)
     EditText edit_nomorktp;
     @Bind(R.id.edit_nomorhp)
@@ -120,7 +116,7 @@ public class FragmentRegistrasi extends Fragment {
         str_namapanggilan = edit_namapanggilan.getText().toString();
         str_password = edit_password.getText().toString();
         str_konfirmasipassword = edit_konfirmasipassword.getText().toString();
-        str_email = edit_email.getText().toString();
+        str_email = edit_namapanggilan.getText().toString();
         str_nomorktp = edit_nomorktp.getText().toString();
         str_nomorhandphone = edit_nomorhandphone.getText().toString();
         str_alamatlengkap = edit_alamatlengkap.getText().toString();
@@ -133,8 +129,6 @@ public class FragmentRegistrasi extends Fragment {
 
         if (str_namalengkap.length() < 5) {
             setelPeringatan(edit_namalengkap, teksinput_namalengkap, R.string.regist_namalengkap);
-        } else if (str_namapanggilan.length() < 3) {
-            setelPeringatan(edit_namapanggilan, teksinput_namapanggilan, R.string.regist_namapanggilan);
         } else if (str_password.length() < 6) {
             setelPeringatan(edit_password, teksinput_password, R.string.regist_password);
         } else if (str_konfirmasipassword.length() < 6) {
@@ -142,9 +136,11 @@ public class FragmentRegistrasi extends Fragment {
         } else if (!str_password.contentEquals(str_konfirmasipassword)) {
             setelPeringatan(edit_password, teksinput_password, R.string.regist_passgasama);
         } else if (!isValidasiEmail) {
-            setelPeringatan(edit_email, teksinput_email, R.string.regist_email);
+            setelPeringatan(edit_namapanggilan, teksinput_namapanggilan, R.string.regist_email);
         } else if (str_nomorhandphone.length() < 10) {
             setelPeringatan(edit_nomorhandphone, teksinput_nomorhandphone, R.string.regist_nomorhp);
+        } else if (str_alamatlengkap.length() < 5) {
+            setelPeringatan(edit_alamatlengkap, teksinput_alamatlengkap, R.string.regist_alamat);
         } else {
             isValidasiData = true;
         }
@@ -184,7 +180,6 @@ public class FragmentRegistrasi extends Fragment {
         teksinput_namapanggilan.setError("");
         teksinput_password.setError("");
         teksinput_konfirmasipassword.setError("");
-        teksinput_email.setError("");
         teksinput_nomorktp.setError("");
         teksinput_nomorhandphone.setError("");
         teksinput_alamatlengkap.setError("");

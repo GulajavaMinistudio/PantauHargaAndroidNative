@@ -93,6 +93,7 @@
     <string name="regist_passgasama">Kata sandi tidak sama</string>
     <string name="regist_email">Isi alamat email dengan benar</string>
     <string name="regist_nomorhp">Isi nomor handphone dengan benar</string>
+    <string name="regist_alamat">Isi alamat lengkap dengan benar</string>
     <string name="datapengguna_email">Alamat E-mail</string>
     <string name="datapengguna_noktp">Nomor KTP</string>
     <string name="datapengguna_nohp">Nomor Handphone</string>
