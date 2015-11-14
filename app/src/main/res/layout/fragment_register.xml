@@ -83,7 +83,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:digits="@string/karakterboleh"
-                        android:hint="@string/login_username"
+                        android:hint="@string/login_email"
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:maxLength="100"
@@ -92,7 +92,6 @@
 
 
                 </android.support.design.widget.TextInputLayout>
-
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/teksinputlay_editpassword"
@@ -107,11 +106,9 @@
                         android:id="@+id/edit_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:digits="@string/karakterboleh"
                         android:hint="@string/login_password"
                         android:imeOptions="actionNext"
                         android:inputType="textPassword"
-                        android:maxLength="10"
                         android:textSize="@dimen/ukuran16sp"
                         android:singleLine="true"
                         />
@@ -133,7 +130,6 @@
                         android:id="@+id/edit_konfirmasipass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:digits="@string/karakterboleh"
                         android:hint="@string/login_passwordkonfirm"
                         android:imeOptions="actionNext"
                         android:inputType="textPassword"
@@ -143,31 +139,6 @@
 
 
                 </android.support.design.widget.TextInputLayout>
-
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/teksinputlay_editemail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    app:errorTextAppearance="@style/TextAppearence.App.TextInputLayoutError"
-                    app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
-
-
-                    <EditText
-                        android:id="@+id/edit_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/login_email"
-                        android:imeOptions="actionNext"
-                        android:inputType="textEmailAddress"
-                        android:maxLength="100"
-                        android:textSize="@dimen/ukuran16sp"
-                        android:singleLine="true"/>
-
-
-                </android.support.design.widget.TextInputLayout>
-
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/teksinputlay_editktp"

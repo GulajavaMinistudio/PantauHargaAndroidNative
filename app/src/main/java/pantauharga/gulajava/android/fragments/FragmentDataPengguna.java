@@ -140,28 +140,21 @@ public class FragmentDataPengguna extends Fragment {
         }
 
 
-        if (str_nomorktp.length() > 0) {
+        if (str_nomorktp != null && str_nomorktp.length() > 0) {
             teks_nomorktp.setText(str_nomorktp);
         } else {
             teks_nomorktp.setText("-");
         }
 
 
-        if (str_nomorhp.length() > 1) {
-            teks_nomorhp.setText(str_nomorhp);
-        } else {
-            teks_nomorhp.setText(str_nomorhp);
-        }
-
-
-        if (str_alamat.length() > 1) {
+        if (str_alamat != null && str_alamat.length() > 1) {
             teks_alamat.setText(str_alamat);
         } else {
             teks_alamat.setText("-");
         }
 
 
-        if (str_kodepos.length() > 1) {
+        if (str_kodepos != null && str_kodepos.length() > 1) {
             teks_kodepos.setText(str_kodepos);
         } else {
             teks_kodepos.setText("-");
