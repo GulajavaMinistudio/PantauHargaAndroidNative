@@ -69,7 +69,6 @@
 
     <string name="karakterboleh">qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890_</string>
     <string name="karakterbolehnama">qwertyuiopasdfghjklz xcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890_</string>
-    <string name="karakterbolehusername">qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890_@.</string>
 
     <string name="login_login">Masuk Pantau Harga</string>
     <string name="teks_daftar">DAFTAR</string>
