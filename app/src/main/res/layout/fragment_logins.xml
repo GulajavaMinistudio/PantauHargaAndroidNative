@@ -57,15 +57,13 @@
                     app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout"
                     >
 
-
                     <EditText
                         android:id="@+id/edit_namapanggilan"
                         android:layout_width="290dp"
                         android:layout_height="wrap_content"
-                        android:digits="@string/karakterboleh"
-                        android:hint="@string/login_username"
+                        android:hint="@string/login_email"
                         android:imeOptions="actionNext"
-                        android:inputType="text"
+                        android:inputType="textEmailAddress"
                         android:maxLength="100"
                         android:textSize="@dimen/ukuran16sp"
                         android:singleLine="true"/>
@@ -87,11 +85,9 @@
                         android:id="@+id/edit_password"
                         android:layout_width="290dp"
                         android:layout_height="wrap_content"
-                        android:digits="@string/karakterboleh"
                         android:hint="@string/login_password"
                         android:imeOptions="actionNext"
                         android:inputType="textPassword"
-                        android:maxLength="10"
                         android:textSize="@dimen/ukuran16sp"
                         android:singleLine="true"
                         />
